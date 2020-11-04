@@ -1,0 +1,2 @@
+# MalaDash
+:tada: New project!
