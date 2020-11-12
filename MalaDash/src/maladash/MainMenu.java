@@ -2,13 +2,11 @@ package maladash;
 
 import javax.swing.*;
 import java.awt.*;
-import static java.awt.Component.CENTER_ALIGNMENT;
 import java.awt.event.*;
 import javax.swing.border.EmptyBorder;
 
 public class MainMenu implements ActionListener{
     //Declare attribute
-    private Map mapping = new Map();
     private JFrame frame;
     private JPanel buttonPanel, leftPanel, rightPanel;
     private JButton startButton, optionButton, exitButton;
@@ -21,10 +19,9 @@ public class MainMenu implements ActionListener{
         //Create object
         //JFrame
         frame = new JFrame("MalaDash");
-        //JPanel
-        buttonPanel = new JPanel();
-        leftPanel = new JPanel();
-        rightPanel = new JPanel();
+        
+        //JPanel with BackgroundImage
+        buttonPanel = new DrawingPanel("mockBGC.jpg");
         
         //JButton
         startButton = new JButton("Start");
@@ -67,11 +64,6 @@ public class MainMenu implements ActionListener{
         buttonPanel.add(optionButton, constraint);
         constraint.gridy = 2;
         buttonPanel.add(exitButton, constraint);
-        
-        constraint.gridy = 0;
-        buttonPanel.add(mapping, constraint);
-        
-        
 
         //Added to frame
         frame.add(buttonPanel);
@@ -84,6 +76,7 @@ public class MainMenu implements ActionListener{
         //IF startButton clicked
         if(e.getSource().equals(startButton)){
             JDialog dialog = new JDialog(frame, "¯\\_(( ͡° ͜ʖ ͡°)_/¯");
+            dialog.setLocation(width/2, height/2);
             JPanel exitPanel = new JPanel();
             JLabel exitText = new JLabel("Coming sooon..", SwingConstants.CENTER);
             JButton yes = new JButton("Maybe"), no = new JButton("Sometimes");
@@ -130,6 +123,7 @@ public class MainMenu implements ActionListener{
         //IF exitButton clicked
         if(e.getSource().equals(optionButton)){
             JDialog dialog = new JDialog(frame, "WIP");
+            dialog.setLocation(width/2, height/2);
             JPanel exitPanel = new JPanel();
             JLabel exitText = new JLabel("Not yet.", SwingConstants.CENTER);
             JButton yes = new JButton("No"), no = new JButton("No");
@@ -176,6 +170,7 @@ public class MainMenu implements ActionListener{
         //IF optionButton clicked
         if(e.getSource().equals(exitButton)){
             JDialog dialog = new JDialog(frame, "Exit?");
+            dialog.setLocation(width/2, height/2);
             JPanel exitPanel = new JPanel();
             JLabel exitText = new JLabel("Are you sure?", SwingConstants.CENTER);
             JButton yes = new JButton("Yes"), no = new JButton("No");
@@ -221,3 +216,4 @@ public class MainMenu implements ActionListener{
         
     }
 }
+
