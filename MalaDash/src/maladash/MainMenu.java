@@ -2,9 +2,11 @@ package maladash;
 
 import javax.swing.*;
 import java.awt.*;
+import static java.awt.Component.CENTER_ALIGNMENT;
+import java.awt.event.*;
 import javax.swing.border.EmptyBorder;
 
-public class MainMenu {
+public class MainMenu implements ActionListener{
     //Declare attribute
     private Map mapping = new Map();
     private JFrame frame;
@@ -38,6 +40,13 @@ public class MainMenu {
         buttonPanel.setLayout(new GridBagLayout());
         buttonPanel.setBorder(new EmptyBorder(0, width/3, 0, width/3));
         
+        //JButton Modification
+        startButton.setFont(new Font("Arial", Font.BOLD, 24));
+        optionButton.setFont(new Font("Arial", Font.BOLD, 24));
+        exitButton.setFont(new Font("Arial", Font.BOLD, 24));
+        startButton.addActionListener(this);
+        optionButton.addActionListener(this);
+        exitButton.addActionListener(this);
         
         //Grid Constraint
         GridBagConstraints constraint = new GridBagConstraints();
@@ -46,7 +55,7 @@ public class MainMenu {
         constraint.fill = GridBagConstraints.HORIZONTAL;
         constraint.ipady = 75;
         
-        //startButton Modification
+        //buttonPanel Modification
         constraint.gridwidth = 1;
         constraint.gridheight = 1;
         constraint.gridx = 0;
@@ -67,6 +76,148 @@ public class MainMenu {
         //Added to frame
         frame.add(buttonPanel);
         frame.setVisible(true);
+        
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        //IF startButton clicked
+        if(e.getSource().equals(startButton)){
+            JDialog dialog = new JDialog(frame, "¯\\_(( ͡° ͜ʖ ͡°)_/¯");
+            JPanel exitPanel = new JPanel();
+            JLabel exitText = new JLabel("Coming sooon..", SwingConstants.CENTER);
+            JButton yes = new JButton("Maybe"), no = new JButton("Sometimes");
+            yes.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e){
+                    System.exit(0);
+                }
+            });
+            no.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e){
+                    dialog.dispose();
+                }
+            });
+            
+            exitPanel.setLayout(new GridBagLayout());
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.weightx = 1;
+            gbc.weighty = 1;
+            gbc.ipady = 10;
+            gbc.ipadx = 40;
+            gbc.fill = GridBagConstraints.BOTH;
+            
+            gbc.gridheight = 1;
+            gbc.gridwidth = 2;
+            gbc.gridx = 0;
+            gbc.gridy = 0;
+            exitPanel.add(exitText, gbc);
+            
+            gbc.gridwidth = 1;
+            gbc.gridx = 0;
+            gbc.gridy = 1;
+            exitPanel.add(yes, gbc);
+            
+            gbc.gridx = 1;
+            exitPanel.add(no, gbc);
+            
+            dialog.add(exitPanel);
+            dialog.pack();
+            dialog.setVisible(true);
+        }
+        
+        //IF exitButton clicked
+        if(e.getSource().equals(optionButton)){
+            JDialog dialog = new JDialog(frame, "WIP");
+            JPanel exitPanel = new JPanel();
+            JLabel exitText = new JLabel("Not yet.", SwingConstants.CENTER);
+            JButton yes = new JButton("No"), no = new JButton("No");
+            yes.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e){
+                    dialog.dispose();
+                }
+            });
+            no.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e){
+                    dialog.dispose();
+                }
+            });
+            
+            exitPanel.setLayout(new GridBagLayout());
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.weightx = 1;
+            gbc.weighty = 1;
+            gbc.ipady = 10;
+            gbc.ipadx = 40;
+            gbc.fill = GridBagConstraints.BOTH;
+            
+            gbc.gridheight = 1;
+            gbc.gridwidth = 2;
+            gbc.gridx = 0;
+            gbc.gridy = 0;
+            exitPanel.add(exitText, gbc);
+            
+            gbc.gridwidth = 1;
+            gbc.gridx = 0;
+            gbc.gridy = 1;
+            exitPanel.add(yes, gbc);
+            
+            gbc.gridx = 1;
+            exitPanel.add(no, gbc);
+            
+            dialog.add(exitPanel);
+            dialog.pack();
+            dialog.setVisible(true);
+        }
+        
+        //IF optionButton clicked
+        if(e.getSource().equals(exitButton)){
+            JDialog dialog = new JDialog(frame, "Exit?");
+            JPanel exitPanel = new JPanel();
+            JLabel exitText = new JLabel("Are you sure?", SwingConstants.CENTER);
+            JButton yes = new JButton("Yes"), no = new JButton("No");
+            yes.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e){
+                    System.exit(0);
+                }
+            });
+            no.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e){
+                    dialog.dispose();
+                }
+            });
+            
+            exitPanel.setLayout(new GridBagLayout());
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.weightx = 1;
+            gbc.weighty = 1;
+            gbc.ipady = 10;
+            gbc.ipadx = 40;
+            gbc.fill = GridBagConstraints.BOTH;
+            
+            gbc.gridheight = 1;
+            gbc.gridwidth = 2;
+            gbc.gridx = 0;
+            gbc.gridy = 0;
+            exitPanel.add(exitText, gbc);
+            
+            gbc.gridwidth = 1;
+            gbc.gridx = 0;
+            gbc.gridy = 1;
+            exitPanel.add(yes, gbc);
+            
+            gbc.gridx = 1;
+            exitPanel.add(no, gbc);
+            
+            dialog.add(exitPanel);
+            dialog.pack();
+            dialog.setVisible(true);
+        }
         
     }
 }
