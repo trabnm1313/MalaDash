@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.border.EmptyBorder;
-import maladash.src.components.DrawingPanel;
+import maladash.src.components.Views.DrawingPanel;
 
 public class MainMenu implements ActionListener{
     //Declare attribute

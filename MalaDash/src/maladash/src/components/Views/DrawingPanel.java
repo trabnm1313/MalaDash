@@ -1,5 +1,5 @@
 
-package maladash.src.components;
+package maladash.src.components.Views;
 
 import java.awt.*;
 import java.awt.image.*;
