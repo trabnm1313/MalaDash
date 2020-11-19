@@ -4,12 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.border.EmptyBorder;
-import maladash.src.components.DrawingPanel;
+import maladash.src.components.Panels.DrawingPanel;
 
 public class MainMenu implements ActionListener{
     //Declare attribute
     private JFrame frame;
-    private JPanel buttonPanel, leftPanel, rightPanel;
+    private JPanel buttonPanel;
     private JButton startButton, optionButton, exitButton;
     
     //Declare and create object

@@ -1,5 +1,4 @@
-
-package maladash.src.components;
+package maladash.src.components.Panels;
 
 import java.awt.*;
 import java.awt.image.*;
@@ -12,7 +11,7 @@ public class DrawingPanel extends JPanel {
     private BufferedImage img;
     
     public DrawingPanel(String fileName){
-        URL src = DrawingPanel.class.getResource("../images/" + fileName);
+        URL src = DrawingPanel.class.getResource("../../images/" + fileName);
         try{
             img = ImageIO.read(src);
         }catch(IOException err){
@@ -22,7 +21,14 @@ public class DrawingPanel extends JPanel {
     
     @Override
     public void paintComponent(Graphics g){
-        super.paintComponent(g);
-        g.drawImage(img, 0, 0, this);
+        super.paintComponents(g);
+        
+        Graphics2D g2D = (Graphics2D) g;
+        
+        g2D.drawImage(img, 0, 0, this);
+        g2D.drawRect(50, 50, 50, 50);
+        g2D.setColor(Color.white);
+        g2D.fillRect(50, 50, 50, 50);
+        
     }
 }
