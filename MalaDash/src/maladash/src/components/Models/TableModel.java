@@ -16,10 +16,10 @@ public class TableModel {
     private Table table4;
 
     public TableModel() {
-        table1 = new Table(4, true);
-        table2 = new Table(4, true);
-        table3 = new Table(2, true);
-        table4 = new Table(2, true);
+        table1 = new Table(4, true, false);
+        table2 = new Table(4, true, false);
+        table3 = new Table(2, true, false);
+        table4 = new Table(2, true, false);
     }
 
     public Table getTable1() {

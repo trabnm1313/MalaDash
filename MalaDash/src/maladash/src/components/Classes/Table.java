@@ -12,11 +12,15 @@ package maladash.src.components.Classes;
 public class Table {
     private int chair;
     private boolean sitable;
+    private boolean drity;
 
-    public Table(int chair, boolean sitable) {
+    public Table(int chair, boolean sitable, boolean drity) {
         this.chair = chair;
         this.sitable = sitable;
+        this.drity = drity;
     }
+
+
 
     public int getChair() {
         return chair;
@@ -32,6 +36,14 @@ public class Table {
 
     public void setSitable(boolean sitable) {
         this.sitable = sitable;
+    }
+
+    public boolean isDrity() {
+        return drity;
+    }
+
+    public void setDrity(boolean drity) {
+        this.drity = drity;
     }
     
     
