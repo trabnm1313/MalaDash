@@ -1,14 +1,16 @@
 package maladash.src.components.Views;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import maladash.src.components.Models.MainGameModel;
 
 public class MainGameView extends JPanel{
+    MainGameModel model = new MainGameModel();
     
     public MainGameView(){
-        
+        //Find better way later
+        this.setLayout(new FlowLayout());
     }
     
     @Override
@@ -16,8 +18,6 @@ public class MainGameView extends JPanel{
         super.paintComponents(g);
         
         Graphics2D g2D = (Graphics2D) g;
-        
-        g2D.setBackground(Color.black);
-        g2D.fillRect(50, 50, 1180, 620);
+        g2D.drawImage(model.getImg(), 0, 0, this);
     }
 }

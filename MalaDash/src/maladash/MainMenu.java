@@ -4,17 +4,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.border.EmptyBorder;
+import maladash.src.components.Controllers.MainGameController;
 import maladash.src.components.Views.DrawingPanel;
+import maladash.src.components.Views.MainGameView;
 
 public class MainMenu implements ActionListener{
     //Declare attribute
     private JFrame frame;
-    private JPanel buttonPanel, leftPanel, rightPanel;
+    private JPanel buttonPanel, mainGame;
     private JButton startButton, optionButton, exitButton;
+    private MainGameController controller1;
     
     //Declare and create object
-    private int width = 1280;
-    private int height = 720;
+    private int width = 1920;
+    private int height = 1080;
     
     public MainMenu(){
         //Create object
@@ -23,6 +26,7 @@ public class MainMenu implements ActionListener{
         
         //JPanel with BackgroundImage
         buttonPanel = new DrawingPanel("mockBGC.jpg");
+        mainGame = new MainGameController().getView();
         
         //JButton
         startButton = new JButton("Start");
@@ -67,7 +71,8 @@ public class MainMenu implements ActionListener{
         buttonPanel.add(exitButton, constraint);
 
         //Added to frame
-        frame.add(buttonPanel);
+//        frame.add(buttonPanel);
+        frame.add(mainGame);
         frame.setVisible(true);
         
     }
