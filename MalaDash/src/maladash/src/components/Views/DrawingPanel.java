@@ -12,7 +12,7 @@ public class DrawingPanel extends JPanel {
     private BufferedImage img;
     
     public DrawingPanel(String fileName){
-        URL src = DrawingPanel.class.getResource("../images/" + fileName);
+        URL src = DrawingPanel.class.getResource("../../images/" + fileName);
         try{
             img = ImageIO.read(src);
         }catch(IOException err){
