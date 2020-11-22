@@ -5,15 +5,17 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.border.EmptyBorder;
 import maladash.src.components.Controllers.MainGameController;
+import maladash.src.components.Controllers.PlayerController;
 import maladash.src.components.Views.DrawingPanel;
 import maladash.src.components.Views.MainGameView;
 
 public class MainMenu implements ActionListener{
     //Declare attribute
     private JFrame frame;
-    private JPanel buttonPanel, mainGame;
+    private JPanel buttonPanel, mainGame, playerView;
     private JButton startButton, optionButton, exitButton;
     private MainGameController controller1;
+    private PlayerController controller2;
     
     //Declare and create object
     private int width = 1920;
@@ -26,7 +28,21 @@ public class MainMenu implements ActionListener{
         
         //JPanel with BackgroundImage
         buttonPanel = new DrawingPanel("mockBGC.jpg");
-        mainGame = new MainGameController().getView();
+        controller1 = new MainGameController();
+        controller2 = new PlayerController();
+        mainGame = controller1.getView();
+        playerView = controller2.getView();
+        
+        playerView.setBounds(50, 50, 50, 50);
+        
+        playerView.addMouseListener(new MouseAdapter(){
+            
+            @Override
+                public void mouseClicked(MouseEvent e){
+                    System.out.println("HelloWorld");
+                }
+            }
+        );
         
         //JButton
         startButton = new JButton("Start");
@@ -73,6 +89,7 @@ public class MainMenu implements ActionListener{
         //Added to frame
 //        frame.add(buttonPanel);
         frame.add(mainGame);
+        mainGame.add(playerView);
         frame.setVisible(true);
         
     }
@@ -80,6 +97,9 @@ public class MainMenu implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         //IF startButton clicked
+        
+        
+        
         if(e.getSource().equals(startButton)){
             JDialog dialog = new JDialog(frame, "¯\\_(( ͡° ͜ʖ ͡°)_/¯");
             dialog.setLocation(width/2, height/2);

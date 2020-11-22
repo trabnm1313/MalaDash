@@ -10,7 +10,7 @@ public class MainGameView extends JPanel{
     
     public MainGameView(){
         //Find better way later
-        this.setLayout(new FlowLayout());
+        this.setLayout(null);
     }
     
     @Override
