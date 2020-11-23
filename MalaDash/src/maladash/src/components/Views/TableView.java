@@ -16,7 +16,7 @@ import javax.swing.JPanel;
  */
 public class TableView extends JPanel{
     public TableView(){
-        this.setPreferredSize(new Dimension(50, 50));
+        this.setPreferredSize(new Dimension(150, 150));
     }
     
     public void paintComponent(Graphics g){

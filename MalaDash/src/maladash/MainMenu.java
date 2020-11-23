@@ -13,10 +13,11 @@ import maladash.src.components.Controllers.TableController;
 public class MainMenu implements ActionListener{
     //Declare attribute
     private JFrame frame;
-    private JPanel buttonPanel, mainGame, table;
+    private JPanel buttonPanel, mainGame, table1, table2, table3, table4;
     private JButton startButton, optionButton, exitButton;
     private MainGameController controller1;
     private TableController controller3;
+    private TableView  tableViews[] = new TableView[4];
     
     //Declare and create object
     private int width = 1920;
@@ -30,9 +31,18 @@ public class MainMenu implements ActionListener{
         //JPanel with BackgroundImage
         buttonPanel = new DrawingPanel("mockBGC.jpg");
         mainGame = new MainGameController().getView();
-        table = new TableController().getTableView();
+        for(int i = 0; i < 4; i++){
+            tableViews[i] = new TableController().getTableView();
+        }
+        table1 = tableViews[0];
+        table2 = tableViews[1];
+        table3 = tableViews[2];
+        table4 = tableViews[3];
         
-        table.setBounds(50, 50, 50, 50);
+        table1.setBounds(750, 600, 150, 150);
+        table2.setBounds(750, 800, 150, 150);
+        table3.setBounds(1400, 600, 150, 100);
+        table4.setBounds(1400, 800, 150, 100);
         
         //JButton
         startButton = new JButton("Start");
@@ -61,7 +71,8 @@ public class MainMenu implements ActionListener{
         constraint.weightx = 1;
         constraint.weighty = 1;
         constraint.fill = GridBagConstraints.HORIZONTAL;
-        constraint.ipady = 75;mainGame.add(table);
+        constraint.ipady = 75;
+//        mainGame.add(table);
         frame.setVisible(true);
         
         
@@ -81,7 +92,10 @@ public class MainMenu implements ActionListener{
         //Added to frame
 //        frame.add(buttonPanel);
         frame.add(mainGame);
-        mainGame.add(table);
+        mainGame.add(table1);
+        mainGame.add(table2);
+        mainGame.add(table3);
+        mainGame.add(table4);
         frame.setVisible(true);
         
     }
