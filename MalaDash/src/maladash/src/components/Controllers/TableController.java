@@ -5,7 +5,7 @@
  */
 package maladash.src.components.Controllers;
 import maladash.src.components.Models.TableModel;
-import maladash.src.components.Views.DrawingPanel;
+import maladash.src.components.Views.TableView;
 import java.awt.event.*;
 /**
  *
@@ -13,15 +13,35 @@ import java.awt.event.*;
  */
 public class TableController implements MouseListener{
     private TableModel tableModel;
+    private TableView tableView;
 
     public TableController() {
         tableModel = new TableModel();
+        tableView = new TableView();
         init();
     }
     
     public void init(){
         
     }
+
+    public TableModel getTableModel() {
+        return tableModel;
+    }
+
+    public void setTableModel(TableModel tableModel) {
+        this.tableModel = tableModel;
+    }
+
+    public TableView getTableView() {
+        return tableView;
+    }
+
+    public void setTableView(TableView tableView) {
+        this.tableView = tableView;
+    }
+    
+    
 
     @Override
     public void mouseClicked(MouseEvent e) {
