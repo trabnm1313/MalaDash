@@ -5,25 +5,24 @@
  */
 package maladash.src.components.Views;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import maladash.src.components.Models.TableModel;
 /**
  *
  * @author USER
  */
 public class TableView extends JPanel{
-    public TableView(){
-        this.setPreferredSize(new Dimension(150, 150));
+    private TableModel model;
+    public TableView(int sit){
+        model = new TableModel(sit);
     }
-    
+ 
     public void paintComponent(Graphics g){
         super.paintComponents(g);
         
         Graphics2D g2D = (Graphics2D) g;
-        g.setColor(Color.black);
-        g.fillRect(0, 0, (int)this.getSize().getWidth(), (int)this.getSize().getHeight());
+        g2D.drawImage(model.getImg(), 0, 0, this);
     }
 }

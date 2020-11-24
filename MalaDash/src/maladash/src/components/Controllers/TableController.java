@@ -15,22 +15,13 @@ public class TableController implements MouseListener{
     private TableModel tableModel;
     private TableView tableView;
 
-    public TableController() {
-        tableModel = new TableModel();
-        tableView = new TableView();
+    public TableController(int sit) {
+        tableView = new TableView(sit);
         init();
     }
     
     public void init(){
         
-    }
-
-    public TableModel getTableModel() {
-        return tableModel;
-    }
-
-    public void setTableModel(TableModel tableModel) {
-        this.tableModel = tableModel;
     }
 
     public TableView getTableView() {

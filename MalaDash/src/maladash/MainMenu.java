@@ -32,17 +32,21 @@ public class MainMenu implements ActionListener{
         buttonPanel = new DrawingPanel("mockBGC.jpg");
         mainGame = new MainGameController().getView();
         for(int i = 0; i < 4; i++){
-            tableViews[i] = new TableController().getTableView();
+            if(i < 2){
+                tableViews[i] = new TableController(4).getTableView();
+            }else{
+                tableViews[i] = new TableController(2).getTableView();
+            }
         }
         table1 = tableViews[0];
         table2 = tableViews[1];
         table3 = tableViews[2];
         table4 = tableViews[3];
         
-        table1.setBounds(750, 600, 150, 150);
-        table2.setBounds(750, 800, 150, 150);
-        table3.setBounds(1400, 600, 150, 100);
-        table4.setBounds(1400, 800, 150, 100);
+        table1.setBounds(650, 500, 400, 300);
+        table2.setBounds(650, 700, 400, 300);
+        table3.setBounds(1250, 500, 400, 300);
+        table4.setBounds(1250, 700, 400, 300);
         
         //JButton
         startButton = new JButton("Start");
