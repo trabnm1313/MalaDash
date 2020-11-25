@@ -11,12 +11,16 @@ public class MainGameModel {
     private boolean imageLoaded;
     
     public MainGameModel(){
-        imageLoaded = loadImage("MainGameViewBG.png");
+        imageLoaded = init();
+        if(imageLoaded){
+            System.out.println("[MainGameModel]: Image loaded.");
+        }else{
+            System.out.println("[MainGameModel]: Image failed to loaded.");
+        }
     }
     
-    private boolean loadImage(String fileName){
-        URL src = DrawingPanel.class.getResource("../../images/" + fileName);
-        
+    private boolean init(){
+        URL src = DrawingPanel.class.getResource("../../images/MainGameViewBG.png");
         try{
             this.img = ImageIO.read(src);
             return true;
