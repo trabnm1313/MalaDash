@@ -26,7 +26,17 @@ public class MainMenuController implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         //IF startButton clicked
         if(e.getSource().equals(view.getStartButton())){
+            
+            //Initate Controller
+            PlayerController p1 = new PlayerController();
             MainGameController mainGame = new MainGameController();
+            
+            //Set attribute in model
+            mainGame.getModel().setPlayer(p1.getView());
+            
+            //Init mainGameView
+            mainGame.init();
+            
             view.getFrame().dispose();
         }
         

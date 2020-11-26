@@ -7,15 +7,12 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 public class PlayerView extends JPanel{
-    public PlayerView(){
-        this.setPreferredSize(new Dimension(50, 50));
-    }
-    
+    @Override
     public void paintComponent(Graphics g){
-        super.paintComponents(g);
+        super.paintComponent(g);
         
         Graphics2D g2D = (Graphics2D) g;
-        g.setColor(Color.black);
-        g.fillRect(0, 0, (int)this.getSize().getWidth(), (int)this.getSize().getHeight());
+        g2D.setColor(Color.black);
+        g2D.fillRect(0, 0, (int)this.getSize().getWidth(), (int)this.getSize().getHeight());
     }
 }

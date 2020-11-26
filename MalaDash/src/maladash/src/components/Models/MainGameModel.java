@@ -4,11 +4,13 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import javax.imageio.ImageIO;
+import javax.swing.JPanel;
 import maladash.src.components.Views.DrawingPanel;
 
 public class MainGameModel {
     private BufferedImage img;
     private boolean imageLoaded;
+    private JPanel player;
     
     public MainGameModel(){
         imageLoaded = init();
@@ -45,5 +47,14 @@ public class MainGameModel {
     public void setImageLoaded(boolean imageLoaded) {
         this.imageLoaded = imageLoaded;
     }
+
+    public JPanel getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(JPanel player) {
+        this.player = player;
+    }
+    
     
 }

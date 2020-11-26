@@ -2,25 +2,27 @@ package maladash.src.components.Classes;
 
 public class Player {
     private boolean carryDish;
-    private boolean carryBill;
+    private int bill;
     private boolean carryOrder;
     private boolean washing;
     private boolean ready;
-    private int whichTable;
     private int heart;
 
     public Player() {
-        this(false, false, false, false, false, 0, 5);
+        this(false, 0, false, false, false, 5);
     }
-    
-    public Player(boolean isCarryDish, boolean isCarryBill, boolean isCarryOrder, boolean isWashing, boolean isReady, int whichTable, int heart) {
-        this.carryDish = isCarryDish;
-        this.carryBill = isCarryBill;
-        this.carryOrder = isCarryOrder;
-        this.washing = isWashing;
+
+    public Player(boolean carryDish, int bill, boolean carryOrder, boolean washing, boolean ready, int heart) {
+        this.carryDish = carryDish;
+        this.bill = bill;
+        this.carryOrder = carryOrder;
+        this.washing = washing;
         this.ready = ready;
-        this.whichTable = whichTable;
         this.heart = heart;
+    }
+
+    public Player(boolean carryDish) {
+        this.carryDish = carryDish;
     }
     
     public boolean isCarryDish() {
@@ -31,12 +33,12 @@ public class Player {
         this.carryDish = carryDish;
     }
 
-    public boolean isCarryBill() {
-        return carryBill;
+    public int getBill() {
+        return bill;
     }
 
-    public void setCarryBill(boolean CarryBill) {
-        this.carryBill = CarryBill;
+    public void setBill(int bill) {
+        this.bill = bill;
     }
 
     public boolean isCarryOrder() {
@@ -61,14 +63,6 @@ public class Player {
 
     public void setReady(boolean ready) {
         this.ready = ready;
-    }
-
-    public int getWhichTable() {
-        return whichTable;
-    }
-
-    public void setWhichTable(int whichTable) {
-        this.whichTable = whichTable;
     }
 
     public int getHeart() {

@@ -6,7 +6,7 @@ public class PlayerModel {
     Player p1;
     
     public PlayerModel(){
-        p1 = new Player(false, false, false, false, false, 0, 5);
+        p1 = new Player(false, 0, false, false, false, 5);
     }
     
 }
