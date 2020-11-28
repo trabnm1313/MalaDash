@@ -12,18 +12,8 @@ public class MainGameController {
     public MainGameController(){
         //Initate Model
         model = new MainGameModel();
-    }
-    
-    public void init(){
-        //Initate View
-        view = new MainGameView(); 
-        
-        //Set view attribute values
-        view.setPlayer(model.getPlayer());
+        view = new MainGameView();
         view.setImg(model.getImg());
-        
-        //Initate
-        view.init();
     }
 
     public MainGameView getView() {

@@ -1,11 +1,13 @@
 package maladash;
 
-import maladash.src.components.Controllers.MainMenuController;
+import maladash.src.components.Controllers.GameController;
+
 
 public class MalaDash {
-
+    
     public static void main(String[] args) {
-          MainMenuController menu = new MainMenuController();
+        GameController game = new GameController();
+        
     }
     
 }

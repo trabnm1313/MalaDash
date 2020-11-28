@@ -6,38 +6,69 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import maladash.src.components.Models.MainMenuModel;
+import maladash.src.components.Views.MainGameView;
 import maladash.src.components.Views.MainMenuView;
 
 public class MainMenuController implements ActionListener{
     private MainMenuView view;
     private MainMenuModel model;
+    private GameController game;
+    private MainGameController mainGame;
     
     public MainMenuController(){
         //Init
         model = new MainMenuModel();
-        view = new MainMenuView(model.getImg());
+        view = new MainMenuView();
+        view.setImg(model.getImg());
+        
         //Add ActionListener
         view.getStartButton().addActionListener(this);
         view.getOptionButton().addActionListener(this);
         view.getExitButton().addActionListener(this);
+    }
+
+    public MainMenuView getView() {
+        return view;
+    }
+
+    public void setView(MainMenuView view) {
+        this.view = view;
+    }
+
+    public MainMenuModel getModel() {
+        return model;
+    }
+
+    public void setModel(MainMenuModel model) {
+        this.model = model;
+    }
+
+    public GameController getGame() {
+        return game;
+    }
+
+    public void setGame(GameController game) {
+        this.game = game;
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
         //IF startButton clicked
         if(e.getSource().equals(view.getStartButton())){
-            
             //Initate Controller
-            PlayerController p1 = new PlayerController();
-            MainGameController mainGame = new MainGameController();
+            mainGame = new MainGameController();
             
-            //Set attribute in model
-            mainGame.getModel().setPlayer(p1.getView());
+            //Short Variable
+            JFrame gameFrame = game.getView().getFrame();
             
-            //Init mainGameView
-            mainGame.init();
+            //Change ContentPane from MainMenu to MainGame
+            gameFrame.setContentPane(mainGame.getView());
+            gameFrame.setSize(1980, 1020);
             
-            view.getFrame().dispose();
+            gameFrame.getContentPane().revalidate();
+            gameFrame.getContentPane().repaint();
+            
+            
         }
         
         //IF exitButton clicked

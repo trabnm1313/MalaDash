@@ -7,35 +7,23 @@ import java.awt.image.BufferedImage;
 import javax.swing.border.EmptyBorder;
 import maladash.src.components.Controllers.MainMenuController;
 
-public class MainMenuView{
+public class MainMenuView extends JPanel{
     //JComponents
-    private JFrame frame;
-    private JPanel backGroundPanel;
+    private BufferedImage img;
     private JButton startButton, optionButton, exitButton;
     //Integer
     private int width = 1280;
     private int height = 720;
     
-    public MainMenuView(BufferedImage img){
+    public MainMenuView(){
         
-        //Container Initate
-        frame = new JFrame();
-        backGroundPanel = new JPanel(){
-            @Override
-            public void paintComponent(Graphics g){
-                super.paintComponents(g);
-                
-                Graphics2D g2D = (Graphics2D)g;
-                g2D.drawImage(img ,0 ,0 ,this);
-            }
-        };
         startButton = new JButton("Start");
         optionButton = new JButton("Option");
         exitButton = new JButton("Exit");
         
         //backGroundPanel Configuration
-        backGroundPanel.setLayout(new GridBagLayout());
-        backGroundPanel.setBorder(new EmptyBorder(0, width/3, 0, width/3));
+        this.setLayout(new GridBagLayout());
+        this.setBorder(new EmptyBorder(0, width/3, 0, width/3));
         
         //JButton Modification
         startButton.setFont(new Font("Arial", Font.BOLD, 24));
@@ -56,39 +44,31 @@ public class MainMenuView{
         
         //Actually Buttons
         constraint.gridy = 0;
-        backGroundPanel.add(startButton, constraint);
+        this.add(startButton, constraint);
         constraint.gridy = 1;
-        backGroundPanel.add(optionButton, constraint);
+        this.add(optionButton, constraint);
         constraint.gridy = 2;
-        backGroundPanel.add(exitButton, constraint);
+        this.add(exitButton, constraint);
+        System.out.println("[MainMenuView]: View loaded.");
+    }
+    
+    @Override
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
         
-        //Add to frame
-        frame.add(backGroundPanel);
-        
-        //Frame Configuration
-        frame.setResizable(false);
-        frame.setSize(width, height);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Graphics2D g2D = (Graphics2D)g;
+        g.drawImage(img, 0, 0, this);
         
     }
 
-    public JFrame getFrame() {
-        return frame;
+    public BufferedImage getImg() {
+        return img;
     }
 
-    public void setFrame(JFrame frame) {
-        this.frame = frame;
+    public void setImg(BufferedImage img) {
+        this.img = img;
     }
-
-    public JPanel getBackGroundPanel() {
-        return backGroundPanel;
-    }
-
-    public void setBackGroundPanel(JPanel backGroundPanel) {
-        this.backGroundPanel = backGroundPanel;
-    }
-
+    
     public JButton getStartButton() {
         return startButton;
     }
@@ -128,6 +108,4 @@ public class MainMenuView{
     public void setHeight(int height) {
         this.height = height;
     }
-    
-    
 }

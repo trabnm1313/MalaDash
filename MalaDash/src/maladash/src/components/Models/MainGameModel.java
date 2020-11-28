@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import maladash.src.components.Views.DrawingPanel;
 
 public class MainGameModel {
     private BufferedImage img;
@@ -15,14 +14,14 @@ public class MainGameModel {
     public MainGameModel(){
         imageLoaded = init();
         if(imageLoaded){
-            System.out.println("[MainGameModel]: Image loaded.");
+            System.out.println("[MainGameBG]: Image loaded.");
         }else{
-            System.out.println("[MainGameModel]: Image failed to loaded.");
+            System.out.println("[MainGameBG]: Image failed to loaded.");
         }
     }
     
     private boolean init(){
-        URL src = DrawingPanel.class.getResource("../../images/MainGameViewBG.png");
+        URL src = this.getClass().getResource("../../images/MainGameBG.png");
         try{
             this.img = ImageIO.read(src);
             return true;
