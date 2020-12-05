@@ -64,7 +64,7 @@ public class MainMenuController implements ActionListener{
             //Change ContentPane from MainMenu to MainGame
             gameFrame.setContentPane(mainGame.getView());
             gameFrame.setSize(1980, 1020);
-            
+
             gameFrame.getContentPane().revalidate();
             gameFrame.getContentPane().repaint();
             
