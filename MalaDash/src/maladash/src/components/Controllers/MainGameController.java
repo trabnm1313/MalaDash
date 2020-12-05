@@ -10,8 +10,10 @@ public class MainGameController {
     private MainGameModel model;
     
     public MainGameController(){
-        view = new MainGameView();
+        //Initate Model
         model = new MainGameModel();
+        view = new MainGameView();
+        view.setImg(model.getImg());
     }
 
     public MainGameView getView() {
