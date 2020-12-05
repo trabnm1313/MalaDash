@@ -20,19 +20,6 @@ public class MainGameController {
         view = new MainGameView();
         view.setImg(model.getImg());
         view.setLayout(null);
-
-        //Player
-        PlayerController p1 = new PlayerController();
-        p1.getView().setBounds(1000, 300, 300, 300);
-        p1.getView().setOpaque(false);
-        
-        JButton move = new JButton("Move");
-        move.setBounds(50, 50, 100, 50);
-        p1.setMove(move);
-        
-        view.add(move);
-        view.add(p1.getView());
-        
       
         //Table
         tableViews = new ArrayList();
@@ -71,6 +58,16 @@ public class MainGameController {
         view.add(mala3);
         view.add(mala4);
 
+        //Player
+        PlayerController p1 = new PlayerController();
+        
+        JButton move = new JButton("Move");
+        move.setBounds(50, 50, 100, 50);
+        p1.setMove(move);
+        
+        view.add(move);
+        view.add(p1.getView());
+        
     }
 
     public MainGameView getView() {

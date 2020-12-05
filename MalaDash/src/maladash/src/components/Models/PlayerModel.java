@@ -21,7 +21,7 @@ public class PlayerModel {
     }
 
     public void init(){
-        URL imageFile = this.getClass().getResource("../../images/jiarush.gif");
+        URL imageFile = this.getClass().getResource("../../images/jianormal.png");
         img = new ImageIcon(imageFile).getImage();
         
     }

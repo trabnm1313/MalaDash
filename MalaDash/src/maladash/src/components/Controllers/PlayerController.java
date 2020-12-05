@@ -2,6 +2,7 @@ package maladash.src.components.Controllers;
 
 import java.awt.event.*;
 import static java.lang.Thread.sleep;
+import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.Timer;
 import maladash.src.components.Models.PlayerModel;
@@ -11,14 +12,28 @@ public class PlayerController implements ActionListener, Runnable{
     private PlayerModel model;
     private PlayerView view;
     private JButton move;
-    private int tm_count = 0;
-    private Timer tm = new Timer(1, this);
+    
+    //Boolean
     private boolean isPositionReseted = false;
+    
+    //Integer
+    private int tm_count = 0;
+    private int default_X = 1075;
+    private int default_Y = 250;
+    
+    //Timer
+    private Timer tm = new Timer(1, this);
+    
+    //mock
+    Random rand = new Random();
+    
     
     public PlayerController(){
         model = new PlayerModel();
         view = new PlayerView();
         view.setImg(model.getImg());
+        view.setOpaque(false);
+        view.setBounds(default_X+rand.nextInt(500) + 1, default_Y+rand.nextInt(500)+1, 150, 300);
         
         
         view.addMouseListener(new MouseAdapter(){
@@ -91,14 +106,14 @@ public class PlayerController implements ActionListener, Runnable{
 
                 }else{
 
-                    if(view.getBounds().getY() < 275){
-                        view.setBounds((int)view.getBounds().getX(), (int)view.getBounds().getY()+1, 300, 300);
-                    }else if(view.getBounds().getY() > 275){
-                        view.setBounds((int)view.getBounds().getX(), (int)view.getBounds().getY()-1, 300, 300);
-                    }else if(view.getBounds().getX() < 950){
-                        view.setBounds((int)view.getBounds().getX()+1, (int)view.getBounds().getY(), 300, 300);
-                    }else if(view.getBounds().getX() > 950){
-                        view.setBounds((int)view.getBounds().getX()-1, (int)view.getBounds().getY(), 300, 300);
+                    if(view.getBounds().getY() < default_Y){
+                        view.setBounds((int)view.getBounds().getX(), (int)view.getBounds().getY()+1, 150, 300);
+                    }else if(view.getBounds().getY() > default_Y){
+                        view.setBounds((int)view.getBounds().getX(), (int)view.getBounds().getY()-1, 150, 300);
+                    }else if(view.getBounds().getX() < default_X){
+                        view.setBounds((int)view.getBounds().getX()+1, (int)view.getBounds().getY(), 150, 300);
+                    }else if(view.getBounds().getX() > default_X){
+                        view.setBounds((int)view.getBounds().getX()-1, (int)view.getBounds().getY(), 150, 350);
                     }else{
                         isPositionReseted = true;
                     }
