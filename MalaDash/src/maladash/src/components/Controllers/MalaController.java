@@ -12,9 +12,10 @@ import java.awt.event.*;
  *
  * @author USER
  */
-public class MalaController {
+public class MalaController implements Runnable{
     private MalaModel malaModel;
     private MalaView malaView;
+    private int time;
 
     public MalaController(int numTable) {
         malaModel = new MalaModel(numTable);
@@ -29,6 +30,7 @@ public class MalaController {
         }else if(numTable == 4){
             malaView.setBounds(1337, 270, 75, 25);
         }
+        malaView.setOpaque(false);
         malaView.setVisible(false);
         malaView.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e){
@@ -54,6 +56,18 @@ public class MalaController {
     public void setMalaView(MalaView malaView) {
         this.malaView = malaView;
     }
+
+    @Override
+    public void run() {
+        time = (int)(Math.random()*7000)+5000;
+        try{
+            Thread.sleep(time);
+            malaView.setVisible(true);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
     
     
 }
