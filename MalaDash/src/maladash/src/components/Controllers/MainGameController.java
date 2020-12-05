@@ -13,6 +13,9 @@ public class MainGameController {
     private ArrayList<JPanel> tableViews, malaViews;
     private JPanel table1, table2, table3, table4, mala1, mala2, mala3, mala4;
     private MalaController malaController;
+    private PlayerController player;
+    private ComputerController computer;
+    
 
     public MainGameController() {
         //Initate Model
@@ -20,16 +23,14 @@ public class MainGameController {
         view = new MainGameView();
         view.setImg(model.getImg());
         view.setLayout(null);
-      
+        
         //Table
         tableViews = new ArrayList();
         for (int i = 1; i <= 4; i++) {
             if (i < 2) {
                 tableViews.add(new TableController(i, 4).getTableView());
-                System.out.println(i);
             } else {
                 tableViews.add(new TableController(i, 2).getTableView());
-                System.out.println(i);
             }
         }
         table1 = tableViews.get(0);
@@ -37,36 +38,45 @@ public class MainGameController {
         table3 = tableViews.get(2);
         table4 = tableViews.get(3);
 
-        view.add(table1);
-        view.add(table2);
-        view.add(table3);
-        view.add(table4);
-
         //Mala
         malaViews = new ArrayList();
         for (int i = 1; i <= 4; i++) {
-               malaViews.add(new MalaController(i).getMalaView());
-            }
+            malaViews.add(new MalaController(i).getMalaView());
+        }
           
         mala1 = malaViews.get(0);
         mala2 = malaViews.get(1);
         mala3 = malaViews.get(2);
         mala4 = malaViews.get(3);
-
+        
+        //Player
+        player = new PlayerController();
+        
+        //Bill
+        computer = new ComputerController();
+        computer.setPlayer(player.getModel().getPlayer());
+        
+        JButton move = new JButton("Move");
+        move.setBounds(50, 50, 100, 50);
+        player.setMove(move);
+        
+        
+        
+        //Add to view
+        view.add(table1);
+        view.add(table2);
+        view.add(table3);
+        view.add(table4);
+        
         view.add(mala1);
         view.add(mala2);
         view.add(mala3);
         view.add(mala4);
-
-        //Player
-        PlayerController p1 = new PlayerController();
-        
-        JButton move = new JButton("Move");
-        move.setBounds(50, 50, 100, 50);
-        p1.setMove(move);
         
         view.add(move);
-        view.add(p1.getView());
+        view.add(player.getView());
+        
+        view.add(computer.getView());
         
     }
 

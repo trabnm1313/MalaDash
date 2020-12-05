@@ -15,9 +15,10 @@ public class PlayerController implements ActionListener, Runnable{
     
     //Boolean
     private boolean isPositionReseted = false;
+    private boolean isMoving = false;
+    private boolean sameTable = false;
     
     //Integer
-    private int tm_count = 0;
     private int default_X = 1075;
     private int default_Y = 250;
     
@@ -87,11 +88,11 @@ public class PlayerController implements ActionListener, Runnable{
             //If select a table that player already in
             if(model.getPlayer().getTarget() == model.getPlayer().getWhichTable()){
                 tm.stop();
-                tm_count = -1;
+                sameTable = true;
             }
             
             
-            if(tm_count != -1){
+            if(!sameTable){
                 if(isPositionReseted){
 
                     if(model.getPlayer().getTarget() == 1){
@@ -121,9 +122,6 @@ public class PlayerController implements ActionListener, Runnable{
                 }
             }
             
-            
-            tm_count++;
-            System.out.println(tm_count);
         }
     }
 
