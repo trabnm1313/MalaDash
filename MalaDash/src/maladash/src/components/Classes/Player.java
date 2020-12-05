@@ -7,18 +7,22 @@ public class Player {
     private boolean washing;
     private boolean ready;
     private int heart;
+    private int whichTable;
+    private int target;
 
     public Player() {
-        this(false, 0, false, false, false, 5);
+        this(false, 0, false, false, false, 5, 0, 0);
     }
 
-    public Player(boolean carryDish, int bill, boolean carryOrder, boolean washing, boolean ready, int heart) {
+    public Player(boolean carryDish, int bill, boolean carryOrder, boolean washing, boolean ready, int heart, int whichTable, int target) {
         this.carryDish = carryDish;
         this.bill = bill;
         this.carryOrder = carryOrder;
         this.washing = washing;
         this.ready = ready;
         this.heart = heart;
+        this.whichTable = whichTable;
+        this.target = target;
     }
 
     public Player(boolean carryDish) {
@@ -72,6 +76,20 @@ public class Player {
     public void setHeart(int heart) {
         this.heart = heart;
     }
-    
-    
+
+    public int getWhichTable() {
+        return whichTable;
+    }
+
+    public void setWhichTable(int whichTable) {
+        this.whichTable = whichTable;
+    }
+
+    public int getTarget() {
+        return target;
+    }
+
+    public void setTarget(int target) {
+        this.target = target;
+    }
 }

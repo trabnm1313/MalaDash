@@ -24,7 +24,6 @@ public class MalaModel {
     
     public boolean init(){
         URL imageFile = this.getClass().getResource("../../images/mala.png");
-        System.out.println(imageFile);
         try{
             img = ImageIO.read(imageFile);
             return true;
