@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.net.URL;
 import javax.imageio.ImageIO;
 import maladash.src.components.Classes.Table;
-import maladash.src.components.Views.DrawingPanel;
 /**
  *
  * @author USER
@@ -17,24 +16,44 @@ import maladash.src.components.Views.DrawingPanel;
 public class TableModel {
     private BufferedImage img;
     private boolean imageLoaded;
-    private Table table1;
-    private Table table2;
-    private Table table3;
-    private Table table4;
+    private Table table;
 
-    public TableModel(int sit) {
-        if(sit == 4){
-            imageLoaded = loadImage("table1.png");
-        }else if(sit == 2){
-            imageLoaded = loadImage("table2.png");
+    public TableModel(int numTable, int sit) {
+        if(numTable == 1){
+            imageLoaded = init("table1.png");
+            if (imageLoaded){
+                System.out.println("[TableModel]: Image loaded.");
+            }else{
+                System.out.println("[TableModel]: Image failed to loaded.");
+            }
+        }else if(numTable == 2){
+            imageLoaded = init("table2.png");
+            if (imageLoaded){
+                System.out.println("[TableModel]: Image loaded.");
+            }else{
+                System.out.println("[TableModel]: Image failed to loaded.");
+            }
         }
-        table1 = new Table(4, true, false);
-        table2 = new Table(4, true, false);
-        table3 = new Table(2, true, false);
-        table4 = new Table(2, true, false);
+        else if(numTable == 3){
+            imageLoaded = init("table3.png");
+            if (imageLoaded){
+                System.out.println("[TableModel]: Image loaded.");
+            }else{
+                System.out.println("[TableModel]: Image failed to loaded.");
+            }
+        }
+        else if(numTable == 4){
+            imageLoaded = init("table4.png");
+            if (imageLoaded){
+                System.out.println("[TableModel]: Image loaded.");
+            }else{
+                System.out.println("[TableModel]: Image failed to loaded.");
+            }
+        }
+        table = new Table(numTable, sit, true, false, false);
     }
-     private boolean loadImage(String fileName){
-        URL src = DrawingPanel.class.getResource("../../images/" + fileName);
+     private boolean init(String fileName){
+        URL src = this.getClass().getResource("../../images/" + fileName);
         
         try{
             this.img = ImageIO.read(src);
@@ -62,36 +81,12 @@ public class TableModel {
     }
      
 
-    public Table getTable1() {
-        return table1;
+    public Table getTable() {
+        return table;
     }
 
-    public void setTable1(Table table1) {
-        this.table1 = table1;
-    }
-
-    public Table getTable2() {
-        return table2;
-    }
-
-    public void setTable2(Table table2) {
-        this.table2 = table2;
-    }
-
-    public Table getTable3() {
-        return table3;
-    }
-
-    public void setTable3(Table table3) {
-        this.table3 = table3;
-    }
-
-    public Table getTable4() {
-        return table4;
-    }
-
-    public void setTable4(Table table4) {
-        this.table4 = table4;
+    public void setTable(Table table) {
+        this.table = table;
     }
 
 }

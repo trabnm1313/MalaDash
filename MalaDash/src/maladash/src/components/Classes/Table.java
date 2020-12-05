@@ -13,14 +13,24 @@ public class Table {
     private int chair;
     private boolean sitable;
     private boolean drity;
+    private boolean hasMala;
+    private int numTable;
 
-    public Table(int chair, boolean sitable, boolean drity) {
+    public Table(int numTable, int chair, boolean sitable, boolean drity, boolean hasMala) {
+        this.numTable = numTable;
         this.chair = chair;
         this.sitable = sitable;
         this.drity = drity;
+        this.hasMala = hasMala;
     }
 
+    public int getNumTable() {
+        return numTable;
+    }
 
+    public void setNumTable(int numTable) {
+        this.numTable = numTable;
+    }
 
     public int getChair() {
         return chair;
@@ -44,6 +54,14 @@ public class Table {
 
     public void setDrity(boolean drity) {
         this.drity = drity;
+    }
+
+    public boolean isHasMala() {
+        return hasMala;
+    }
+
+    public void setHasMala(boolean hasMala) {
+        this.hasMala = hasMala;
     }
     
     

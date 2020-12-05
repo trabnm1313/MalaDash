@@ -21,7 +21,7 @@ public class MainGameModel {
     }
     
     private boolean init(){
-        URL src = this.getClass().getResource("../../images/MainGameBG.png");
+        URL src = this.getClass().getResource("../../images/MainGameViewBG.png");
         try{
             this.img = ImageIO.read(src);
             return true;

@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
  *
  * @author USER
  */
-public class TableView extends JPanel{
+public class MalaView extends JPanel{
     private BufferedImage img;
     public void paintComponent(Graphics g){
         super.paintComponents(g);
