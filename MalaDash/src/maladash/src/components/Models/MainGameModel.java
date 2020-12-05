@@ -10,6 +10,7 @@ public class MainGameModel {
     private BufferedImage img;
     private boolean imageLoaded;
     private JPanel player;
+    private int money;
     
     public MainGameModel(){
         imageLoaded = init();
@@ -53,6 +54,14 @@ public class MainGameModel {
 
     public void setPlayer(JPanel player) {
         this.player = player;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
     }
     
     
