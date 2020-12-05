@@ -1,23 +1,31 @@
 package maladash.src.components.Views;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 public class MainGameView extends JPanel{
-    
-    public MainGameView(){
-        
-    }
+    //Coponents
+    private BufferedImage img;
     
     @Override
     public void paintComponent(Graphics g){
-        super.paintComponents(g);
+        super.paintComponent(g);
         
-        Graphics2D g2D = (Graphics2D) g;
-        
-        g2D.setBackground(Color.black);
-        g2D.fillRect(50, 50, 1180, 620);
+        Graphics2D g2D = (Graphics2D)g;
+        g.drawImage(img, 0, 0, this);
     }
+
+    public BufferedImage getImg() {
+        return img;
+    }
+
+    public void setImg(BufferedImage img) {
+        this.img = img;
+        this.revalidate();
+        this.repaint();
+    }
+    
 }
+
