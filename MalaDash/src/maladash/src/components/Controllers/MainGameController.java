@@ -11,8 +11,8 @@ public class MainGameController {
     private MainGameView view;
     private MainGameModel model;
     private ArrayList<JPanel> tableViews, malaViews;
+    private ArrayList<MalaController> malaController;
     private JPanel table1, table2, table3, table4, mala1, mala2, mala3, mala4;
-    private MalaController malaController;
     private PlayerController player;
     private ComputerController computer;
     
@@ -41,13 +41,13 @@ public class MainGameController {
         //Mala
         malaViews = new ArrayList();
         for (int i = 1; i <= 4; i++) {
-            malaViews.add(new MalaController(i).getMalaView());
+            malaController.add(new MalaController(i));
         }
           
-        mala1 = malaViews.get(0);
-        mala2 = malaViews.get(1);
-        mala3 = malaViews.get(2);
-        mala4 = malaViews.get(3);
+        mala1 = malaController.get(0).getMalaView();
+        mala2 = malaController.get(1).getMalaView();
+        mala3 = malaController.get(2).getMalaView();
+        mala4 = malaController.get(3).getMalaView();
         
         //Player
         player = new PlayerController();
@@ -73,6 +73,8 @@ public class MainGameController {
         view.add(mala3);
         view.add(mala4);
         
+        Thread t1 = new Thread(malaController.get(0));
+        t1.start();
         view.add(move);
         view.add(player.getView());
         

@@ -21,6 +21,7 @@ public class ComputerController{
         view.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e){
+//                1-4
 //                Thread t = new Thread(new MalaController(player.getBill()));
                 System.out.println("[Mock]: new MalaController created.");
             }
