@@ -52,7 +52,7 @@ public class TableModel {
         }
         table = new Table(numTable, sit, true, false, false);
     }
-     private boolean init(String fileName){
+     public boolean init(String fileName){
         URL src = this.getClass().getResource("../../images/" + fileName);
         
         try{
