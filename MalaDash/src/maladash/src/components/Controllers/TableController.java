@@ -27,13 +27,13 @@ public class TableController implements MouseListener {
         tableView.addMouseListener(this);
         
         if(numTable == 1){
-            tableView.setBounds(650, 500, 400, 200);
+            tableView.setBounds(700, 550, 400, 200);
         }else if (numTable == 2){
-            tableView.setBounds(650, 750, 400, 200);
+            tableView.setBounds(450, 750, 400, 200);
         }else if (numTable == 3){
-            tableView.setBounds(1250, 500, 400, 200);
+            tableView.setBounds(1200, 550, 400, 200);
         }else if (numTable == 4){
-            tableView.setBounds(1250, 750, 400, 200);
+            tableView.setBounds(1450, 750, 400, 200);
         }
     }
 

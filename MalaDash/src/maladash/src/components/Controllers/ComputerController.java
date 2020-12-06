@@ -23,9 +23,8 @@ public class ComputerController{
         view.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e){
-                player.setCarryOrder(true);
-                if(player.isCarryOrder()){
-                    player.setBill(1);
+                if(player.isCarryOrder() && player.getWhichTable() == 0 && player.isReady()){
+                    player.setCarryOrder(false);
                     Thread t = new Thread(malaController.get(player.getBill()-1));
                     t.start();
                     System.out.println("[Mock]: new MalaController created.");
