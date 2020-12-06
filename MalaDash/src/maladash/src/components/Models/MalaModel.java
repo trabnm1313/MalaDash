@@ -17,14 +17,13 @@ public class MalaModel {
         if(imageLoaded){
             System.out.println("[MalaModel]: Image loaded.");
         }else{
-            System.out.println("[MalaModel]: Image failed to loaded.");
+            System.out.println("[MalaModel]: Image failed to load.");
         }
         mala = new Mala(numTable);
     }
     
     public boolean init(){
         URL imageFile = this.getClass().getResource("../../images/mala.png");
-        System.out.println(imageFile);
         try{
             img = ImageIO.read(imageFile);
             return true;
@@ -41,4 +40,13 @@ public class MalaModel {
     public void setImg(BufferedImage img) {
         this.img = img;
     }
+
+    public Mala getMala() {
+        return mala;
+    }
+
+    public void setMala(Mala mala) {
+        this.mala = mala;
+    }
+    
 }

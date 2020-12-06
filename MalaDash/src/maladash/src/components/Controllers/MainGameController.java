@@ -1,17 +1,23 @@
 package maladash.src.components.Controllers;
 
 import java.util.*;
-import javax.swing.JPanel;
+import java.awt.*;
+import javax.swing.*;
 import maladash.src.components.Models.MainGameModel;
 import maladash.src.components.Views.MainGameView;
 
-public class MainGameController {
 
+public class MainGameController {
+    private posterController poster;
     private MainGameView view;
     private MainGameModel model;
-    private ArrayList<JPanel> tableViews, malaViews;
+    private ArrayList<TableController> tableControllers;
     private JPanel table1, table2, table3, table4, mala1, mala2, mala3, mala4;
-    private MalaController malaController;
+    private ArrayList<MalaController> malaController;
+    private JLabel money;
+    private PlayerController player;
+    private ComputerController computer;
+    private TrashController trash;
 
     public MainGameController() {
         //Initate Model
@@ -19,43 +25,95 @@ public class MainGameController {
         view = new MainGameView();
         view.setImg(model.getImg());
         view.setLayout(null);
+        
+        //Player
+        player = new PlayerController();
+
+        //money
+        money = new JLabel(model.getMoney() + "");
+        money.setFont(new Font("Serif", Font.PLAIN, 72));
+        money.setSize(200, 100);
+        money.setBounds(1700, 5, 200, 100);
+
         //table
-        tableViews = new ArrayList();
+        tableControllers = new ArrayList();
         for (int i = 1; i <= 4; i++) {
             if (i < 2) {
-                tableViews.add(new TableController(i, 4).getTableView());
-                System.out.println(i);
+                tableControllers.add(new TableController(i, 4));
             } else {
-                tableViews.add(new TableController(i, 2).getTableView());
-                System.out.println(i);
+                tableControllers.add(new TableController(i, 2));
             }
         }
-        table1 = tableViews.get(0);
-        table2 = tableViews.get(1);
-        table3 = tableViews.get(2);
-        table4 = tableViews.get(3);
+        tableControllers.get(0).setMainGame(this);
+        tableControllers.get(1).setMainGame(this);
+        tableControllers.get(2).setMainGame(this);
+        tableControllers.get(3).setMainGame(this);
 
-        view.add(table1);
-        view.add(table2);
-        view.add(table3);
-        view.add(table4);
+        tableControllers.get(0).setText(money);
+        tableControllers.get(1).setText(money);
+        tableControllers.get(2).setText(money);
+        tableControllers.get(3).setText(money);
 
-        //mala
-        malaViews = new ArrayList();
+        tableControllers.get(0).setPlayerController(player);
+        tableControllers.get(1).setPlayerController(player);
+        tableControllers.get(2).setPlayerController(player);
+        tableControllers.get(3).setPlayerController(player);
+
+        table1 = tableControllers.get(0).getTableView();
+        table2 = tableControllers.get(1).getTableView();
+        table3 = tableControllers.get(2).getTableView();
+        table4 = tableControllers.get(3).getTableView();
+
+        //Mala
+        malaController = new ArrayList();
         for (int i = 1; i <= 4; i++) {
-               malaViews.add(new MalaController(i).getMalaView());
-            }
-          
-        mala1 = malaViews.get(0);
-        mala2 = malaViews.get(1);
-        mala3 = malaViews.get(2);
-        mala4 = malaViews.get(3);
+            malaController.add(new MalaController(i));
+        }
 
+        mala1 = malaController.get(0).getMalaView();
+        mala2 = malaController.get(1).getMalaView();
+        mala3 = malaController.get(2).getMalaView();
+        mala4 = malaController.get(3).getMalaView();
+
+        malaController.get(0).setPlayerController(player);
+        malaController.get(1).setPlayerController(player);
+        malaController.get(2).setPlayerController(player);
+        malaController.get(3).setPlayerController(player);
+
+        //Bill
+        computer = new ComputerController();
+        computer.setMalaController(malaController);
+        computer.setPlayer(player.getModel().getPlayer());
+        poster = new posterController();
+        poster.getPoster().setOpaque(false);
+        poster.setPlayer(player);
+        poster.getPoster().setBounds(935,337,412,150);
+        
+        //Trash
+        trash = new TrashController();
+        trash.setPlayerController(player);
+        
+        //Add to view
         view.add(mala1);
         view.add(mala2);
         view.add(mala3);
         view.add(mala4);
 
+        view.add(money);
+
+        view.add(table2);
+        view.add(table4);
+
+        view.add(player.getView());
+
+        view.add(table1);
+        view.add(table3);
+
+        view.add(computer.getView());
+        
+        view.add(trash.getTrashView());
+                
+        view.add(poster.getPoster());
     }
 
     public MainGameView getView() {

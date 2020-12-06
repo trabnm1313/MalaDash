@@ -15,12 +15,12 @@ public class MainMenuModel {
         if(imageLoaded){
             System.out.println("[MainMenuModel]: Image loaded.");
         }else{
-            System.out.println("[MainMenuModel]: Image failed to loaded.");
+            System.out.println("[MainMenuModel]: Image failed to load.");
         }
     }
     
     public boolean init(){
-        URL imageFile = this.getClass().getResource("../../images/mockBGC.jpg");
+        URL imageFile = this.getClass().getResource("../../images/menuBG.png");
         System.out.println(imageFile);
         try{
             img = ImageIO.read(imageFile);

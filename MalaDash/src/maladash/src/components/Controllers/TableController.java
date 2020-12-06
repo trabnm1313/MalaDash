@@ -7,9 +7,9 @@ package maladash.src.components.Controllers;
 
 import maladash.src.components.Models.TableModel;
 import maladash.src.components.Views.TableView;
-import maladash.src.components.Controllers.PlayerController;
 
 import java.awt.event.*;
+import javax.swing.*;
 
 /**
  *
@@ -17,23 +17,27 @@ import java.awt.event.*;
  */
 public class TableController implements MouseListener {
 
+    private int money;
     private TableModel tableModel;
     private TableView tableView;
+    private static MainGameController mainGame;
+    private static PlayerController playerController;
+    private static JLabel text;
 
     public TableController(int numTable, int sit) {
         tableModel = new TableModel(numTable, sit);
         tableView = new TableView();
         tableView.setImg(tableModel.getImg());
         tableView.addMouseListener(this);
-        
-        if(numTable == 1){
-            tableView.setBounds(650, 500, 400, 200);
-        }else if (numTable == 2){
-            tableView.setBounds(650, 750, 400, 200);
-        }else if (numTable == 3){
-            tableView.setBounds(1250, 500, 400, 200);
-        }else if (numTable == 4){
-            tableView.setBounds(1250, 750, 400, 200);
+
+        if (numTable == 1) {
+            tableView.setBounds(700, 550, 400, 200);
+        } else if (numTable == 2) {
+            tableView.setBounds(450, 750, 400, 200);
+        } else if (numTable == 3) {
+            tableView.setBounds(1200, 550, 400, 200);
+        } else if (numTable == 4) {
+            tableView.setBounds(1450, 750, 400, 200);
         }
     }
 
@@ -47,35 +51,86 @@ public class TableController implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        //get value on playerController
+        boolean playerReady = playerController.getModel().getPlayer().isReady();
+        boolean playerCarryOrder = playerController.getModel().getPlayer().isCarryOrder();
+        boolean playerCarryDish = playerController.getModel().getPlayer().isCarryDish();
+        boolean playerWashing = playerController.getModel().getPlayer().isWashing();
+        //move
+        playerController.travel(tableModel.getTable().getNumTable());
+        System.out.println("[Player]: Move to Table #" + tableModel.getTable().getNumTable());
+
+        //sitable
         if (!tableModel.getTable().isSitable()) {
-            if (tableModel.getTable().isDrity()) {
+
+            //order
+            if (playerReady && !playerCarryOrder && !playerCarryDish && !playerWashing) {
+                playerController.getModel().getPlayer().setBill(tableModel.getTable().getNumTable());
+                playerController.getModel().getPlayer().setCarryOrder(true);
+                System.out.println("[Table]: Get Order Table #" + tableModel.getTable().getNumTable());
+            }
+            
+            //Serve
+            if (playerReady && playerCarryDish && (playerController.getModel().getPlayer().getMala().getNumTable() == tableModel.getTable().getNumTable())) {
+                playerController.getModel().getPlayer().setCarryDish(false);
+                playerController.getModel().getPlayer().setMala(null);
+                System.out.println("[Table]: Serve Mala Table #" + tableModel.getTable().getNumTable());
+            }
+
+            //dirty
+            if (tableModel.getTable().isDirty() && playerReady && !playerCarryOrder && !playerCarryDish && !playerWashing) {
                 System.out.println("Done.");
-                tableModel.getTable().setDrity(false);
-            } else {
-                System.out.println("Not yet.");
+                tableModel.getTable().setDirty(false);
+                money = (int) (10 + (Math.random() * 20)) + Integer.parseInt(getText().getText());
+                System.out.println(money);
+                text.setText(money + "");
+
             }
         }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        
+
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        System.out.println("hello");
+
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        System.out.println("IN");
 
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        System.out.println("OUT");
+
+    }
+
+    public static MainGameController getMainGame() {
+        return mainGame;
+    }
+
+    public static void setMainGame(MainGameController mainGame) {
+        TableController.mainGame = mainGame;
+    }
+
+    public static JLabel getText() {
+        return text;
+    }
+
+    public static void setText(JLabel text) {
+        TableController.text = text;
+    }
+
+    public static PlayerController getPlayerController() {
+        return playerController;
+    }
+
+    public static void setPlayerController(PlayerController playController) {
+        TableController.playerController = playController;
     }
 
 }
