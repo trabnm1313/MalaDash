@@ -20,7 +20,7 @@ public class MainMenuModel {
     }
     
     public boolean init(){
-        URL imageFile = this.getClass().getResource("../../images/mockBGC.jpg");
+        URL imageFile = this.getClass().getResource("../../images/menuBGC.jpg");
         System.out.println(imageFile);
         try{
             img = ImageIO.read(imageFile);
