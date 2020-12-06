@@ -1,6 +1,5 @@
 package maladash.src.components.Controllers;
 
-import javax.swing.JButton;
 import java.util.*;
 import java.awt.*;
 import javax.swing.*;
@@ -86,10 +85,6 @@ public class MainGameController {
         poster.setPlayer(player);
         poster.getPoster().setBounds(935,337,412,150);
         
-        JButton move = new JButton("Move");
-        move.setBounds(50, 50, 100, 50);
-        player.setMove(move);
-        
         //Add to view
 
         view.add(mala1);
@@ -101,8 +96,7 @@ public class MainGameController {
         
         view.add(table2);
         view.add(table4);
-        
-        view.add(move);
+
         view.add(player.getView());
         
         view.add(table1);
