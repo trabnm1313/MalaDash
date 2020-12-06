@@ -143,12 +143,12 @@ public class TableController implements MouseListener {
     public static void setPlayerController(PlayerController playController) {
         TableController.playerController = playController;
     }
-
+//dirty table
     public void letDirty() {
         tableModel.init("table" + tableModel.getTable().getNumTable() + "_d.png");
         tableView.setImg(tableModel.getImg());
     }
-
+// clean table
     public void notDirty() {
         tableModel.init("table" + tableModel.getTable().getNumTable() + ".png");
         tableView.setImg(tableModel.getImg());
