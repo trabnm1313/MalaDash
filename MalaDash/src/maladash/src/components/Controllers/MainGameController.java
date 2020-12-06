@@ -11,7 +11,6 @@ public class MainGameController {
 
     private MainGameView view;
     private MainGameModel model;
-
     private ArrayList<TableController> tableControllers;
     private JPanel table1, table2, table3, table4, mala1, mala2, mala3, mala4;
     private ArrayList<MalaController> malaController;
@@ -57,20 +56,24 @@ public class MainGameController {
         table3 = tableControllers.get(2).getTableView();
         table4 = tableControllers.get(3).getTableView();
         
+        //Player
+        player = new PlayerController();
 
         //Mala
         malaController = new ArrayList();
         for (int i = 1; i <= 4; i++) {
             malaController.add(new MalaController(i));
         }
-          
+        
         mala1 = malaController.get(0).getMalaView();
         mala2 = malaController.get(1).getMalaView();
         mala3 = malaController.get(2).getMalaView();
         mala4 = malaController.get(3).getMalaView();
         
-        //Player
-        player = new PlayerController();
+        malaController.get(0).setPlayerController(player);
+        malaController.get(1).setPlayerController(player);
+        malaController.get(2).setPlayerController(player);
+        malaController.get(3).setPlayerController(player);
         
         //Bill
         computer = new ComputerController();
@@ -93,7 +96,7 @@ public class MainGameController {
         view.add(mala4);
 
         view.add(money);
-        
+      
         view.add(move);
         view.add(player.getView());
         

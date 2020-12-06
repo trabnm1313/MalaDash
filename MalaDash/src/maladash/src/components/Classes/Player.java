@@ -9,6 +9,7 @@ public class Player {
     private int heart;
     private int whichTable;
     private int target;
+    private Mala Mala;
 
     public Player() {
         this(false, 0, false, false, false, 5, 0, 0);
@@ -92,4 +93,13 @@ public class Player {
     public void setTarget(int target) {
         this.target = target;
     }
+
+    public Mala getMala() {
+        return Mala;
+    }
+
+    public void setMala(Mala Mala) {
+        this.Mala = Mala;
+    }
+    
 }
