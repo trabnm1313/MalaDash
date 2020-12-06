@@ -39,7 +39,7 @@ public class MainGameController {
         table4 = tableViews.get(3);
 
         //Mala
-        malaViews = new ArrayList();
+        malaController = new ArrayList();
         for (int i = 1; i <= 4; i++) {
             malaController.add(new MalaController(i));
         }
@@ -54,13 +54,12 @@ public class MainGameController {
         
         //Bill
         computer = new ComputerController();
+        computer.setMalaController(malaController);
         computer.setPlayer(player.getModel().getPlayer());
         
         JButton move = new JButton("Move");
         move.setBounds(50, 50, 100, 50);
         player.setMove(move);
-        
-        
         
         //Add to view
         view.add(table1);
@@ -73,8 +72,6 @@ public class MainGameController {
         view.add(mala3);
         view.add(mala4);
         
-        Thread t1 = new Thread(malaController.get(0));
-        t1.start();
         view.add(move);
         view.add(player.getView());
         

@@ -1,6 +1,7 @@
 package maladash.src.components.Controllers;
 
 import java.awt.event.*;
+import java.util.ArrayList;
 import maladash.src.components.Classes.Player;
 import maladash.src.components.Models.ComputerModel;
 import maladash.src.components.Views.ComputerView;
@@ -9,6 +10,7 @@ public class ComputerController{
     private Player player;
     private ComputerModel model;
     private ComputerView view;
+    private ArrayList<MalaController> malaController;
     
     public ComputerController(){
         model = new ComputerModel();
@@ -21,9 +23,13 @@ public class ComputerController{
         view.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e){
-//                1-4
-//                Thread t = new Thread(new MalaController(player.getBill()));
-                System.out.println("[Mock]: new MalaController created.");
+                player.setCarryOrder(true);
+                if(player.isCarryOrder()){
+                    player.setBill(1);
+                    Thread t = new Thread(malaController.get(player.getBill()-1));
+                    t.start();
+                    System.out.println("[Mock]: new MalaController created.");
+                }
             }
         });
     }
@@ -52,5 +58,13 @@ public class ComputerController{
         this.player = player;
     }
 
+    public ArrayList<MalaController> getMalaController() {
+        return malaController;
+    }
+
+    public void setMalaController(ArrayList<MalaController> malaController) {
+        this.malaController = malaController;
+    }    
+    
     
 }
