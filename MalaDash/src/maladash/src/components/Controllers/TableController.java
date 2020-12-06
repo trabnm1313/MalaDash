@@ -51,24 +51,34 @@ public class TableController implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        //get value on playerController
+        boolean playerReady = playerController.getModel().getPlayer().isReady();
+        boolean playerCarryOrder = playerController.getModel().getPlayer().isCarryOrder();
+        boolean playerCarryDish = playerController.getModel().getPlayer().isCarryDish();
+        boolean playerWashing = playerController.getModel().getPlayer().isWashing();
         //move
-         playerController.travel(tableModel.getTable().getNumTable());
-         System.out.println("[Player]: Move to Table #" + tableModel.getTable().getNumTable());
-         
+        playerController.travel(tableModel.getTable().getNumTable());
+        System.out.println("[Player]: Move to Table #" + tableModel.getTable().getNumTable());
+
         //sitable
-        if (tableModel.getTable().isSitable()) {
-            
+        if (!tableModel.getTable().isSitable()) {
+
             //order
-            if(playerController.getModel().getPlayer().isReady() && !playerController.getModel().getPlayer().isCarryOrder() && !playerController.getModel().getPlayer().isCarryDish()){
+            if (playerReady && !playerCarryOrder && !playerCarryDish && !playerWashing) {
                 playerController.getModel().getPlayer().setBill(tableModel.getTable().getNumTable());
                 playerController.getModel().getPlayer().setCarryOrder(true);
                 System.out.println("[Table]: Get Order Table #" + tableModel.getTable().getNumTable());
             }
-                
             
-            
+            //Serve
+            if (playerReady && playerCarryDish && (playerController.getModel().getPlayer().getMala().getNumTable() == tableModel.getTable().getNumTable())) {
+                playerController.getModel().getPlayer().setCarryDish(false);
+                playerController.getModel().getPlayer().setMala(null);
+                System.out.println("[Table]: Serve Mala Table #" + tableModel.getTable().getNumTable());
+            }
+
             //dirty
-            if (tableModel.getTable().isDirty()) {
+            if (tableModel.getTable().isDirty() && playerReady && !playerCarryOrder && !playerCarryDish && !playerWashing) {
                 System.out.println("Done.");
                 tableModel.getTable().setDirty(false);
                 money = (int) (10 + (Math.random() * 20)) + Integer.parseInt(getText().getText());
@@ -91,13 +101,12 @@ public class TableController implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        
 
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        
+
     }
 
     public static MainGameController getMainGame() {
@@ -124,5 +133,4 @@ public class TableController implements MouseListener {
         TableController.playerController = playController;
     }
 
-    
 }
