@@ -7,8 +7,9 @@ import javax.swing.*;
 import maladash.src.components.Models.MainGameModel;
 import maladash.src.components.Views.MainGameView;
 
-public class MainGameController {
 
+public class MainGameController {
+    private posterController poster;
     private MainGameView view;
     private MainGameModel model;
     private ArrayList<TableController> tableControllers;
@@ -80,6 +81,11 @@ public class MainGameController {
         computer.setMalaController(malaController);
         computer.setPlayer(player.getModel().getPlayer());
         
+        poster = new posterController();
+        poster.getPoster().setOpaque(false);
+        poster.setPlayer(player);
+        poster.getPoster().setBounds(935,337,412,150);
+        
         JButton move = new JButton("Move");
         move.setBounds(50, 50, 100, 50);
         player.setMove(move);
@@ -103,6 +109,8 @@ public class MainGameController {
         view.add(table3);
         
         view.add(computer.getView());
+        
+        view.add(poster.getPoster());
     }
 
     public MainGameView getView() {
