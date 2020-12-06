@@ -23,7 +23,7 @@ public class TableController implements MouseListener {
     private static MainGameController mainGame;
     private static PlayerController playerController;
     private static JLabel text;
-    private boolean test = true;
+    private boolean entered;
 
     public TableController(int numTable, int sit) {
         tableModel = new TableModel(numTable, sit);
@@ -52,7 +52,7 @@ public class TableController implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        test = !test;
+        tableView.getBounds().translate(300, 250);
         //get value on playerController
         boolean playerReady = playerController.getModel().getPlayer().isReady();
         boolean playerCarryOrder = playerController.getModel().getPlayer().isCarryOrder();
@@ -112,12 +112,14 @@ public class TableController implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
+        setEntered(true);
+        System.out.println(isEntered());
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-
+        setEntered(false);
+        System.out.println(isEntered());
     }
 
     public static MainGameController getMainGame() {
@@ -153,4 +155,13 @@ public class TableController implements MouseListener {
         tableModel.init("table" + tableModel.getTable().getNumTable() + ".png");
         tableView.setImg(tableModel.getImg());
     }
+
+    public boolean isEntered() {
+        return entered;
+    }
+
+    public void setEntered(boolean entered) {
+        this.entered = entered;
+    }
+    
 }
