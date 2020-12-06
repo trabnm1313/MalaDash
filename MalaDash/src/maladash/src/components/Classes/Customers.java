@@ -2,7 +2,6 @@ package maladash.src.components.Classes;
 
 
 public class Customers {
-    private int timer;
     private boolean sit;
     private boolean done;
     private boolean eat;
@@ -10,24 +9,15 @@ public class Customers {
     private boolean ready;
 
     public Customers(){
-        this(0, false, false, false, 0, false);
+        this(false, false, false, 0, false);
     }
 
-    public Customers(int timer, boolean sit, boolean done, boolean eat, int count, boolean ready) {
-        this.timer = timer;
+    public Customers(boolean sit, boolean done, boolean eat, int count, boolean ready) {
         this.sit = sit;
         this.done = done;
         this.eat = eat;
         this.count = count;
         this.ready = ready;
-    }
-
-    public int getTimer() {
-        return timer;
-    }
-
-    public void setTimer(int timer) {
-        this.timer = timer;
     }
 
     public boolean isSit() {

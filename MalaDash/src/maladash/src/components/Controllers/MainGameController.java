@@ -18,6 +18,7 @@ public class MainGameController {
     private PlayerController player;
     private ComputerController computer;
     private TrashController trash;
+    private CustomersController customers;
 
     public MainGameController() {
         //Initate Model
@@ -93,6 +94,9 @@ public class MainGameController {
         trash = new TrashController();
         trash.setPlayerController(player);
         
+        //Customers
+        customers = new CustomersController();
+        
         //Add to view
         view.add(mala1);
         view.add(mala2);
@@ -101,6 +105,8 @@ public class MainGameController {
 
         view.add(money);
 
+        view.add(customers.getView());
+        
         view.add(table2);
         view.add(table4);
 
