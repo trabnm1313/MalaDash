@@ -15,6 +15,7 @@ import java.awt.event.*;
 public class MalaController implements Runnable{
     private MalaModel malaModel;
     private MalaView malaView;
+    private static PlayerController playerController;
     private int time;
 
     public MalaController(int numTable) {
@@ -35,6 +36,9 @@ public class MalaController implements Runnable{
         malaView.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e){
                 malaView.setVisible(false);
+                playerController.getModel().getPlayer().setCarryDish(true);
+                playerController.getModel().getPlayer().setMala(malaModel.getMala());
+                if(playerController.getModel().getPlayer().isCarryDish()) System.out.println("[Mala]: Get Dish Number #" + playerController.getModel().getPlayer().getMala().getNumTable());
                 
             }
 });
@@ -66,6 +70,14 @@ public class MalaController implements Runnable{
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    public PlayerController getPlayerController() {
+        return playerController;
+    }
+
+    public void setPlayerController(PlayerController playerController) {
+        this.playerController = playerController;
     }
     
     

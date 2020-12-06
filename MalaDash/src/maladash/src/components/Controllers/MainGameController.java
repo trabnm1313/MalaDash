@@ -37,20 +37,25 @@ public class MainGameController {
         table2 = tableViews.get(1);
         table3 = tableViews.get(2);
         table4 = tableViews.get(3);
-
+        
+        //Player
+        player = new PlayerController();
+        
         //Mala
         malaController = new ArrayList();
         for (int i = 1; i <= 4; i++) {
             malaController.add(new MalaController(i));
         }
-          
+        
         mala1 = malaController.get(0).getMalaView();
         mala2 = malaController.get(1).getMalaView();
         mala3 = malaController.get(2).getMalaView();
         mala4 = malaController.get(3).getMalaView();
         
-        //Player
-        player = new PlayerController();
+        malaController.get(0).setPlayerController(player);
+        malaController.get(1).setPlayerController(player);
+        malaController.get(2).setPlayerController(player);
+        malaController.get(3).setPlayerController(player);
         
         //Bill
         computer = new ComputerController();
