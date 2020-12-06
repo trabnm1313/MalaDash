@@ -128,14 +128,12 @@ public class TableController implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        setEntered(true);
-        System.out.println(isEntered());
+        
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        setEntered(false);
-        System.out.println(isEntered());
+
     }
 
     public static MainGameController getMainGame() {
