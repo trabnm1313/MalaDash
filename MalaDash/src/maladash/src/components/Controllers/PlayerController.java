@@ -1,7 +1,9 @@
 package maladash.src.components.Controllers;
 
+import java.awt.Image;
 import java.awt.event.*;
 import static java.lang.Thread.sleep;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.Timer;
 import maladash.src.components.Models.PlayerModel;
@@ -24,15 +26,20 @@ public class PlayerController implements ActionListener, Runnable{
     //Timer
     private Timer tm = new Timer(1, this);
 
-    
+    //ArrayList<Image>
+    ArrayList<Image> front, back, left, right;
     
     public PlayerController(){
         model = new PlayerModel();
         view = new PlayerView();
-        view.setImg(model.getImg());
+        view.setImg(model.getFront().get(0));
         view.setOpaque(false);
-        view.setBounds(default_X, default_Y, 150, 300);
+        view.setBounds(default_X, default_Y, 200, 300);
         
+        front = model.getFront();
+        back = model.getBack();
+        left = model.getLeft();
+        right = model.getRight();
         
         view.addMouseListener(new MouseAdapter(){
             @Override
@@ -88,15 +95,20 @@ public class PlayerController implements ActionListener, Runnable{
                 //Go to counter
                 if(model.getPlayer().getTarget() == 0){
                     if(position_Y < default_Y){
-                        view.setBounds(position_X, position_Y+2, 150, 300);
+                        animateChange("FRONT");
+                        view.setBounds(position_X, position_Y+2, 200, 300);
                     }else if(position_Y > default_Y){
-                        view.setBounds(position_X, position_Y-2, 150, 300);
+                        animateChange("BACK");
+                        view.setBounds(position_X, position_Y-2, 200, 300);
                     }else if(position_X < default_X){
-                        view.setBounds(position_X+2, position_Y, 150, 300);
+                        animateChange("RIGHT");
+                        view.setBounds(position_X+2, position_Y, 200, 300);
                     }else if(position_X > default_X){
-                        view.setBounds(position_X-2, position_Y, 150, 350);
+                        animateChange("LEFT");
+                        view.setBounds(position_X-2, position_Y, 200, 350);
                     }else{
                         tm.stop(); 
+                        view.setImg(model.getFront().get(0));
                         model.getPlayer().setWhichTable(0);
                         model.getPlayer().setReady(true);
                     }
@@ -104,60 +116,80 @@ public class PlayerController implements ActionListener, Runnable{
                 }else if(model.getPlayer().getTarget() == 1){
                     //850, default_Y+20
                     if(position_Y < default_Y+20){
-                        view.setBounds(position_X, position_Y+2, 150, 300);
+                        animateChange("FRONT");
+                        view.setBounds(position_X, position_Y+2, 200, 300);
                     }else if(position_Y > default_Y+20){
-                        view.setBounds(position_X, position_Y-2, 150, 300);
+                        animateChange("BACK");
+                        view.setBounds(position_X, position_Y-2, 200, 300);
                     }else if(position_X < 850){
-                        view.setBounds(position_X+2, position_Y, 150, 300);
+                        view.setBounds(position_X+2, position_Y, 200, 300);
+                        animateChange("RIGHT");
                     }else if(position_X > 850){
-                        view.setBounds(position_X-2, position_Y, 150, 350);
+                        animateChange("LEFT");
+                        view.setBounds(position_X-2, position_Y, 200, 350);
                     }else{
                         tm.stop(); 
+                        view.setImg(model.getFront().get(0));
                         model.getPlayer().setWhichTable(1);
                         model.getPlayer().setReady(true);
                     }
                 }else if(model.getPlayer().getTarget() == 2){
                     //576, 550
                     if(position_X < 576){
-                        view.setBounds(position_X+2, position_Y, 150, 300);
+                        animateChange("RIGHT");
+                        view.setBounds(position_X+2, position_Y, 200, 300);
                     }else if(position_X > 576){
-                        view.setBounds(position_X-2, position_Y, 150, 350);
+                        animateChange("LEFT");
+                        view.setBounds(position_X-2, position_Y, 200, 350);
                     }else if(position_Y < 550){
-                        view.setBounds(position_X, position_Y+2, 150, 300);
+                        animateChange("FRONT");
+                        view.setBounds(position_X, position_Y+2, 200, 300);
                     }else if(position_Y > 550){
-                        view.setBounds(position_X, position_Y-2, 150, 300);
+                        animateChange("BACK");
+                        view.setBounds(position_X, position_Y-2, 200, 300);
                     }else{
                         tm.stop(); 
+                        view.setImg(model.getFront().get(0));
                         model.getPlayer().setWhichTable(2);
                         model.getPlayer().setReady(true);
                     }
                 }else if(model.getPlayer().getTarget() == 3){
                     //1326, default_Y+20
                     if(position_Y < default_Y+20){
-                        view.setBounds(position_X, position_Y+2, 150, 300);
+                        animateChange("FRONT");
+                        view.setBounds(position_X, position_Y+2, 200, 300);
                     }else if(position_Y > default_Y+20){
-                        view.setBounds(position_X, position_Y-2, 150, 300);
+                        animateChange("BACK");
+                        view.setBounds(position_X, position_Y-2, 200, 300);
                     }else if(position_X < 1326){
-                        view.setBounds(position_X+2, position_Y, 150, 300);
+                        animateChange("RIGHT");
+                        view.setBounds(position_X+2, position_Y, 200, 300);
                     }else if(position_X > 1326){
-                        view.setBounds(position_X-2, position_Y, 150, 350);
+                        animateChange("LEFT");
+                        view.setBounds(position_X-2, position_Y, 200, 350);
                     }else{
                         tm.stop(); 
+                        view.setImg(model.getFront().get(0));
                         model.getPlayer().setWhichTable(3);
                         model.getPlayer().setReady(true);
                     }
                 }else if(model.getPlayer().getTarget() == 4){
                     //1590, 550
                     if(position_X < 1590){
-                        view.setBounds(position_X+2, position_Y, 150, 300);
+                        animateChange("RIGHT");
+                        view.setBounds(position_X+2, position_Y, 200, 300);
                     }else if(position_X > 1590){
-                        view.setBounds(position_X-2, position_Y, 150, 350);
+                        animateChange("LEFT");
+                        view.setBounds(position_X-2, position_Y, 200, 350);
                     }else if(position_Y < 550){
-                        view.setBounds(position_X, position_Y+2, 150, 300);
+                        animateChange("FRONT");
+                        view.setBounds(position_X, position_Y+2, 200, 300);
                     }else if(position_Y > 550){
-                        view.setBounds(position_X, position_Y-2, 150, 300);
+                        animateChange("BACK");
+                        view.setBounds(position_X, position_Y-2, 200, 300);
                     }else{
-                        tm.stop(); 
+                        tm.stop();
+                        view.setImg(model.getFront().get(0));
                         model.getPlayer().setWhichTable(4);
                         model.getPlayer().setReady(true);
                     }
@@ -165,6 +197,40 @@ public class PlayerController implements ActionListener, Runnable{
                 
             }
             
+        }
+    }
+    
+    public void animateChange(String direction){
+        
+        //LEFT
+        if(!model.getPlayer().isCarryOrder() && !model.getPlayer().isCarryDish() && !model.getPlayer().isWashing()){
+            
+            if(direction.equals("LEFT")) view.setImg(left.get(0));
+            if(direction.equals("RIGHT")) view.setImg(right.get(0));
+            if(direction.equals("BACK")) view.setImg(back.get(0));
+            if(direction.equals("FRONT")) view.setImg(front.get(4));
+        
+        }else if(model.getPlayer().isCarryOrder()){
+        
+            if(direction.equals("LEFT")) view.setImg(left.get(1));
+            if(direction.equals("RIGHT")) view.setImg(right.get(1));
+            if(direction.equals("BACK")) view.setImg(back.get(1));
+            if(direction.equals("FRONT")) view.setImg(front.get(5));
+        
+        }else if(model.getPlayer().isCarryDish()){
+        
+            if(direction.equals("LEFT")) view.setImg(left.get(2));
+            if(direction.equals("RIGHT")) view.setImg(right.get(2));
+            if(direction.equals("BACK")) view.setImg(back.get(2));
+            if(direction.equals("FRONT")) view.setImg(front.get(6));
+        
+        }else if(model.getPlayer().isWashing()){
+        
+            if(direction.equals("LEFT")) view.setImg(left.get(3));
+            if(direction.equals("RIGHT")) view.setImg(right.get(3));
+            if(direction.equals("BACK")) view.setImg(back.get(3));
+            if(direction.equals("FRONT")) view.setImg(front.get(7));
+        
         }
     }
 
