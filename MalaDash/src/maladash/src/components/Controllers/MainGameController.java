@@ -17,6 +17,7 @@ public class MainGameController {
     private JLabel money;
     private PlayerController player;
     private ComputerController computer;
+    private TrashController trash;
 
     public MainGameController() {
         //Initate Model
@@ -88,8 +89,10 @@ public class MainGameController {
         poster.setPlayer(player);
         poster.getPoster().setBounds(935,337,412,150);
         
-        //Add to view
-
+        //Trash
+        trash = new TrashController();
+        trash.setPlayerController(player);
+        
         //Add to view
         view.add(mala1);
         view.add(mala2);
@@ -108,6 +111,8 @@ public class MainGameController {
 
         view.add(computer.getView());
         
+        view.add(trash.getTrashView());
+                
         view.add(poster.getPoster());
     }
 
