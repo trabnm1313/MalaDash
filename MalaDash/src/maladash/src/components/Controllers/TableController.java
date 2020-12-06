@@ -5,6 +5,7 @@
  */
 package maladash.src.components.Controllers;
 
+import java.awt.*;
 import maladash.src.components.Models.TableModel;
 import maladash.src.components.Views.TableView;
 
@@ -58,9 +59,26 @@ public class TableController implements MouseListener {
         this.tableModel = tableModel;
     }
 
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public TableModel getTableModel() {
+        return tableModel;
+    }
+
+    public void setTableModel(TableModel tableModel) {
+        this.tableModel = tableModel;
+    }
+    
+    
+
     @Override
     public void mouseClicked(MouseEvent e) {
-        tableView.getBounds().translate(300, 250);
         //get value on playerController
         boolean playerReady = playerController.getModel().getPlayer().isReady();
         boolean playerCarryOrder = playerController.getModel().getPlayer().isCarryOrder();
@@ -90,19 +108,17 @@ public class TableController implements MouseListener {
                     System.out.println("[Table]: Serve Mala Table #" + tableModel.getTable().getNumTable());
                 }
 
-                //เก็บตัง ยังไม่เสร็จ
-                if (true) {
-                    money = (int) (10 + (Math.random() * 20)) + Integer.parseInt(getText().getText());
-                    System.out.println(money);
-                    text.setText(money + "");
-                }
-            } else {
                 //dirty
                 if (tableModel.getTable().isDirty() && !playerCarryOrder && !playerCarryDish && !playerWashing) {
                     System.out.println("Done.");
                     tableModel.getTable().setDirty(false);
                     playerController.getModel().getPlayer().setWashing(true);
                     notDirty();
+                    //เก็บตัง ยังไม่เสร็จ
+                    money = (int) (10 + (Math.random() * 20)) + Integer.parseInt(getText().getText());
+                    System.out.println(money);
+                    text.setText(money + "");
+                    tableModel.getTable().setSitable(true);
                 }
             }
         }
