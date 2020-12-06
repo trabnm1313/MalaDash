@@ -23,8 +23,7 @@ public class MalaModel {
     }
     
     public boolean init(){
-        URL imageFile = this.getClass().getResource("../../images/mala.png");
-        System.out.println(imageFile);
+        URL imageFile = this.getClass().getResource("../../images/spon.png");
         try{
             img = ImageIO.read(imageFile);
             return true;

@@ -15,9 +15,9 @@ public class MainGameModel {
     public MainGameModel(){
         imageLoaded = init();
         if(imageLoaded){
-            System.out.println("[MainGameBG]: Image loaded.");
+            System.out.println("[MainGame]: Image loaded.");
         }else{
-            System.out.println("[MainGameBG]: Image failed to loaded.");
+            System.out.println("[MainGame]: Image failed to loaded.");
         }
     }
     
