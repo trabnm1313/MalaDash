@@ -40,4 +40,13 @@ public class MalaModel {
     public void setImg(BufferedImage img) {
         this.img = img;
     }
+
+    public Mala getMala() {
+        return mala;
+    }
+
+    public void setMala(Mala mala) {
+        this.mala = mala;
+    }
+    
 }

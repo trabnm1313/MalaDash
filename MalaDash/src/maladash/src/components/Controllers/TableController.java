@@ -7,18 +7,20 @@ package maladash.src.components.Controllers;
 
 import maladash.src.components.Models.TableModel;
 import maladash.src.components.Views.TableView;
-import maladash.src.components.Controllers.PlayerController;
 
 import java.awt.event.*;
+import javax.swing.*;
 
 /**
  *
  * @author USER
  */
 public class TableController implements MouseListener {
-
+    private int money;
     private TableModel tableModel;
     private TableView tableView;
+    private static MainGameController mainGame;
+    private static JLabel text;
 
     public TableController(int numTable, int sit) {
         tableModel = new TableModel(numTable, sit);
@@ -47,10 +49,14 @@ public class TableController implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        money = (int)(10+(Math.random()*20)) + Integer.parseInt(getText().getText());
+        System.out.println(money);
+        text.setText(money+"");
         if (!tableModel.getTable().isSitable()) {
             if (tableModel.getTable().isDrity()) {
                 System.out.println("Done.");
                 tableModel.getTable().setDrity(false);
+                
             } else {
                 System.out.println("Not yet.");
             }
@@ -64,7 +70,7 @@ public class TableController implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        System.out.println("hello");
+        
     }
 
     @Override
@@ -78,4 +84,21 @@ public class TableController implements MouseListener {
         System.out.println("OUT");
     }
 
+    public static MainGameController getMainGame() {
+        return mainGame;
+    }
+
+    public static void setMainGame(MainGameController mainGame) {
+        TableController.mainGame = mainGame;
+    }
+
+    public static JLabel getText() {
+        return text;
+    }
+
+    public static void setText(JLabel text) {
+        TableController.text = text;
+    }
+
+    
 }
