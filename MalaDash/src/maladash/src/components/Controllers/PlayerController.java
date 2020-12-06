@@ -89,6 +89,8 @@ public class PlayerController implements ActionListener, Runnable{
             if(model.getPlayer().getTarget() == model.getPlayer().getWhichTable() && model.getPlayer().isReady()){
                 tm.stop();
                 sameTable = true;
+            }else{
+                sameTable = false;
             }
             
             if(!sameTable){

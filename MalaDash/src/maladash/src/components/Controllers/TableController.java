@@ -16,10 +16,12 @@ import javax.swing.*;
  * @author USER
  */
 public class TableController implements MouseListener {
+
     private int money;
     private TableModel tableModel;
     private TableView tableView;
     private static MainGameController mainGame;
+    private static PlayerController playerController;
     private static JLabel text;
 
     public TableController(int numTable, int sit) {
@@ -27,14 +29,14 @@ public class TableController implements MouseListener {
         tableView = new TableView();
         tableView.setImg(tableModel.getImg());
         tableView.addMouseListener(this);
-        
-        if(numTable == 1){
+
+        if (numTable == 1) {
             tableView.setBounds(700, 550, 400, 200);
-        }else if (numTable == 2){
+        } else if (numTable == 2) {
             tableView.setBounds(450, 750, 400, 200);
-        }else if (numTable == 3){
+        } else if (numTable == 3) {
             tableView.setBounds(1200, 550, 400, 200);
-        }else if (numTable == 4){
+        } else if (numTable == 4) {
             tableView.setBounds(1450, 750, 400, 200);
         }
     }
@@ -49,39 +51,53 @@ public class TableController implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        money = (int)(10+(Math.random()*20)) + Integer.parseInt(getText().getText());
-        System.out.println(money);
-        text.setText(money+"");
-        if (!tableModel.getTable().isSitable()) {
-            if (tableModel.getTable().isDrity()) {
-                System.out.println("Done.");
-                tableModel.getTable().setDrity(false);
+        //move
+         playerController.travel(tableModel.getTable().getNumTable());
+         System.out.println("[Player]: Move to Table #" + tableModel.getTable().getNumTable());
+         
+        //sitable
+        if (tableModel.getTable().isSitable()) {
+            
+            //order
+            if(playerController.getModel().getPlayer().isReady() && !playerController.getModel().getPlayer().isCarryOrder() && !playerController.getModel().getPlayer().isCarryDish()){
+                playerController.getModel().getPlayer().setBill(tableModel.getTable().getNumTable());
+                playerController.getModel().getPlayer().setCarryOrder(true);
+                System.out.println("[Table]: Get Order Table #" + tableModel.getTable().getNumTable());
+            }
                 
-            } else {
-                System.out.println("Not yet.");
+            
+            
+            //dirty
+            if (tableModel.getTable().isDirty()) {
+                System.out.println("Done.");
+                tableModel.getTable().setDirty(false);
+                money = (int) (10 + (Math.random() * 20)) + Integer.parseInt(getText().getText());
+                System.out.println(money);
+                text.setText(money + "");
+
             }
         }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        
+
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        
+
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        System.out.println("IN");
+        
 
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        System.out.println("OUT");
+        
     }
 
     public static MainGameController getMainGame() {
@@ -98,6 +114,14 @@ public class TableController implements MouseListener {
 
     public static void setText(JLabel text) {
         TableController.text = text;
+    }
+
+    public static PlayerController getPlayerController() {
+        return playerController;
+    }
+
+    public static void setPlayerController(PlayerController playController) {
+        TableController.playerController = playController;
     }
 
     
