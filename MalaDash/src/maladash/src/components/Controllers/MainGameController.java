@@ -2,7 +2,8 @@ package maladash.src.components.Controllers;
 
 import javax.swing.JButton;
 import java.util.*;
-import javax.swing.JPanel;
+import java.awt.*;
+import javax.swing.*;
 import maladash.src.components.Models.MainGameModel;
 import maladash.src.components.Views.MainGameView;
 
@@ -10,12 +11,12 @@ public class MainGameController {
 
     private MainGameView view;
     private MainGameModel model;
-    private ArrayList<JPanel> tableViews, malaViews;
-    private ArrayList<MalaController> malaController;
+    private ArrayList<TableController> tableControllers;
     private JPanel table1, table2, table3, table4, mala1, mala2, mala3, mala4;
+    private ArrayList<MalaController> malaController;
+    private JLabel money;
     private PlayerController player;
     private ComputerController computer;
-    
 
     public MainGameController() {
         //Initate Model
@@ -24,19 +25,36 @@ public class MainGameController {
         view.setImg(model.getImg());
         view.setLayout(null);
         
-        //Table
-        tableViews = new ArrayList();
+         //money
+        money = new JLabel(model.getMoney()+"");
+        money.setFont(new Font("Serif", Font.PLAIN, 72));
+        money.setSize(200, 100);
+        money.setBounds(1700, 5, 200, 100);
+        
+        //table
+        tableControllers = new ArrayList();
         for (int i = 1; i <= 4; i++) {
             if (i < 2) {
-                tableViews.add(new TableController(i, 4).getTableView());
+                tableControllers.add(new TableController(i, 4));
             } else {
-                tableViews.add(new TableController(i, 2).getTableView());
+                tableControllers.add(new TableController(i, 2));
             }
         }
-        table1 = tableViews.get(0);
-        table2 = tableViews.get(1);
-        table3 = tableViews.get(2);
-        table4 = tableViews.get(3);
+        tableControllers.get(0).setMainGame(this);
+        tableControllers.get(1).setMainGame(this);
+        tableControllers.get(2).setMainGame(this);
+        tableControllers.get(3).setMainGame(this);
+        
+        tableControllers.get(0).setText(money);
+        tableControllers.get(1).setText(money);
+        tableControllers.get(2).setText(money);
+        tableControllers.get(3).setText(money);
+        
+        
+        table1 = tableControllers.get(0).getTableView();
+        table2 = tableControllers.get(1).getTableView();
+        table3 = tableControllers.get(2).getTableView();
+        table4 = tableControllers.get(3).getTableView();
         
         //Player
         player = new PlayerController();
@@ -76,12 +94,13 @@ public class MainGameController {
         view.add(mala2);
         view.add(mala3);
         view.add(mala4);
-        
+      
         view.add(move);
         view.add(player.getView());
         
         view.add(computer.getView());
-        
+      
+        view.add(money);
     }
 
     public MainGameView getView() {
