@@ -25,6 +25,9 @@ public class PlayerController implements ActionListener, Runnable{
     
     //Timer
     private Timer tm = new Timer(1, this);
+    
+    //String
+    String currentDirection = "STAND";
 
     //ArrayList<Image>
     ArrayList<Image> front, back, left, right;
@@ -109,6 +112,7 @@ public class PlayerController implements ActionListener, Runnable{
                     }else{
                         tm.stop(); 
                         view.setImg(model.getFront().get(0));
+                        currentDirection = "STAND";
                         model.getPlayer().setWhichTable(0);
                         model.getPlayer().setReady(true);
                     }
@@ -130,6 +134,7 @@ public class PlayerController implements ActionListener, Runnable{
                     }else{
                         tm.stop(); 
                         view.setImg(model.getFront().get(0));
+                        currentDirection = "STAND";
                         model.getPlayer().setWhichTable(1);
                         model.getPlayer().setReady(true);
                     }
@@ -150,6 +155,7 @@ public class PlayerController implements ActionListener, Runnable{
                     }else{
                         tm.stop(); 
                         view.setImg(model.getFront().get(0));
+                        currentDirection = "STAND";
                         model.getPlayer().setWhichTable(2);
                         model.getPlayer().setReady(true);
                     }
@@ -170,6 +176,7 @@ public class PlayerController implements ActionListener, Runnable{
                     }else{
                         tm.stop(); 
                         view.setImg(model.getFront().get(0));
+                        currentDirection = "STAND";
                         model.getPlayer().setWhichTable(3);
                         model.getPlayer().setReady(true);
                     }
@@ -190,6 +197,7 @@ public class PlayerController implements ActionListener, Runnable{
                     }else{
                         tm.stop();
                         view.setImg(model.getFront().get(0));
+                        currentDirection = "STAND";
                         model.getPlayer().setWhichTable(4);
                         model.getPlayer().setReady(true);
                     }
@@ -205,31 +213,79 @@ public class PlayerController implements ActionListener, Runnable{
         //LEFT
         if(!model.getPlayer().isCarryOrder() && !model.getPlayer().isCarryDish() && !model.getPlayer().isWashing()){
             
-            if(direction.equals("LEFT")) view.setImg(left.get(0));
-            if(direction.equals("RIGHT")) view.setImg(right.get(0));
-            if(direction.equals("BACK")) view.setImg(back.get(0));
-            if(direction.equals("FRONT")) view.setImg(front.get(4));
+            if(direction.equals("LEFT") && !direction.equals(currentDirection)){
+                view.setImg(left.get(0));
+                currentDirection = "LEFT";
+            }
+            if(direction.equals("RIGHT") && !direction.equals(currentDirection)){
+                view.setImg(right.get(0));
+                currentDirection = "RIGHT";
+            }
+            if(direction.equals("BACK") && !direction.equals(currentDirection)){
+                view.setImg(back.get(0));
+                currentDirection = "BACK";
+            }
+            if(direction.equals("FRONT") && !direction.equals(currentDirection)){
+                view.setImg(front.get(4));
+                currentDirection = "FRONT";
+            }
         
         }else if(model.getPlayer().isCarryOrder()){
         
-            if(direction.equals("LEFT")) view.setImg(left.get(1));
-            if(direction.equals("RIGHT")) view.setImg(right.get(1));
-            if(direction.equals("BACK")) view.setImg(back.get(1));
-            if(direction.equals("FRONT")) view.setImg(front.get(5));
+            if(direction.equals("LEFT") && !direction.equals(currentDirection)){
+                view.setImg(left.get(1));
+                currentDirection = "LEFT";
+            }
+            if(direction.equals("RIGHT") && !direction.equals(currentDirection)){
+                view.setImg(right.get(1));
+                currentDirection = "RIGHT";
+            }
+            if(direction.equals("BACK") && !direction.equals(currentDirection)){
+                view.setImg(back.get(1));
+                currentDirection = "BACK";
+            }
+            if(direction.equals("FRONT") && !direction.equals(currentDirection)){
+                view.setImg(front.get(5));
+                currentDirection = "FRONT";
+            }
         
         }else if(model.getPlayer().isCarryDish()){
         
-            if(direction.equals("LEFT")) view.setImg(left.get(2));
-            if(direction.equals("RIGHT")) view.setImg(right.get(2));
-            if(direction.equals("BACK")) view.setImg(back.get(2));
-            if(direction.equals("FRONT")) view.setImg(front.get(6));
+            if(direction.equals("LEFT") && !direction.equals(currentDirection)){
+                view.setImg(left.get(2));
+                currentDirection = "LEFT";
+            }
+            if(direction.equals("RIGHT") && !direction.equals(currentDirection)){
+                view.setImg(right.get(2));
+                currentDirection = "RIGHT";
+            }
+            if(direction.equals("BACK") && !direction.equals(currentDirection)){
+                view.setImg(back.get(2));
+                currentDirection = "BACK";
+            }
+            if(direction.equals("FRONT") && !direction.equals(currentDirection)){
+                view.setImg(front.get(6));
+                currentDirection = "FRONT";
+            }
         
         }else if(model.getPlayer().isWashing()){
         
-            if(direction.equals("LEFT")) view.setImg(left.get(3));
-            if(direction.equals("RIGHT")) view.setImg(right.get(3));
-            if(direction.equals("BACK")) view.setImg(back.get(3));
-            if(direction.equals("FRONT")) view.setImg(front.get(7));
+            if(direction.equals("LEFT") && !direction.equals(currentDirection)){
+                view.setImg(left.get(3));
+                currentDirection = "LEFT";
+            }
+            if(direction.equals("RIGHT") && !direction.equals(currentDirection)){
+                view.setImg(right.get(3));
+                currentDirection = "RIGHT";
+            }
+            if(direction.equals("BACK") && !direction.equals(currentDirection)){
+                view.setImg(back.get(3));
+                currentDirection = "BACK";
+            }
+            if(direction.equals("FRONT") && !direction.equals(currentDirection)){
+                view.setImg(front.get(7));
+                currentDirection = "FRONT";
+            }
         
         }
     }
