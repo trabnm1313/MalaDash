@@ -7,12 +7,13 @@ public class Customers {
     private boolean eat;
     private int count;
     private boolean ready;
+    private boolean wait;
 
     public Customers(){
-        this(false, false, false, 0, false);
+        this(false, false, false, 0, false, false);
     }
 
-    public Customers(boolean sit, boolean done, boolean eat, int count, boolean ready) {
+    public Customers(boolean sit, boolean done, boolean eat, int count, boolean ready, boolean wait) {
         this.sit = sit;
         this.done = done;
         this.eat = eat;
@@ -60,6 +61,12 @@ public class Customers {
         this.ready = ready;
     }
     
-    
+    public boolean isWait() {
+        return wait;
+    }
+
+    public void setWait(boolean wait) {
+        this.wait = wait;
+    }
     
 }
