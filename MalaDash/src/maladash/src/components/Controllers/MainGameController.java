@@ -24,8 +24,8 @@ public class MainGameController {
         view = new MainGameView();
         view.setImg(model.getImg());
         view.setLayout(null);
-        
-         //money
+
+        //money
         money = new JLabel(model.getMoney()+"");
         money.setFont(new Font("Serif", Font.PLAIN, 72));
         money.setSize(200, 100);
@@ -58,7 +58,7 @@ public class MainGameController {
         
         //Player
         player = new PlayerController();
-        
+
         //Mala
         malaController = new ArrayList();
         for (int i = 1; i <= 4; i++) {
@@ -94,13 +94,13 @@ public class MainGameController {
         view.add(mala2);
         view.add(mala3);
         view.add(mala4);
+
+        view.add(money);
       
         view.add(move);
         view.add(player.getView());
         
         view.add(computer.getView());
-      
-        view.add(money);
     }
 
     public MainGameView getView() {
