@@ -3,21 +3,23 @@ package maladash.src.components.Classes;
 
 public class Customers {
     private int timer;
-    private boolean isSit;
-    private boolean isDone;
-    private boolean isEat;
+    private boolean sit;
+    private boolean done;
+    private boolean eat;
     private int count;
+    private boolean ready;
 
     public Customers(){
-        this(0, false, false, false, 0);
+        this(0, false, false, false, 0, false);
     }
-    
-    public Customers(int timer, boolean isSit, boolean isDone, boolean isEat, int count) {
+
+    public Customers(int timer, boolean sit, boolean done, boolean eat, int count, boolean ready) {
         this.timer = timer;
-        this.isSit = isSit;
-        this.isDone = isDone;
-        this.isEat = isEat;
+        this.sit = sit;
+        this.done = done;
+        this.eat = eat;
         this.count = count;
+        this.ready = ready;
     }
 
     public int getTimer() {
@@ -28,28 +30,28 @@ public class Customers {
         this.timer = timer;
     }
 
-    public boolean isIsSit() {
-        return isSit;
+    public boolean isSit() {
+        return sit;
     }
 
-    public void setIsSit(boolean isSit) {
-        this.isSit = isSit;
+    public void setSit(boolean sit) {
+        this.sit = sit;
     }
 
-    public boolean isIsDone() {
-        return isDone;
+    public boolean isDone() {
+        return done;
     }
 
-    public void setIsDone(boolean isDone) {
-        this.isDone = isDone;
+    public void setDone(boolean done) {
+        this.done = done;
     }
 
-    public boolean isIsEat() {
-        return isEat;
+    public boolean isEat() {
+        return eat;
     }
 
-    public void setIsEat(boolean isEat) {
-        this.isEat = isEat;
+    public void setEat(boolean eat) {
+        this.eat = eat;
     }
 
     public int getCount() {
@@ -59,5 +61,15 @@ public class Customers {
     public void setCount(int count) {
         this.count = count;
     }
+
+    public boolean isReady() {
+        return ready;
+    }
+
+    public void setReady(boolean ready) {
+        this.ready = ready;
+    }
+    
+    
     
 }
