@@ -7,6 +7,10 @@ public class CustomersController {
     CustomersModel model;
     CustomersView view;
     
+    public void timeOut(int timeOut){
+        
+    }
+    
     public CustomersController(){
         model = new CustomersModel();
         view = new CustomersView();
