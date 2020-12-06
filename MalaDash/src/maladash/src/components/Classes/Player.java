@@ -1,6 +1,7 @@
 package maladash.src.components.Classes;
 
 public class Player {
+
     private boolean carryDish;
     private int bill;
     private boolean carryOrder;

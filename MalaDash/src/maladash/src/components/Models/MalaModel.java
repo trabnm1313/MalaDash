@@ -17,7 +17,7 @@ public class MalaModel {
         if(imageLoaded){
             System.out.println("[MalaModel]: Image loaded.");
         }else{
-            System.out.println("[MalaModel]: Image failed to loaded.");
+            System.out.println("[MalaModel]: Image failed to load.");
         }
         mala = new Mala(numTable);
     }
