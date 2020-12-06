@@ -85,20 +85,22 @@ public class MainGameController {
         player.setMove(move);
         
         //Add to view
-        view.add(table1);
-        view.add(table2);
-        view.add(table3);
-        view.add(table4);
-        
+
         view.add(mala1);
         view.add(mala2);
         view.add(mala3);
         view.add(mala4);
 
         view.add(money);
-      
+        
+        view.add(table2);
+        view.add(table4);
+        
         view.add(move);
         view.add(player.getView());
+        
+        view.add(table1);
+        view.add(table3);
         
         view.add(computer.getView());
     }

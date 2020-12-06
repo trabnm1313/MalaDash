@@ -2,7 +2,6 @@ package maladash.src.components.Controllers;
 
 import java.awt.event.*;
 import static java.lang.Thread.sleep;
-import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.Timer;
 import maladash.src.components.Models.PlayerModel;
@@ -14,19 +13,17 @@ public class PlayerController implements ActionListener, Runnable{
     private JButton move;
     
     //Boolean
-    private boolean isPositionReseted = false;
-    private boolean isMoving = false;
     private boolean sameTable = false;
     
     //Integer
-    private int default_X = 1075;
+    private int default_X = 1076;
     private int default_Y = 250;
+    private int position_X;
+    private int position_Y;
     
     //Timer
     private Timer tm = new Timer(1, this);
-    
-    //mock
-    Random rand = new Random();
+
     
     
     public PlayerController(){
@@ -34,7 +31,7 @@ public class PlayerController implements ActionListener, Runnable{
         view = new PlayerView();
         view.setImg(model.getImg());
         view.setOpaque(false);
-        view.setBounds(default_X+rand.nextInt(500) + 1, default_Y+rand.nextInt(500)+1, 150, 300);
+        view.setBounds(default_X, default_Y, 150, 300);
         
         
         view.addMouseListener(new MouseAdapter(){
@@ -75,51 +72,105 @@ public class PlayerController implements ActionListener, Runnable{
         this.move = move;
         move.addActionListener(this);
     }
-    
-    
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(move)){
-            travel(1);
+            travel(model.getPlayer().getWhichTable()+1);
+            model.getPlayer().setReady(false);
         }
         
         if(e.getSource().equals(tm)){
+            //Set player current position
+            position_X = (int)view.getBounds().getX();
+            position_Y = (int)view.getBounds().getY();
+            
             //If select a table that player already in
-            if(model.getPlayer().getTarget() == model.getPlayer().getWhichTable()){
+            if(model.getPlayer().getTarget() == model.getPlayer().getWhichTable() && model.getPlayer().isReady()){
                 tm.stop();
                 sameTable = true;
             }
             
-            
             if(!sameTable){
-                if(isPositionReseted){
 
-                    if(model.getPlayer().getTarget() == 1){
-                        tm.stop();
-                    }else if(model.getPlayer().getTarget() == 2){
-                        tm.stop();
-                    }else if(model.getPlayer().getTarget() == 3){
-                        tm.stop();
-                    }else if(model.getPlayer().getTarget() == 4){
-                        tm.stop();
-                    }
-
-                }else{
-
-                    if(view.getBounds().getY() < default_Y){
-                        view.setBounds((int)view.getBounds().getX(), (int)view.getBounds().getY()+1, 150, 300);
-                    }else if(view.getBounds().getY() > default_Y){
-                        view.setBounds((int)view.getBounds().getX(), (int)view.getBounds().getY()-1, 150, 300);
-                    }else if(view.getBounds().getX() < default_X){
-                        view.setBounds((int)view.getBounds().getX()+1, (int)view.getBounds().getY(), 150, 300);
-                    }else if(view.getBounds().getX() > default_X){
-                        view.setBounds((int)view.getBounds().getX()-1, (int)view.getBounds().getY(), 150, 350);
+                //Go to counter
+                if(model.getPlayer().getTarget() == 0){
+                    if(position_Y < default_Y){
+                        view.setBounds(position_X, position_Y+2, 150, 300);
+                    }else if(position_Y > default_Y){
+                        view.setBounds(position_X, position_Y-2, 150, 300);
+                    }else if(position_X < default_X){
+                        view.setBounds(position_X+2, position_Y, 150, 300);
+                    }else if(position_X > default_X){
+                        view.setBounds(position_X-2, position_Y, 150, 350);
                     }else{
-                        isPositionReseted = true;
+                        tm.stop(); 
+                        model.getPlayer().setWhichTable(0);
+                        model.getPlayer().setReady(true);
                     }
-                    
+                //Go to Table 1
+                }else if(model.getPlayer().getTarget() == 1){
+                    //850, default_Y+20
+                    if(position_Y < default_Y+20){
+                        view.setBounds(position_X, position_Y+2, 150, 300);
+                    }else if(position_Y > default_Y+20){
+                        view.setBounds(position_X, position_Y-2, 150, 300);
+                    }else if(position_X < 850){
+                        view.setBounds(position_X+2, position_Y, 150, 300);
+                    }else if(position_X > 850){
+                        view.setBounds(position_X-2, position_Y, 150, 350);
+                    }else{
+                        tm.stop(); 
+                        model.getPlayer().setWhichTable(1);
+                        model.getPlayer().setReady(true);
+                    }
+                }else if(model.getPlayer().getTarget() == 2){
+                    //576, 550
+                    if(position_X < 576){
+                        view.setBounds(position_X+2, position_Y, 150, 300);
+                    }else if(position_X > 576){
+                        view.setBounds(position_X-2, position_Y, 150, 350);
+                    }else if(position_Y < 550){
+                        view.setBounds(position_X, position_Y+2, 150, 300);
+                    }else if(position_Y > 550){
+                        view.setBounds(position_X, position_Y-2, 150, 300);
+                    }else{
+                        tm.stop(); 
+                        model.getPlayer().setWhichTable(2);
+                        model.getPlayer().setReady(true);
+                    }
+                }else if(model.getPlayer().getTarget() == 3){
+                    //1326, default_Y+20
+                    if(position_Y < default_Y+20){
+                        view.setBounds(position_X, position_Y+2, 150, 300);
+                    }else if(position_Y > default_Y+20){
+                        view.setBounds(position_X, position_Y-2, 150, 300);
+                    }else if(position_X < 1326){
+                        view.setBounds(position_X+2, position_Y, 150, 300);
+                    }else if(position_X > 1326){
+                        view.setBounds(position_X-2, position_Y, 150, 350);
+                    }else{
+                        tm.stop(); 
+                        model.getPlayer().setWhichTable(3);
+                        model.getPlayer().setReady(true);
+                    }
+                }else if(model.getPlayer().getTarget() == 4){
+                    //1590, 550
+                    if(position_X < 1590){
+                        view.setBounds(position_X+2, position_Y, 150, 300);
+                    }else if(position_X > 1590){
+                        view.setBounds(position_X-2, position_Y, 150, 350);
+                    }else if(position_Y < 550){
+                        view.setBounds(position_X, position_Y+2, 150, 300);
+                    }else if(position_Y > 550){
+                        view.setBounds(position_X, position_Y-2, 150, 300);
+                    }else{
+                        tm.stop(); 
+                        model.getPlayer().setWhichTable(4);
+                        model.getPlayer().setReady(true);
+                    }
                 }
+                
             }
             
         }
