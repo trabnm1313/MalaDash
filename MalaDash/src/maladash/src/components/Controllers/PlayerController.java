@@ -44,8 +44,11 @@ public class PlayerController implements ActionListener, Runnable{
     }
     
     public void travel(int target){
-        model.getPlayer().setTarget(target);
-        tm.start();
+        if(model.getPlayer().isReady()){
+            model.getPlayer().setTarget(target);
+            model.getPlayer().setReady(false);
+            tm.start();
+        }
     }
 
     public PlayerModel getModel() {
@@ -64,21 +67,8 @@ public class PlayerController implements ActionListener, Runnable{
         this.view = view;
     }
 
-    public JButton getMove() {
-        return move;
-    }
-
-    public void setMove(JButton move) {
-        this.move = move;
-        move.addActionListener(this);
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource().equals(move)){
-            travel(model.getPlayer().getWhichTable()+1);
-            model.getPlayer().setReady(false);
-        }
         
         if(e.getSource().equals(tm)){
             //Set player current position
@@ -89,6 +79,8 @@ public class PlayerController implements ActionListener, Runnable{
             if(model.getPlayer().getTarget() == model.getPlayer().getWhichTable() && model.getPlayer().isReady()){
                 tm.stop();
                 sameTable = true;
+            }else{
+                sameTable = false;
             }
             
             if(!sameTable){
