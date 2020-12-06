@@ -96,6 +96,7 @@ public class MainGameController {
         
         //Customers
         customers = new CustomersController();
+        customers.setTableControllers(tableControllers);
         
         //Add to view
         view.add(mala1);
