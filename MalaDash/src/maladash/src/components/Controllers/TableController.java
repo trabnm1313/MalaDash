@@ -98,7 +98,7 @@ public class TableController implements MouseListener {
                 }
 
                 //Serve
-                if (playerCarryDish && (playerController.getModel().getPlayer().getMala().getNumTable() == tableModel.getTable().getNumTable())) {
+                if (customer.isWait() && playerCarryDish && (playerController.getModel().getPlayer().getMala().getNumTable() == tableModel.getTable().getNumTable())) {
                     playerController.getModel().getPlayer().setCarryDish(false);
                     playerController.getModel().getPlayer().setMala(null);
                     System.out.println("[Table]: Serve Mala Table #" + tableModel.getTable().getNumTable());
