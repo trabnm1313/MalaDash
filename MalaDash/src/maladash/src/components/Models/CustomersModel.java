@@ -6,6 +6,6 @@ public class CustomersModel {
     Customers c1;
 
     public CustomersModel() {
-        c1 = new Customers(0, false, false, false, 0);
+        c1 = new Customers(0, false, false, false, 0, false);
     } 
 }
