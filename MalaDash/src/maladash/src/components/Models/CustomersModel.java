@@ -9,10 +9,10 @@ public class CustomersModel {
 
     private Customers customers;
     private boolean imageLoaded;
-    private Image imgNormal, imgSad, imgSaddest;
+    private Image imgNormal, imgSad, imgSaddest, imgHandUp, imgHandUpSad, imgEat;
 
     public CustomersModel() {
-        customers = new Customers(false, false, false, 0, false);
+        customers = new Customers(false, false, false, 0, false, false);
         init();
         System.out.println("[Customers]: Model loaded.");
     }
@@ -26,6 +26,15 @@ public class CustomersModel {
         
         URL imageSaddest = this.getClass().getResource("../../images/customer-sad2.png");
         imgSaddest = new ImageIcon(imageSaddest).getImage();
+        
+        URL imageHandUp = this.getClass().getResource("../../images/customer_puthand.png");
+        imgHandUp = new ImageIcon(imageHandUp).getImage();
+        
+        URL imageHandUpSad = this.getClass().getResource("../../images/customer_puthand_sad1.png");
+        imgHandUpSad = new ImageIcon(imageHandUpSad).getImage();
+        
+        URL imageEat = this.getClass().getResource("../../images/customer_eat.png");
+        imgEat = new ImageIcon(imageEat).getImage();
     }
 
     public Customers getCustomers() {
@@ -68,4 +77,29 @@ public class CustomersModel {
         this.imgSaddest = imgSaddest;
     }
 
+    public Image getImgHandUp() {
+        return imgHandUp;
+    }
+
+    public void setImgHandUp(Image imgHandUp) {
+        this.imgHandUp = imgHandUp;
+    }
+
+    public Image getImgHandUpSad() {
+        return imgHandUpSad;
+    }
+
+    public void setImgHandUpSad(Image imgHandUpSad) {
+        this.imgHandUpSad = imgHandUpSad;
+    }
+
+    public Image getImgEat() {
+        return imgEat;
+    }
+
+    public void setImgEat(Image imgEat) {
+        this.imgEat = imgEat;
+    }
+
+    
 }
