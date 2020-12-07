@@ -25,7 +25,7 @@ public class ComputerController{
             public void mouseClicked(MouseEvent e){
                 if(player.getModel().getPlayer().isCarryOrder() && player.getModel().getPlayer().getWhichTable() == 0 && player.getModel().getPlayer().isReady()){
                     player.getModel().getPlayer().setCarryOrder(false);
-                    player.standWithBill();
+                    player.stand();
                     Thread t = new Thread(malaController.get(player.getModel().getPlayer().getBill()-1));
                     t.start();
                     System.out.println("[Mock]: new MalaController created.");

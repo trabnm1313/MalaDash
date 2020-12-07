@@ -26,15 +26,15 @@ public class CustomersModel {
         
         URL imageSaddest = this.getClass().getResource("../../images/customer-sad2.png");
         imgSaddest = new ImageIcon(imageSaddest).getImage();
-        
-        URL imageHandUp = this.getClass().getResource("../../images/customer_puthand.png");
-        imgHandUp = new ImageIcon(imageHandUp).getImage();
-        
-        URL imageHandUpSad = this.getClass().getResource("../../images/customer_puthand_sad1.png");
-        imgHandUpSad = new ImageIcon(imageHandUpSad).getImage();
-        
-        URL imageEat = this.getClass().getResource("../../images/customer_eat.png");
-        imgEat = new ImageIcon(imageEat).getImage();
+      
+//        URL imageHandUp = this.getClass().getResource("../../images/customer_puthand.png");
+//        imgHandUp = new ImageIcon(imageHandUp).getImage();
+//        
+//        URL imageHandUpSad = this.getClass().getResource("../../images/customer_puthand_sad1.png");
+//        imgHandUpSad = new ImageIcon(imageHandUpSad).getImage();
+//        
+//        URL imageEat = this.getClass().getResource("../../images/customer_eat.png");
+//        imgEat = new ImageIcon(imageEat).getImage();
     }
 
     public Customers getCustomers() {
@@ -100,6 +100,4 @@ public class CustomersModel {
     public void setImgEat(Image imgEat) {
         this.imgEat = imgEat;
     }
-
-    
 }
