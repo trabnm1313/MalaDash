@@ -5,10 +5,7 @@
  */
 package maladash.src.components.Models;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.net.URL;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import maladash.src.components.Classes.Table;
 /**
@@ -21,41 +18,28 @@ public class TableModel {
     private Table table;
 
     public TableModel(int numTable, int sit) {
+        //set image
         if(numTable == 1){
-            imageLoaded = init("table1.png");
-            if (imageLoaded){
-                System.out.println("[TableModel]: Image loaded.");
-            }else{
-                System.out.println("[TableModel]: Image failed to loaded.");
-            }
+            imageLoaded = init(numTable,"table1.png");
         }else if(numTable == 2){
-            imageLoaded = init("table2.png");
-            if (imageLoaded){
-                System.out.println("[TableModel]: Image loaded.");
-            }else{
-                System.out.println("[TableModel]: Image failed to loaded.");
-            }
+            imageLoaded = init(numTable, "table2.png");
         }
         else if(numTable == 3){
-            imageLoaded = init("table3.png");
-            if (imageLoaded){
-                System.out.println("[TableModel]: Image loaded.");
-            }else{
-                System.out.println("[TableModel]: Image failed to loaded.");
-            }
+            imageLoaded = init(numTable, "table3.png");
         }
         else if(numTable == 4){
-            imageLoaded = init("table4.png");
-            if (imageLoaded){
-                System.out.println("[TableModel]: Image loaded.");
-            }else{
-                System.out.println("[TableModel]: Image failed to loaded.");
-            }
+            imageLoaded = init(numTable, "table4.png");
+        }
+        //check load image
+        if (imageLoaded) {
+            System.out.println("[TableModel]: Image loaded.");
+        } else {
+            System.out.println("[TableModel]: Image failed to load.");
         }
         table = new Table(numTable, sit, true, false, false);
     }
-     public boolean init(String fileName){
-        URL src = this.getClass().getResource("../../images/" + fileName);
+     public boolean init(int numTable, String fileName){
+        URL src = this.getClass().getResource("../../images/Table/"+ numTable +"/"+ fileName);
         
         try{
             this.img = new ImageIcon(src).getImage();
