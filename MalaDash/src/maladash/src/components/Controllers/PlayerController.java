@@ -9,7 +9,7 @@ import javax.swing.Timer;
 import maladash.src.components.Models.PlayerModel;
 import maladash.src.components.Views.PlayerView;
 
-public class PlayerController implements ActionListener, Runnable{
+public class PlayerController implements ActionListener{
     private PlayerModel model;
     private PlayerView view;
     private JButton move;
@@ -76,7 +76,27 @@ public class PlayerController implements ActionListener, Runnable{
     public void setView(PlayerView view) {
         this.view = view;
     }
-
+    
+    public void stand(){
+        this.view.setImg(front.get(0));
+        currentDirection = "STAND";
+    }
+    
+    public void standWithBill(){
+        this.view.setImg(front.get(1));
+        currentDirection = "STAND";
+    }
+    
+    public void standWithMala(){
+        this.view.setImg(front.get(2));
+        currentDirection = "STAND";
+    }
+    
+    public void standWithBin(){
+        this.view.setImg(front.get(3));
+        currentDirection= "STAND";
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         
@@ -111,8 +131,7 @@ public class PlayerController implements ActionListener, Runnable{
                         view.setBounds(position_X-2, position_Y, 200, 350);
                     }else{
                         tm.stop(); 
-                        view.setImg(model.getFront().get(0));
-                        currentDirection = "STAND";
+                        animateChange("STAND");
                         model.getPlayer().setWhichTable(0);
                         model.getPlayer().setReady(true);
                     }
@@ -133,8 +152,7 @@ public class PlayerController implements ActionListener, Runnable{
                         view.setBounds(position_X-2, position_Y, 200, 350);
                     }else{
                         tm.stop(); 
-                        view.setImg(model.getFront().get(0));
-                        currentDirection = "STAND";
+                        animateChange("STAND");
                         model.getPlayer().setWhichTable(1);
                         model.getPlayer().setReady(true);
                     }
@@ -154,8 +172,7 @@ public class PlayerController implements ActionListener, Runnable{
                         view.setBounds(position_X, position_Y-2, 200, 300);
                     }else{
                         tm.stop(); 
-                        view.setImg(model.getFront().get(0));
-                        currentDirection = "STAND";
+                        animateChange("STAND");
                         model.getPlayer().setWhichTable(2);
                         model.getPlayer().setReady(true);
                     }
@@ -175,8 +192,7 @@ public class PlayerController implements ActionListener, Runnable{
                         view.setBounds(position_X-2, position_Y, 200, 350);
                     }else{
                         tm.stop(); 
-                        view.setImg(model.getFront().get(0));
-                        currentDirection = "STAND";
+                        animateChange("STAND");
                         model.getPlayer().setWhichTable(3);
                         model.getPlayer().setReady(true);
                     }
@@ -196,8 +212,7 @@ public class PlayerController implements ActionListener, Runnable{
                         view.setBounds(position_X, position_Y-2, 200, 300);
                     }else{
                         tm.stop();
-                        view.setImg(model.getFront().get(0));
-                        currentDirection = "STAND";
+                        animateChange("STAND");
                         model.getPlayer().setWhichTable(4);
                         model.getPlayer().setReady(true);
                     }
@@ -229,6 +244,10 @@ public class PlayerController implements ActionListener, Runnable{
                 view.setImg(front.get(4));
                 currentDirection = "FRONT";
             }
+            if(direction.equals("STAND") && !direction.equals(currentDirection)){
+                view.setImg(front.get(0));
+                currentDirection = "STAND";
+            }
         
         }else if(model.getPlayer().isCarryOrder()){
         
@@ -247,6 +266,10 @@ public class PlayerController implements ActionListener, Runnable{
             if(direction.equals("FRONT") && !direction.equals(currentDirection)){
                 view.setImg(front.get(5));
                 currentDirection = "FRONT";
+            }
+            if(direction.equals("STAND") && !direction.equals(currentDirection)){
+                view.setImg(front.get(1));
+                currentDirection = "STAND";
             }
         
         }else if(model.getPlayer().isCarryDish()){
@@ -267,6 +290,10 @@ public class PlayerController implements ActionListener, Runnable{
                 view.setImg(front.get(6));
                 currentDirection = "FRONT";
             }
+            if(direction.equals("STAND") && !direction.equals(currentDirection)){
+                view.setImg(front.get(2));
+                currentDirection = "STAND";
+            }
         
         }else if(model.getPlayer().isWashing()){
         
@@ -286,13 +313,12 @@ public class PlayerController implements ActionListener, Runnable{
                 view.setImg(front.get(7));
                 currentDirection = "FRONT";
             }
+            if(direction.equals("STAND") && !direction.equals(currentDirection)){
+                view.setImg(front.get(3));
+                currentDirection = "STAND";
+            }
         
         }
     }
-
-    @Override
-    public void run() {
-    }
-    
     
 }

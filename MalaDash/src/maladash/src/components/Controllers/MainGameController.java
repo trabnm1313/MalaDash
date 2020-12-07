@@ -83,7 +83,7 @@ public class MainGameController {
         //Bill
         computer = new ComputerController();
         computer.setMalaController(malaController);
-        computer.setPlayer(player.getModel().getPlayer());
+        computer.setPlayer(player);
         poster = new posterController();
         poster.getPoster().setOpaque(false);
         poster.setPlayer(player);
