@@ -5,7 +5,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import javax.swing.border.EmptyBorder;
-import maladash.src.components.Controllers.MainMenuController;
 
 public class MainMenuView extends JPanel{
     //JComponents
