@@ -144,10 +144,10 @@ public class PlayerController implements ActionListener{
                     }else if(position_Y > default_Y+20){
                         animateChange("BACK");
                         view.setBounds(position_X, position_Y-5, 200, 300);
-                    }else if(position_X < 850){
+                    }else if(position_X < 810){
                         view.setBounds(position_X+5, position_Y, 200, 300);
                         animateChange("RIGHT");
-                    }else if(position_X > 850){
+                    }else if(position_X > 810){
                         animateChange("LEFT");
                         view.setBounds(position_X-5, position_Y, 200, 350);
                     }else{
@@ -156,6 +156,7 @@ public class PlayerController implements ActionListener{
                         model.getPlayer().setWhichTable(1);
                         model.getPlayer().setReady(true);
                     }
+                // Go to Table 2
                 }else if(model.getPlayer().getTarget() == 2){
                     //576, 550
                     if(position_X < 575){
@@ -176,6 +177,7 @@ public class PlayerController implements ActionListener{
                         model.getPlayer().setWhichTable(2);
                         model.getPlayer().setReady(true);
                     }
+                // Go to Table 3
                 }else if(model.getPlayer().getTarget() == 3){
                     //1326, default_Y+20
                     if(position_Y < default_Y+20){
@@ -184,10 +186,10 @@ public class PlayerController implements ActionListener{
                     }else if(position_Y > default_Y+20){
                         animateChange("BACK");
                         view.setBounds(position_X, position_Y-5, 200, 300);
-                    }else if(position_X < 1325){
+                    }else if(position_X < 1230){
                         animateChange("RIGHT");
                         view.setBounds(position_X+5, position_Y, 200, 300);
-                    }else if(position_X > 1325){
+                    }else if(position_X > 1230){
                         animateChange("LEFT");
                         view.setBounds(position_X-5, position_Y, 200, 350);
                     }else{
@@ -196,6 +198,7 @@ public class PlayerController implements ActionListener{
                         model.getPlayer().setWhichTable(3);
                         model.getPlayer().setReady(true);
                     }
+                // Go to Table 4
                 }else if(model.getPlayer().getTarget() == 4){
                     //1590, 550
                     if(position_X < 1590){
