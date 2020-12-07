@@ -12,7 +12,7 @@ package maladash.src.components.Classes;
 public class Table {
     private int chair;
     private boolean sitable;
-    private boolean drity;
+    private boolean dirty;
     private boolean hasMala;
     private int numTable;
 
@@ -20,7 +20,7 @@ public class Table {
         this.numTable = numTable;
         this.chair = chair;
         this.sitable = sitable;
-        this.drity = drity;
+        this.dirty = drity;
         this.hasMala = hasMala;
     }
 
@@ -48,12 +48,12 @@ public class Table {
         this.sitable = sitable;
     }
 
-    public boolean isDrity() {
-        return drity;
+    public boolean isDirty() {
+        return dirty;
     }
 
-    public void setDrity(boolean drity) {
-        this.drity = drity;
+    public void setDirty(boolean drity) {
+        this.dirty = drity;
     }
 
     public boolean isHasMala() {

@@ -7,7 +7,7 @@ import maladash.src.components.Models.ComputerModel;
 import maladash.src.components.Views.ComputerView;
 
 public class ComputerController{
-    private Player player;
+    private PlayerController player;
     private ComputerModel model;
     private ComputerView view;
     private ArrayList<MalaController> malaController;
@@ -23,10 +23,10 @@ public class ComputerController{
         view.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e){
-                player.setCarryOrder(true);
-                if(player.isCarryOrder()){
-                    player.setBill(1);
-                    Thread t = new Thread(malaController.get(player.getBill()-1));
+                if(player.getModel().getPlayer().isCarryOrder() && player.getModel().getPlayer().getWhichTable() == 0 && player.getModel().getPlayer().isReady()){
+                    player.getModel().getPlayer().setCarryOrder(false);
+                    player.stand();
+                    Thread t = new Thread(malaController.get(player.getModel().getPlayer().getBill()-1));
                     t.start();
                     System.out.println("[Mock]: new MalaController created.");
                 }
@@ -50,14 +50,14 @@ public class ComputerController{
         this.view = view;
     }
 
-    public Player getPlayer() {
+    public PlayerController getPlayer() {
         return player;
     }
 
-    public void setPlayer(Player player) {
+    public void setPlayer(PlayerController player) {
         this.player = player;
     }
-
+    
     public ArrayList<MalaController> getMalaController() {
         return malaController;
     }

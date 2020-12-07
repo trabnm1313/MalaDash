@@ -15,7 +15,7 @@ public class MainMenuModel {
         if(imageLoaded){
             System.out.println("[MainMenuModel]: Image loaded.");
         }else{
-            System.out.println("[MainMenuModel]: Image failed to loaded.");
+            System.out.println("[MainMenuModel]: Image failed to load.");
         }
     }
     
