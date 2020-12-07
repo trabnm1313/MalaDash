@@ -11,6 +11,7 @@ import maladash.src.components.Views.TableView;
 
 import java.awt.event.*;
 import javax.swing.*;
+import maladash.src.components.Classes.Customers;
 
 /**
  *
@@ -23,8 +24,9 @@ public class TableController implements MouseListener {
     private TableView tableView;
     private static MainGameController mainGame;
     private static PlayerController playerController;
+    private static CustomersController customersController;
     private static JLabel text;
-    private boolean entered;
+    private boolean test = true;
 
     public TableController(int numTable, int sit) {
         tableModel = new TableModel(numTable, sit);
@@ -59,6 +61,13 @@ public class TableController implements MouseListener {
         this.tableModel = tableModel;
     }
 
+    public TableModel getTableModel() {
+        return tableModel;
+    }
+
+    public void setTableModel(TableModel tableModel) {
+        this.tableModel = tableModel;
+    }
     public int getMoney() {
         return money;
     }
@@ -67,15 +76,15 @@ public class TableController implements MouseListener {
         this.money = money;
     }
 
-    
-
     @Override
     public void mouseClicked(MouseEvent e) {
+        test = !test;
         //get value on playerController
         boolean playerReady = playerController.getModel().getPlayer().isReady();
         boolean playerCarryOrder = playerController.getModel().getPlayer().isCarryOrder();
         boolean playerCarryDish = playerController.getModel().getPlayer().isCarryDish();
         boolean playerWashing = playerController.getModel().getPlayer().isWashing();
+        Customers customer = customersController.getModel().getCustomers();
         //move
         playerController.travel(tableModel.getTable().getNumTable());
         System.out.println("[Player]: Move to Table #" + tableModel.getTable().getNumTable());
@@ -86,27 +95,27 @@ public class TableController implements MouseListener {
             //sitable
             if (!tableModel.getTable().isSitable()) {
 
-                //order ยังไม่เสร็จ
-                if (!playerCarryOrder && !playerCarryDish && !playerWashing) {
+                //order
+                if (!playerCarryOrder && !playerCarryDish && !playerWashing && customer.isReady()) {
                     playerController.getModel().getPlayer().setBill(tableModel.getTable().getNumTable());
                     playerController.getModel().getPlayer().setCarryOrder(true);
                     System.out.println("[Table]: Get Order Table #" + tableModel.getTable().getNumTable());
                 }
 
-                //Serve ยังไม่เสร็จ
-                if (playerCarryDish && (playerController.getModel().getPlayer().getMala().getNumTable() == tableModel.getTable().getNumTable())) {
+                //Serve
+                if (customer.isWait() && playerCarryDish && (playerController.getModel().getPlayer().getMala().getNumTable() == tableModel.getTable().getNumTable())) {
                     playerController.getModel().getPlayer().setCarryDish(false);
                     playerController.getModel().getPlayer().setMala(null);
                     System.out.println("[Table]: Serve Mala Table #" + tableModel.getTable().getNumTable());
                 }
 
                 //dirty
-                if (tableModel.getTable().isDirty() && !playerCarryOrder && !playerCarryDish && !playerWashing) {
+                if (customer.isDone() && tableModel.getTable().isDirty() && !playerCarryOrder && !playerCarryDish && !playerWashing) {
                     System.out.println("Done.");
                     tableModel.getTable().setDirty(false);
                     playerController.getModel().getPlayer().setWashing(true);
                     notDirty();
-                    //เก็บตัง ยังไม่เสร็จ
+                    //collect money
                     money = (int) (10 + (Math.random() * 20)) + Integer.parseInt(getText().getText());
                     System.out.println(money);
                     text.setText(money + "");
@@ -128,14 +137,12 @@ public class TableController implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        setEntered(true);
-        System.out.println(isEntered());
+
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        setEntered(false);
-        System.out.println(isEntered());
+
     }
 
     public static MainGameController getMainGame() {
@@ -161,23 +168,31 @@ public class TableController implements MouseListener {
     public static void setPlayerController(PlayerController playController) {
         TableController.playerController = playController;
     }
-//dirty table
+  
+    //dirty table
     public void letDirty() {
         tableModel.init("table" + tableModel.getTable().getNumTable() + "_d.png");
         tableView.setImg(tableModel.getImg());
     }
-// clean table
+  
+    // clean table
     public void notDirty() {
         tableModel.init("table" + tableModel.getTable().getNumTable() + ".png");
         tableView.setImg(tableModel.getImg());
     }
-
-    public boolean isEntered() {
-        return entered;
+  
+    public void sit() {
+        tableModel.init("table" + tableModel.getTable().getNumTable() + "_d.png");
+        tableView.setImg(tableModel.getImg());
     }
 
-    public void setEntered(boolean entered) {
-        this.entered = entered;
+    public void handUp() {
+        tableModel.init("table" + tableModel.getTable().getNumTable() + "_d.png");
+        tableView.setImg(tableModel.getImg());
     }
-    
+
+    public void eating() {
+        tableModel.init("table" + tableModel.getTable().getNumTable() + "_d.png");
+        tableView.setImg(tableModel.getImg());
+    }
 }

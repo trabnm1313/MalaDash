@@ -13,7 +13,7 @@ public class Player {
     private Mala Mala;
 
     public Player() {
-        this(false, 0, false, false, false, 5, 0, 0);
+        this(false, 1, true, false, true, 5, 0, 0);
     }
 
     public Player(boolean carryDish, int bill, boolean carryOrder, boolean washing, boolean ready, int heart, int whichTable, int target) {
