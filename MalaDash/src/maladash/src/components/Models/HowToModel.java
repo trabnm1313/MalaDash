@@ -7,11 +7,11 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class MainMenuModel {
+public class HowToModel {
     private Image img;
     private boolean imageLoaded;
     
-    public MainMenuModel(){
+    public HowToModel(){
         imageLoaded = init();
         if(imageLoaded){
             System.out.println("[MainMenuModel]: Image loaded.");
@@ -21,7 +21,7 @@ public class MainMenuModel {
     }
     
     public boolean init(){
-        URL imageFile = this.getClass().getResource("../../images/mainmenu.png");
+        URL imageFile = this.getClass().getResource("../../images/tutorial.png");
         System.out.println(imageFile);
         try{
             img = new ImageIcon(imageFile).getImage();

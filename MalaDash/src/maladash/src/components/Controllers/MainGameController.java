@@ -97,6 +97,10 @@ public class MainGameController {
         //Customers
         customers = new CustomersController();
         customers.setTableControllers(tableControllers);
+        customers.setGame(this);  
+        customers.getTm2().start();
+        
+
         
         //Add to view
         view.add(mala1);
@@ -105,8 +109,6 @@ public class MainGameController {
         view.add(mala4);
 
         view.add(money);
-
-        view.add(customers.getView());
         
         view.add(table2);
         view.add(table4);
