@@ -12,7 +12,7 @@ import maladash.src.components.Views.TableView;
 import java.awt.event.*;
 import javax.swing.*;
 import maladash.src.components.Classes.Customers;
-
+import maladash.src.components.Models.CustomersModel;
 /**
  *
  * @author USER
@@ -24,9 +24,8 @@ public class TableController implements MouseListener {
     private TableView tableView;
     private static MainGameController mainGame;
     private static PlayerController playerController;
-    private static CustomersController customersController;
+    private CustomersModel customersModel;
     private static JLabel text;
-    private boolean test = true;
 
     public TableController(int numTable, int sit) {
         tableModel = new TableModel(numTable, sit);
@@ -71,13 +70,12 @@ public class TableController implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        test = !test;
         //get value on playerController
         boolean playerReady = playerController.getModel().getPlayer().isReady();
         boolean playerCarryOrder = playerController.getModel().getPlayer().isCarryOrder();
         boolean playerCarryDish = playerController.getModel().getPlayer().isCarryDish();
         boolean playerWashing = playerController.getModel().getPlayer().isWashing();
-        Customers customer = customersController.getModel().getCustomers();
+        Customers customer = customersModel.getCustomers();
         //move
         playerController.travel(tableModel.getTable().getNumTable());
         System.out.println("[Player]: Move to Table #" + tableModel.getTable().getNumTable());
@@ -164,6 +162,16 @@ public class TableController implements MouseListener {
     public static void setPlayerController(PlayerController playController) {
         TableController.playerController = playController;
     }
+
+    public CustomersModel getCustomersModel() {
+        return customersModel;
+    }
+
+    public void setCustomersModel(CustomersModel customersModel) {
+        this.customersModel = customersModel;
+    }
+    
+    
   
     //dirty table
     public void letDirty() {

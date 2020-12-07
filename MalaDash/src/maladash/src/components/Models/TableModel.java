@@ -34,11 +34,11 @@ public class TableModel {
             imageLoaded = init("table4.png");
         }
         //check load image
-        if (imageLoaded){
-                System.out.println("[TableModel]: Image loaded.");
-            }else{
-                System.out.println("[TableModel]: Image failed to load.");
-            }
+        if (imageLoaded) {
+            System.out.println("[TableModel]: Image loaded.");
+        } else {
+            System.out.println("[TableModel]: Image failed to load.");
+        }
         table = new Table(numTable, sit, true, false, false);
     }
      public boolean init(String fileName){
