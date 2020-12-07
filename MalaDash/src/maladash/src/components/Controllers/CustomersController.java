@@ -51,20 +51,31 @@ public class CustomersController implements ActionListener {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                if(checkCustomersTable() == false){
+                if (checkCustomersTable() == false) {
                     view.setBounds(original);
-                }else{
+                } else {
                     prevPt = null;
                     view.setVisible(false);
-                    
+
                     tm.stop();
+
+                    tableControllers.get(whichTable).setCustomersModel(model);
                     
+                    //view.setImg(model.getImgNormal()); //นั่งเฉยๆ
                     tableControllers.get(whichTable).getTableModel().getTable().setSitable(false);
                     tableControllers.get(whichTable).getTableModel().getTable().setDirty(true);
                     tableControllers.get(whichTable).letDirty();
-                    
+
                     time = (int) (Math.random() * 10) + 30;
                     tm.start();
+                    if (time <= 26) {
+                        view.setImg(model.getImgHandUp());
+                        model.getCustomers().setReady(true);
+                        
+                    }
+                    if (time <= 15) {
+                        view.setImg(model.getImgHandUpSad());
+                    }
                 }
             }
         });
@@ -136,24 +147,21 @@ public class CustomersController implements ActionListener {
         Rectangle table2 = tableControllers.get(1).getTableView().getBounds();
         Rectangle table3 = tableControllers.get(2).getTableView().getBounds();
         Rectangle table4 = tableControllers.get(3).getTableView().getBounds();
-        
-        if ((mouseX >= table1.getMinX() && mouseX <= table1.getMaxX())&&(mouseY >= table1.getMinY() && mouseY <= table1.getMaxY())){
+
+        if ((mouseX >= table1.getMinX() && mouseX <= table1.getMaxX()) && (mouseY >= table1.getMinY() && mouseY <= table1.getMaxY())) {
             whichTable = tableControllers.get(0).getTableModel().getTable().getNumTable() - 1;
             return true;
-        }
-        else if ((mouseX >= table2.getMinX() && mouseX <= table2.getMaxX())&&(mouseY >= table2.getMinY() && mouseY <= table2.getMaxY())){
+        } else if ((mouseX >= table2.getMinX() && mouseX <= table2.getMaxX()) && (mouseY >= table2.getMinY() && mouseY <= table2.getMaxY())) {
             whichTable = tableControllers.get(1).getTableModel().getTable().getNumTable() - 1;
             return true;
-        }
-        else if ((mouseX >= table3.getMinX() && mouseX <= table3.getMaxX())&&(mouseY >= table3.getMinY() && mouseY <= table3.getMaxY())){
+        } else if ((mouseX >= table3.getMinX() && mouseX <= table3.getMaxX()) && (mouseY >= table3.getMinY() && mouseY <= table3.getMaxY())) {
             whichTable = tableControllers.get(2).getTableModel().getTable().getNumTable() - 1;
             return true;
-        }
-        else if ((mouseX >= table4.getMinX() && mouseX <= table4.getMaxX())&&(mouseY >= table4.getMinY() && mouseY <= table4.getMaxY())){
+        } else if ((mouseX >= table4.getMinX() && mouseX <= table4.getMaxX()) && (mouseY >= table4.getMinY() && mouseY <= table4.getMaxY())) {
             whichTable = tableControllers.get(3).getTableModel().getTable().getNumTable() - 1;
             return true;
         }
-        
+
         return false;
     }
 }
