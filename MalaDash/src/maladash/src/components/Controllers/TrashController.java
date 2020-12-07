@@ -34,6 +34,7 @@ public class TrashController {
                 
                 if(playerWashing && playerReady && !playerCarryOrder && !playerCarryDish && playerWhichTable == 0){
                     playerController.getModel().getPlayer().setWashing(false);
+                    playerController.stand();
                 }
                 System.out.println("Hello trash");
             }
