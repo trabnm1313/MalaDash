@@ -20,6 +20,7 @@ public class MainMenuController implements ActionListener {
         view = new MainMenuView();
         view.setImg(model.getImg());
 
+        
         //Add ActionListener
         view.getStartButton().addActionListener(this);
         view.getOptionButton().addActionListener(this);
@@ -62,10 +63,13 @@ public class MainMenuController implements ActionListener {
 
             //Change ContentPane from MainMenu to MainGame
             gameFrame.setContentPane(mainGame.getView());
-            gameFrame.setSize(1980, 1020);
+            gameFrame.setSize(1920, 1080);
 
             gameFrame.getContentPane().revalidate();
             gameFrame.getContentPane().repaint();
+            gameFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            gameFrame.setUndecorated(true);
+            gameFrame.setVisible(true);
 
         }
 

@@ -5,10 +5,7 @@
  */
 package maladash.src.components.Models;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.net.URL;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import maladash.src.components.Classes.Table;
 /**
