@@ -26,7 +26,7 @@ public class CustomersModel {
         
         URL imageSaddest = this.getClass().getResource("../../images/customer-sad2.png");
         imgSaddest = new ImageIcon(imageSaddest).getImage();
-        
+      
 //        URL imageHandUp = this.getClass().getResource("../../images/customer_puthand.png");
 //        imgHandUp = new ImageIcon(imageHandUp).getImage();
 //        
@@ -100,6 +100,4 @@ public class CustomersModel {
     public void setImgEat(Image imgEat) {
         this.imgEat = imgEat;
     }
-
-    
 }

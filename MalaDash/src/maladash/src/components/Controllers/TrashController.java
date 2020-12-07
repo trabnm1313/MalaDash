@@ -26,7 +26,6 @@ public class TrashController {
         trashView.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent me) {
-                
                 boolean playerReady = playerController.getModel().getPlayer().isReady();
                 boolean playerCarryOrder = playerController.getModel().getPlayer().isCarryOrder();
                 boolean playerCarryDish = playerController.getModel().getPlayer().isCarryDish();
