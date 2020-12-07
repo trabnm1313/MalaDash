@@ -14,9 +14,9 @@ public class HowToModel {
     public HowToModel(){
         imageLoaded = init();
         if(imageLoaded){
-            System.out.println("[MainMenuModel]: Image loaded.");
+            System.out.println("[HowToModel]: Image loaded.");
         }else{
-            System.out.println("[MainMenuModel]: Image failed to load.");
+            System.out.println("[HowToModel]: Image failed to load.");
         }
     }
     

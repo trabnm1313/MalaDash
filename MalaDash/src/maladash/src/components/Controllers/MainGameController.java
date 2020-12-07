@@ -12,13 +12,15 @@ public class MainGameController {
     private MainGameView view;
     private MainGameModel model;
     private ArrayList<TableController> tableControllers;
-    private JPanel table1, table2, table3, table4, mala1, mala2, mala3, mala4;
+    private JPanel table1, table2, table3, table4, mala1, mala2, mala3, mala4, h1, h2, h3, h4, h5;
     private ArrayList<MalaController> malaController;
     private JLabel money;
     private PlayerController player;
     private ComputerController computer;
     private TrashController trash;
     private CustomersController customers;
+    private GameController game;
+    private ArrayList<HeartController> hearts;
 
     public MainGameController() {
         //Initate Model
@@ -29,6 +31,20 @@ public class MainGameController {
         
         //Player
         player = new PlayerController();
+        
+        //heart
+        hearts = new ArrayList();
+        
+        for(int i = 0 ; i < 5; i++){
+            hearts.add(new HeartController(i));
+        }
+        h1 = hearts.get(0).getView();
+        h2 = hearts.get(1).getView();
+        h3 = hearts.get(2).getView();
+        h4 = hearts.get(3).getView();
+        h5 = hearts.get(4).getView();
+        
+        
 
         //money
         money = new JLabel(model.getMoney() + "");
@@ -39,7 +55,7 @@ public class MainGameController {
         //table
         tableControllers = new ArrayList();
         for (int i = 1; i <= 4; i++) {
-            if (i < 2) {
+            if (i <= 2) {
                 tableControllers.add(new TableController(i, 4));
             } else {
                 tableControllers.add(new TableController(i, 2));
@@ -97,12 +113,19 @@ public class MainGameController {
         //Customers
         customers = new CustomersController();
         customers.setTableControllers(tableControllers);
+        customers.setPlayer(player);
+        customers.setHeats(hearts);
         customers.setGame(this);  
         customers.getTm2().start();
-        
 
         
         //Add to view
+        
+        view.add(h1);
+        view.add(h2);
+        view.add(h3);
+        view.add(h4);
+        view.add(h5);
 
         view.add(money);
         
@@ -140,6 +163,14 @@ public class MainGameController {
 
     public void setModel(MainGameModel model) {
         this.model = model;
+    }
+
+    public GameController getGame() {
+        return game;
+    }
+
+    public void setGame(GameController game) {
+        this.game = game;
     }
 
 }

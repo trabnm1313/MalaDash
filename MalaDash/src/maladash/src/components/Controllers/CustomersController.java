@@ -19,6 +19,7 @@ public class CustomersController implements ActionListener, MouseMotionListener,
     private CustomersView view;
     private ArrayList<TableController> tableControllers;
     private ArrayList<CustomersController> csConList = new ArrayList();
+    private ArrayList<HeartController> heats;
     private Timer tm = new Timer(1000, this);
     private Timer tm2 = new Timer(1000, this);
     private int time, count = 10;
@@ -30,6 +31,7 @@ public class CustomersController implements ActionListener, MouseMotionListener,
     CustomersController csCon, csSelf;
     private int index;
     private static final int LIMIT = 3;
+    private PlayerController player;
 
     private double pivot;
     private static int people;
@@ -47,11 +49,22 @@ public class CustomersController implements ActionListener, MouseMotionListener,
 
         time = (int) (Math.random() * 10) + 30;
 
-        for (int i = 0; i < LIMIT; i++) {
+        for (int i = 0; i <= LIMIT; i++) {
             csConList.add(i, null);
         }
     }
 
+    
+    public ArrayList<HeartController> getHeats() {
+        return heats;
+    }
+
+    public void setHeats(ArrayList<HeartController> heats) {
+        this.heats = heats;
+    }
+
+    
+    
     public CustomersModel getModel() {
         return model;
     }
@@ -140,6 +153,15 @@ public class CustomersController implements ActionListener, MouseMotionListener,
         this.time = time;
     }
 
+    public PlayerController getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(PlayerController player) {
+        this.player = player;
+    }
+
+    
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource().equals(tm)) {
@@ -165,10 +187,25 @@ public class CustomersController implements ActionListener, MouseMotionListener,
                     view.setVisible(false);
 
                     tm.stop();
-
+                    
+                    player.getModel().getPlayer().setHeart( player.getModel().getPlayer().getHeart() - 1);
+                    
+                    if(player.getModel().getPlayer().getHeart() == 4){
+                        heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
+                    }else if(player.getModel().getPlayer().getHeart() == 3){
+                        heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
+                    }else if(player.getModel().getPlayer().getHeart() == 2){
+                        heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
+                    }else if(player.getModel().getPlayer().getHeart() == 1){
+                        heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
+                    }else if(player.getModel().getPlayer().getHeart() == 0){
+                        heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
+                    }
+                    
                     totalCustomers--;
                     csConList.set(index, null);
                     csSelf.getTm2().start();
+                    
                 }
             } else {
                  System.out.println("[Customer]: " + Math.random());
@@ -232,6 +269,8 @@ public class CustomersController implements ActionListener, MouseMotionListener,
                 csCon = new CustomersController();
 
                 csCon.setTableControllers(tableControllers);
+                csCon.setPlayer(player);
+                csCon.setHeats(heats);
 
                 csCon.setCsSelf(this);
 

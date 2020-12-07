@@ -7,21 +7,21 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class MainMenuModel {
+public class GameOverModel {
     private Image img;
     private boolean imageLoaded;
     
-    public MainMenuModel(){
+    public GameOverModel(){
         imageLoaded = init();
         if(imageLoaded){
-            System.out.println("[MainMenuModel]: Image loaded.");
+            System.out.println("[GameOverModel]: Image loaded.");
         }else{
-            System.out.println("[MainMenuModel]: Image failed to load.");
+            System.out.println("[GameOverModel]: Image failed to load.");
         }
     }
     
     public boolean init(){
-        URL imageFile = this.getClass().getResource("../../images/mainmenu_logo.png");
+        URL imageFile = this.getClass().getResource("../../images/gameover.png");
         System.out.println(imageFile);
         try{
             img = new ImageIcon(imageFile).getImage();

@@ -58,6 +58,8 @@ public class MainMenuController implements ActionListener {
         if (e.getSource().equals(view.getStartButton())) {
             //Initate Controller
             mainGame = new MainGameController();
+            
+            mainGame.setGame(game);
 
             //Short Variable
             JFrame gameFrame = game.getView().getFrame();
