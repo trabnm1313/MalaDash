@@ -42,7 +42,7 @@ public class TableModel {
         table = new Table(numTable, sit, true, false, false);
     }
      public boolean init(String fileName){
-        URL src = this.getClass().getResource("../../images/" + fileName);
+        URL src = this.getClass().getResource("../../images/Table/" + fileName);
         
         try{
             this.img = new ImageIcon(src).getImage();
