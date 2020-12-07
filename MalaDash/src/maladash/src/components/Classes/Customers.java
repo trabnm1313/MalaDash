@@ -8,17 +8,19 @@ public class Customers {
     private int count;
     private boolean ready;
     private boolean wait;
+    private int lvAngry;
 
     public Customers(){
-        this(false, false, false, 0, false, false);
+        this(false, false, false, 0, false, false, 0);
     }
 
-    public Customers(boolean sit, boolean done, boolean eat, int count, boolean ready, boolean wait) {
+    public Customers(boolean sit, boolean done, boolean eat, int count, boolean ready, boolean wait, int lvAngry) {
         this.sit = sit;
         this.done = done;
         this.eat = eat;
         this.count = count;
         this.ready = ready;
+        this.lvAngry = lvAngry;
     }
 
     public boolean isSit() {
@@ -67,6 +69,14 @@ public class Customers {
 
     public void setWait(boolean wait) {
         this.wait = wait;
+    }
+
+    public int getLvAngry() {
+        return lvAngry;
+    }
+
+    public void setLvAngry(int lvAngry) {
+        this.lvAngry = lvAngry;
     }
     
 }
