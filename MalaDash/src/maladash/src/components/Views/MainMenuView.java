@@ -18,7 +18,7 @@ public class MainMenuView extends JPanel{
     public MainMenuView(){
         
         startButton = new JButton("Start");
-        optionButton = new JButton("Option");
+        optionButton = new JButton("How to play");
         exitButton = new JButton("Exit");
         
         //backGroundPanel Configuration
