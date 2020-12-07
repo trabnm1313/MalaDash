@@ -143,6 +143,7 @@ public class CustomersController implements ActionListener, MouseMotionListener,
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource().equals(tm)) {
+            
             time--;
             if (!model.getCustomers().isSit()) {
                 if (time <= 20) {
@@ -170,19 +171,42 @@ public class CustomersController implements ActionListener, MouseMotionListener,
                     csSelf.getTm2().start();
                 }
             } else {
+                 System.out.println("[Customer]: " + Math.random());
+                if( model.getCustomers().isEat() && !model.getCustomers().isDone()){
+                        tableControllers.get(whichTable).eating();
+                    }
+                if((time == 0) && model.getCustomers().isEat()){
+                    model.getCustomers().setDone(true);
+                    tableControllers.get(whichTable).getTableModel().getTable().setDirty(true);
+                    setTime((int) (Math.random() * 10) + 30);
+                }
                 if (time <= 26) {
-                    model.getCustomers().setReady(true); // พร้อมสั่งอาหาร
-                    model.getCustomers().setLvAngry(0);
-
-                    tableControllers.get(whichTable).handUp(model.getCustomers().getLvAngry());
+                    if (!model.getCustomers().isReady() && !model.getCustomers().isEat()) {
+                        model.getCustomers().setReady(true); // พร้อมสั่งอาหาร
+                        model.getCustomers().setLvAngry(0);
+                        tableControllers.get(whichTable).handUp(model.getCustomers().getLvAngry());
+                    }else if(model.getCustomers().isDone()){
+                        model.getCustomers().setLvAngry(0);
+                        tableControllers.get(whichTable).letDirty(model.getCustomers().getLvAngry());
+                    }
                 }
                 if (time <= 15) {
-                    model.getCustomers().setLvAngry(1);
-                    tableControllers.get(whichTable).handUp(model.getCustomers().getLvAngry());
+                    if (model.getCustomers().isReady() && !model.getCustomers().isEat()) {
+                        model.getCustomers().setLvAngry(1);
+                        tableControllers.get(whichTable).handUp(model.getCustomers().getLvAngry());
+                    }else if(model.getCustomers().isDone()){
+                        model.getCustomers().setLvAngry(1);
+                        tableControllers.get(whichTable).letDirty(model.getCustomers().getLvAngry());
+                    }
                 }
                 if (time <= 5) {
-                    model.getCustomers().setLvAngry(2);
-                    tableControllers.get(whichTable).handUp(model.getCustomers().getLvAngry());
+                    if (model.getCustomers().isReady() && !model.getCustomers().isEat()) {
+                        model.getCustomers().setLvAngry(2);
+                        tableControllers.get(whichTable).handUp(model.getCustomers().getLvAngry());
+                    }else if(model.getCustomers().isDone()){
+                        model.getCustomers().setLvAngry(2);
+                        tableControllers.get(whichTable).letDirty(model.getCustomers().getLvAngry());
+                    }
                 }
                 if (time == 0) {
                     tableControllers.get(whichTable).notDirty();
