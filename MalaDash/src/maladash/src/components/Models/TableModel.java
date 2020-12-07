@@ -23,15 +23,15 @@ public class TableModel {
     public TableModel(int numTable, int sit) {
         //set image
         if(numTable == 1){
-            imageLoaded = init("table1.png");
+            imageLoaded = init(numTable,"table1.png");
         }else if(numTable == 2){
-            imageLoaded = init("table2.png");
+            imageLoaded = init(numTable, "table2.png");
         }
         else if(numTable == 3){
-            imageLoaded = init("table3.png");
+            imageLoaded = init(numTable, "table3.png");
         }
         else if(numTable == 4){
-            imageLoaded = init("table4.png");
+            imageLoaded = init(numTable, "table4.png");
         }
         //check load image
         if (imageLoaded) {
@@ -41,8 +41,8 @@ public class TableModel {
         }
         table = new Table(numTable, sit, true, false, false);
     }
-     public boolean init(String fileName){
-        URL src = this.getClass().getResource("../../images/Table/" + fileName);
+     public boolean init(int numTable, String fileName){
+        URL src = this.getClass().getResource("../../images/Table/"+ numTable +"/"+ fileName);
         
         try{
             this.img = new ImageIcon(src).getImage();

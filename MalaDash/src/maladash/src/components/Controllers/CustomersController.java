@@ -60,8 +60,8 @@ public class CustomersController implements ActionListener {
                     tm.stop();
                     
                     tableControllers.get(whichTable).getTableModel().getTable().setSitable(false);
-                    tableControllers.get(whichTable).getTableModel().getTable().setDirty(true);
-                    tableControllers.get(whichTable).letDirty();
+                    tableControllers.get(whichTable).setCustomersModel(model);
+                    tableControllers.get(whichTable).eating();
                     
                     time = (int) (Math.random() * 10) + 30;
                     tm.start();
