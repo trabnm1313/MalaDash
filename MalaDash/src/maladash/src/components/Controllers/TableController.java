@@ -61,13 +61,6 @@ public class TableController implements MouseListener {
         this.tableModel = tableModel;
     }
 
-    public TableModel getTableModel() {
-        return tableModel;
-    }
-
-    public void setTableModel(TableModel tableModel) {
-        this.tableModel = tableModel;
-    }
     public int getMoney() {
         return money;
     }
