@@ -13,13 +13,15 @@ public class MainMenuController implements ActionListener {
     private MainMenuModel model;
     private GameController game;
     private MainGameController mainGame;
-
+    private HowToController howTo;
+            
     public MainMenuController() {
         //Init
         model = new MainMenuModel();
         view = new MainMenuView();
         view.setImg(model.getImg());
 
+        
         //Add ActionListener
         view.getStartButton().addActionListener(this);
         view.getOptionButton().addActionListener(this);
@@ -62,61 +64,34 @@ public class MainMenuController implements ActionListener {
 
             //Change ContentPane from MainMenu to MainGame
             gameFrame.setContentPane(mainGame.getView());
-            gameFrame.setSize(1980, 1020);
+            gameFrame.setSize(1920, 1080);
 
             gameFrame.getContentPane().revalidate();
             gameFrame.getContentPane().repaint();
+            gameFrame.setVisible(true);
 
-        }
-
-        //IF exitButton clicked
-        if (e.getSource().equals(view.getOptionButton())) {
-            JDialog dialog = new JDialog(new JFrame(), "WIP");
-            dialog.setLocation(view.getWidth() / 2, view.getHeight() / 2);
-            JPanel exitPanel = new JPanel();
-            JLabel exitText = new JLabel("Not yet.", SwingConstants.CENTER);
-            JButton yes = new JButton("No"), no = new JButton("No");
-            yes.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    dialog.dispose();
-                }
-            });
-            no.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    dialog.dispose();
-                }
-            });
-
-            exitPanel.setLayout(new GridBagLayout());
-            GridBagConstraints gbc = new GridBagConstraints();
-            gbc.weightx = 1;
-            gbc.weighty = 1;
-            gbc.ipady = 10;
-            gbc.ipadx = 40;
-            gbc.fill = GridBagConstraints.BOTH;
-
-            gbc.gridheight = 1;
-            gbc.gridwidth = 2;
-            gbc.gridx = 0;
-            gbc.gridy = 0;
-            exitPanel.add(exitText, gbc);
-
-            gbc.gridwidth = 1;
-            gbc.gridx = 0;
-            gbc.gridy = 1;
-            exitPanel.add(yes, gbc);
-
-            gbc.gridx = 1;
-            exitPanel.add(no, gbc);
-
-            dialog.add(exitPanel);
-            dialog.pack();
-            dialog.setVisible(true);
         }
 
         //IF optionButton clicked
+        if (e.getSource().equals(view.getOptionButton())) {
+            //Initate Controller
+            howTo = new HowToController();
+            
+            howTo.setGame(game);
+
+            //Short Variable
+            JFrame gameFrame = game.getView().getFrame();
+
+            //Change ContentPane from MainMenu to MainGame
+            gameFrame.setContentPane(howTo.getView());
+            gameFrame.setSize(1920, 1080);
+
+            gameFrame.getContentPane().revalidate();
+            gameFrame.getContentPane().repaint();
+            gameFrame.setVisible(true);
+        }
+
+        //IF exitButton clicked
         if (e.getSource().equals(view.getExitButton())) {
             JDialog dialog = new JDialog(new JFrame(), "Exit?");
             dialog.setLocation(view.getWidth() / 2, view.getHeight() / 2);
@@ -163,5 +138,6 @@ public class MainMenuController implements ActionListener {
             dialog.setVisible(true);
         }
 
+        
     }
 }
