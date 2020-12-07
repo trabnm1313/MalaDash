@@ -26,6 +26,8 @@ public class TableController implements MouseListener {
     private static PlayerController playerController;
     private CustomersModel customersModel;
     private static JLabel text;
+    private int h = 281;
+    private int w = 400;
 
     public TableController(int numTable, int sit) {
         tableModel = new TableModel(numTable, sit);
@@ -34,13 +36,13 @@ public class TableController implements MouseListener {
         tableView.addMouseListener(this);
         tableView.setOpaque(false);
         if (numTable == 1) {
-            tableView.setBounds(700, 550, 400, 200);
+            tableView.setBounds(675, 550, w, h);
         } else if (numTable == 2) {
-            tableView.setBounds(450, 750, 400, 200);
+            tableView.setBounds(250, 700, w, h);
         } else if (numTable == 3) {
-            tableView.setBounds(1200, 550, 400, 200);
+            tableView.setBounds(1085, 550, w, h);
         } else if (numTable == 4) {
-            tableView.setBounds(1450, 750, 400, 200);
+            tableView.setBounds(1500, 700, w, h);
         }
     }
 
@@ -75,7 +77,7 @@ public class TableController implements MouseListener {
         boolean playerCarryOrder = playerController.getModel().getPlayer().isCarryOrder();
         boolean playerCarryDish = playerController.getModel().getPlayer().isCarryDish();
         boolean playerWashing = playerController.getModel().getPlayer().isWashing();
-        Customers customer = customersModel.getCustomers();
+//        Customers customer = customersModel.getCustomers();
         //move
         playerController.travel(tableModel.getTable().getNumTable());
         System.out.println("[Player]: Move to Table #" + tableModel.getTable().getNumTable());
@@ -87,7 +89,7 @@ public class TableController implements MouseListener {
             if (!tableModel.getTable().isSitable()) {
 
                 //order
-                if (!playerCarryOrder && !playerCarryDish && !playerWashing && customer.isReady()) {
+                if (!playerCarryOrder && !playerCarryDish && !playerWashing ) {
                     playerController.getModel().getPlayer().setBill(tableModel.getTable().getNumTable());
                     playerController.getModel().getPlayer().setCarryOrder(true);
                     playerController.standWithBill();
@@ -95,7 +97,7 @@ public class TableController implements MouseListener {
                 }
 
                 //Serve
-                if (customer.isWait() && playerCarryDish && (playerController.getModel().getPlayer().getMala().getNumTable() == tableModel.getTable().getNumTable())) {
+                if (playerCarryDish && (playerController.getModel().getPlayer().getMala().getNumTable() == tableModel.getTable().getNumTable())) {
                     playerController.getModel().getPlayer().setCarryDish(false);
                     playerController.getModel().getPlayer().setMala(null);
                     playerController.stand();
@@ -103,7 +105,7 @@ public class TableController implements MouseListener {
                 }
 
                 //dirty
-                if (customer.isDone() && tableModel.getTable().isDirty() && !playerCarryOrder && !playerCarryDish && !playerWashing) {
+                if (tableModel.getTable().isDirty() && !playerCarryOrder && !playerCarryDish && !playerWashing) {
                     System.out.println("Done.");
                     tableModel.getTable().setDirty(false);
                     playerController.getModel().getPlayer().setWashing(true);
