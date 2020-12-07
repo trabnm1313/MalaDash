@@ -92,6 +92,7 @@ public class TableController implements MouseListener {
                 if (!playerCarryOrder && !playerCarryDish && !playerWashing && customer.isReady()) {
                     playerController.getModel().getPlayer().setBill(tableModel.getTable().getNumTable());
                     playerController.getModel().getPlayer().setCarryOrder(true);
+                    playerController.standWithBill();
                     System.out.println("[Table]: Get Order Table #" + tableModel.getTable().getNumTable());
                 }
 
@@ -99,6 +100,7 @@ public class TableController implements MouseListener {
                 if (customer.isWait() && playerCarryDish && (playerController.getModel().getPlayer().getMala().getNumTable() == tableModel.getTable().getNumTable())) {
                     playerController.getModel().getPlayer().setCarryDish(false);
                     playerController.getModel().getPlayer().setMala(null);
+                    playerController.stand();
                     System.out.println("[Table]: Serve Mala Table #" + tableModel.getTable().getNumTable());
                 }
 
@@ -108,6 +110,7 @@ public class TableController implements MouseListener {
                     tableModel.getTable().setDirty(false);
                     playerController.getModel().getPlayer().setWashing(true);
                     notDirty();
+                    playerController.standWithBin();
                     //collect money
                     money = (int) (10 + (Math.random() * 20)) + Integer.parseInt(getText().getText());
                     System.out.println(money);
