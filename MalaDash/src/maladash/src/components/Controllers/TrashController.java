@@ -21,7 +21,7 @@ public class TrashController {
 
         trashView.setImg(trashModel.getImg());
         trashView.setOpaque(false);
-        trashView.setBounds(775, 420, 120, 127);
+        trashView.setBounds(1400, 420, 120, 127);
 
         trashView.addMouseListener(new MouseAdapter() {
             @Override
