@@ -103,10 +103,6 @@ public class MainGameController {
 
         
         //Add to view
-        view.add(mala1);
-        view.add(mala2);
-        view.add(mala3);
-        view.add(mala4);
 
         view.add(money);
         
@@ -118,6 +114,11 @@ public class MainGameController {
         view.add(table1);
         view.add(table3);
 
+        view.add(mala1);
+        view.add(mala2);
+        view.add(mala3);
+        view.add(mala4);
+        
         view.add(computer.getView());
         
         view.add(trash.getTrashView());
