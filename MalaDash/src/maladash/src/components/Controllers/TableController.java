@@ -26,6 +26,8 @@ public class TableController implements MouseListener {
     private static PlayerController playerController;
     private CustomersModel customersModel;
     private static JLabel text;
+    private int h = 281;
+    private int w = 400;
 
     public TableController(int numTable, int sit) {
         tableModel = new TableModel(numTable, sit);
@@ -34,13 +36,13 @@ public class TableController implements MouseListener {
         tableView.addMouseListener(this);
         tableView.setOpaque(false);
         if (numTable == 1) {
-            tableView.setBounds(700, 550, 400, 200);
+            tableView.setBounds(675, 550, w, h);
         } else if (numTable == 2) {
-            tableView.setBounds(450, 750, 400, 200);
+            tableView.setBounds(250, 750, w, h);
         } else if (numTable == 3) {
-            tableView.setBounds(1200, 550, 400, 200);
+            tableView.setBounds(1085, 550, w, h);
         } else if (numTable == 4) {
-            tableView.setBounds(1450, 750, 400, 200);
+            tableView.setBounds(1500, 750, w, h);
         }
     }
 
@@ -87,15 +89,16 @@ public class TableController implements MouseListener {
             if (!tableModel.getTable().isSitable()) {
 
                 //order
-                if (!playerCarryOrder && !playerCarryDish && !playerWashing && customer.isReady()) {
+                if (customer.isReady() && !playerCarryOrder && !playerCarryDish && !playerWashing ) {
                     playerController.getModel().getPlayer().setBill(tableModel.getTable().getNumTable());
                     playerController.getModel().getPlayer().setCarryOrder(true);
                     playerController.standWithBill();
+                    sit();
                     System.out.println("[Table]: Get Order Table #" + tableModel.getTable().getNumTable());
                 }
 
                 //Serve
-                if (customer.isWait() && playerCarryDish && (playerController.getModel().getPlayer().getMala().getNumTable() == tableModel.getTable().getNumTable())) {
+                if (customer.isWait()&& playerCarryDish && (playerController.getModel().getPlayer().getMala().getNumTable() == tableModel.getTable().getNumTable())) {
                     playerController.getModel().getPlayer().setCarryDish(false);
                     playerController.getModel().getPlayer().setMala(null);
                     playerController.stand();
@@ -103,7 +106,7 @@ public class TableController implements MouseListener {
                 }
 
                 //dirty
-                if (customer.isDone() && tableModel.getTable().isDirty() && !playerCarryOrder && !playerCarryDish && !playerWashing) {
+                if (customer.isDone()&& tableModel.getTable().isDirty() && !playerCarryOrder && !playerCarryDish && !playerWashing) {
                     System.out.println("Done.");
                     tableModel.getTable().setDirty(false);
                     playerController.getModel().getPlayer().setWashing(true);
@@ -173,30 +176,44 @@ public class TableController implements MouseListener {
     
     
   
-    //dirty table
-    public void letDirty() {
-        tableModel.init("table" + tableModel.getTable().getNumTable() + "_d.png");
+    //dirty table and done
+    public void letDirty(int lv) {
+        if(lv == 0){
+            tableModel.init(tableModel.getTable().getNumTable(), "table" + tableModel.getTable().getNumTable() + "_done.png");
+        }else if(lv == 1){
+            tableModel.init(tableModel.getTable().getNumTable(), "table" + tableModel.getTable().getNumTable() + "_done_sad1.png");
+        }else if(lv == 2){
+            tableModel.init(tableModel.getTable().getNumTable(), "table" + tableModel.getTable().getNumTable() + "_done_sad2.png");
+        }
+        
         tableView.setImg(tableModel.getImg());
     }
   
     // clean table
     public void notDirty() {
-        tableModel.init("table" + tableModel.getTable().getNumTable() + ".png");
+        tableModel.init(tableModel.getTable().getNumTable(), "table" + tableModel.getTable().getNumTable() + ".png");
         tableView.setImg(tableModel.getImg());
     }
   
     public void sit() {
-        tableModel.init("table" + tableModel.getTable().getNumTable() + "_d.png");
+        tableModel.init(tableModel.getTable().getNumTable(), "table" + tableModel.getTable().getNumTable() + "_sit.png");
         tableView.setImg(tableModel.getImg());
     }
 
-    public void handUp() {
-        tableModel.init("table" + tableModel.getTable().getNumTable() + "_d.png");
+    public void handUp(int lv) {
+        if(lv == 0){
+            tableModel.init(tableModel.getTable().getNumTable(), "table" + tableModel.getTable().getNumTable() + "_handUp.png");
+        }else if(lv == 1){
+            tableModel.init(tableModel.getTable().getNumTable(), "table" + tableModel.getTable().getNumTable() + "_handUp_sad1.png");
+        }else if(lv == 2){
+            tableModel.init(tableModel.getTable().getNumTable(), "table" + tableModel.getTable().getNumTable() + "_handUp_sad2.png");
+        }
+        
         tableView.setImg(tableModel.getImg());
     }
 
     public void eating() {
-        tableModel.init("table" + tableModel.getTable().getNumTable() + "_d.png");
+        tableModel.init(tableModel.getTable().getNumTable(), "table" + tableModel.getTable().getNumTable() + "_eat.gif");
         tableView.setImg(tableModel.getImg());
     }
 }
