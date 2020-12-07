@@ -4,17 +4,19 @@
  * and open the template in the editor.
  */
 package maladash.src.components.Models;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import maladash.src.components.Classes.Table;
 /**
  *
  * @author USER
  */
 public class TableModel {
-    private BufferedImage img;
+    private Image img;
     private boolean imageLoaded;
     private Table table;
 
@@ -56,19 +58,19 @@ public class TableModel {
         URL src = this.getClass().getResource("../../images/" + fileName);
         
         try{
-            this.img = ImageIO.read(src);
+            this.img = new ImageIcon(src).getImage();
             return true;
-        }catch(IOException err){
+        }catch(Exception err){
             err.printStackTrace();
             return false;
         }
     }
 
-    public BufferedImage getImg() {
+    public Image getImg() {
         return img;
     }
 
-    public void setImg(BufferedImage img) {
+    public void setImg(Image img) {
         this.img = img;
     }
 

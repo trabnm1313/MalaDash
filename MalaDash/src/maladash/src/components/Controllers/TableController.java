@@ -26,7 +26,6 @@ public class TableController implements MouseListener {
     private static PlayerController playerController;
     private static CustomersController customersController;
     private static JLabel text;
-    private boolean entered;
 
     public TableController(int numTable, int sit) {
         tableModel = new TableModel(numTable, sit);
@@ -52,7 +51,7 @@ public class TableController implements MouseListener {
     public void setTableView(TableView tableView) {
         this.tableView = tableView;
     }
-    
+
     public TableModel getTableModel() {
         return tableModel;
     }
@@ -68,9 +67,6 @@ public class TableController implements MouseListener {
     public void setMoney(int money) {
         this.money = money;
     }
-
-    
-    
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -132,7 +128,7 @@ public class TableController implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        
+
     }
 
     @Override
@@ -164,22 +160,31 @@ public class TableController implements MouseListener {
         TableController.playerController = playController;
     }
 //dirty table
+
     public void letDirty() {
         tableModel.init("table" + tableModel.getTable().getNumTable() + "_d.png");
         tableView.setImg(tableModel.getImg());
     }
 // clean table
+
     public void notDirty() {
         tableModel.init("table" + tableModel.getTable().getNumTable() + ".png");
         tableView.setImg(tableModel.getImg());
     }
 
-    public boolean isEntered() {
-        return entered;
+    public void sit() {
+        tableModel.init("table" + tableModel.getTable().getNumTable() + "_d.png");
+        tableView.setImg(tableModel.getImg());
     }
 
-    public void setEntered(boolean entered) {
-        this.entered = entered;
+    public void handUp() {
+        tableModel.init("table" + tableModel.getTable().getNumTable() + "_d.png");
+        tableView.setImg(tableModel.getImg());
     }
-    
+
+    public void eating() {
+        tableModel.init("table" + tableModel.getTable().getNumTable() + "_d.png");
+        tableView.setImg(tableModel.getImg());
+    }
+
 }
