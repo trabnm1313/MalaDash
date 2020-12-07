@@ -26,6 +26,7 @@ public class TableController implements MouseListener {
     private static PlayerController playerController;
     private static CustomersController customersController;
     private static JLabel text;
+    private boolean test = true;
 
     public TableController(int numTable, int sit) {
         tableModel = new TableModel(numTable, sit);
@@ -70,6 +71,7 @@ public class TableController implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        test = !test;
         //get value on playerController
         boolean playerReady = playerController.getModel().getPlayer().isReady();
         boolean playerCarryOrder = playerController.getModel().getPlayer().isCarryOrder();
@@ -159,19 +161,19 @@ public class TableController implements MouseListener {
     public static void setPlayerController(PlayerController playController) {
         TableController.playerController = playController;
     }
-//dirty table
-
+  
+    //dirty table
     public void letDirty() {
         tableModel.init("table" + tableModel.getTable().getNumTable() + "_d.png");
         tableView.setImg(tableModel.getImg());
     }
-// clean table
-
+  
+    // clean table
     public void notDirty() {
         tableModel.init("table" + tableModel.getTable().getNumTable() + ".png");
         tableView.setImg(tableModel.getImg());
     }
-
+  
     public void sit() {
         tableModel.init("table" + tableModel.getTable().getNumTable() + "_d.png");
         tableView.setImg(tableModel.getImg());
@@ -186,5 +188,4 @@ public class TableController implements MouseListener {
         tableModel.init("table" + tableModel.getTable().getNumTable() + "_d.png");
         tableView.setImg(tableModel.getImg());
     }
-
 }

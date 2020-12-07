@@ -1,5 +1,7 @@
 package maladash.src.components.Controllers;
 
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.*;
 import maladash.src.components.Classes.Player;
 import maladash.src.components.Models.TrashModel;
@@ -10,6 +12,8 @@ public class TrashController {
     private TrashModel trashModel;
     private TrashView trashView;
     private PlayerController playerController;
+    
+    private Point prevPoint;
 
     public TrashController() {
         trashModel = new TrashModel();
@@ -22,6 +26,7 @@ public class TrashController {
         trashView.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent me) {
+                
                 boolean playerReady = playerController.getModel().getPlayer().isReady();
                 boolean playerCarryOrder = playerController.getModel().getPlayer().isCarryOrder();
                 boolean playerCarryDish = playerController.getModel().getPlayer().isCarryDish();
