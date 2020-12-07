@@ -12,7 +12,7 @@ public class CustomersModel {
     private Image imgNormal, imgSad, imgSaddest, imgHandUp, imgHandUpSad, imgEat;
 
     public CustomersModel() {
-        customers = new Customers(false, false, false, 0, false, false);
+        customers = new Customers(false, false, false, 0, false, false, 0);
         init();
         System.out.println("[Customers]: Model loaded.");
     }
