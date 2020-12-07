@@ -29,18 +29,20 @@ public class CustomersController implements ActionListener, MouseMotionListener,
     MainGameController game;
     CustomersController csCon, csSelf;
     private int index;
-    private static final int LIMIT = 5;
+    private static final int LIMIT = 3;
 
-    public int getTime() {
-        return time;
-    }
-
-    public void setTime(int time) {
-        this.time = time;
-    }
+    private double pivot;
+    private static int people;
 
     public CustomersController() {
-        model = new CustomersModel();
+        pivot = Math.random() * 100;
+        if (pivot > 50) {
+            people = 4;
+        } else {
+            people = 2;
+        }
+
+        model = new CustomersModel(people);
         view = new CustomersView();
 
         time = (int) (Math.random() * 10) + 30;
@@ -130,44 +132,90 @@ public class CustomersController implements ActionListener, MouseMotionListener,
         this.csConList = csConList;
     }
 
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
+
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource().equals(tm)) {
+            
             time--;
             if (!model.getCustomers().isSit()) {
                 if (time <= 20) {
-                    view.setImg(model.getImgSad());
+                    if (people == 4) {
+                        view.setImg(model.getImgSad_4());
+                    } else if (people == 2) {
+                        view.setImg(model.getImgSad_2());
+                    }
                 }
                 if (time <= 10) {
-                    view.setImg(model.getImgSaddest());
+                    if (people == 4) {
+                        view.setImg(model.getImgSaddest_4());
+                    } else if (people == 2) {
+                        view.setImg(model.getImgSaddest_2());
+                    }
                 }
-                if (time <= 0) {
+                if (time == 0) {
                     System.out.println("dead");
                     view.setVisible(false);
+
                     tm.stop();
 
                     totalCustomers--;
                     csConList.set(index, null);
                     csSelf.getTm2().start();
                 }
-            }
-            else{
+            } else {
+                 System.out.println("[Customer]: " + Math.random());
+                if( model.getCustomers().isEat() && !model.getCustomers().isDone()){
+                        tableControllers.get(whichTable).eating();
+                    }
+                if((time == 0) && model.getCustomers().isEat()){
+                    model.getCustomers().setDone(true);
+                    tableControllers.get(whichTable).getTableModel().getTable().setDirty(true);
+                    setTime((int) (Math.random() * 10) + 30);
+                }
                 if (time <= 26) {
-                    model.getCustomers().setReady(true);
-                    model.getCustomers().setLvAngry(0);
+                    if (!model.getCustomers().isReady() && !model.getCustomers().isEat()) {
+                        model.getCustomers().setReady(true); // พร้อมสั่งอาหาร
+                        model.getCustomers().setLvAngry(0);
+                        tableControllers.get(whichTable).handUp(model.getCustomers().getLvAngry());
+                    }else if(model.getCustomers().isDone()){
+                        model.getCustomers().setLvAngry(0);
+                        tableControllers.get(whichTable).letDirty(model.getCustomers().getLvAngry());
+                    }
                 }
                 if (time <= 15) {
-                    model.getCustomers().setLvAngry(1);
+                    if (model.getCustomers().isReady() && !model.getCustomers().isEat()) {
+                        model.getCustomers().setLvAngry(1);
+                        tableControllers.get(whichTable).handUp(model.getCustomers().getLvAngry());
+                    }else if(model.getCustomers().isDone()){
+                        model.getCustomers().setLvAngry(1);
+                        tableControllers.get(whichTable).letDirty(model.getCustomers().getLvAngry());
+                    }
                 }
                 if (time <= 5) {
-                    model.getCustomers().setLvAngry(2);
+                    if (model.getCustomers().isReady() && !model.getCustomers().isEat()) {
+                        model.getCustomers().setLvAngry(2);
+                        tableControllers.get(whichTable).handUp(model.getCustomers().getLvAngry());
+                    }else if(model.getCustomers().isDone()){
+                        model.getCustomers().setLvAngry(2);
+                        tableControllers.get(whichTable).letDirty(model.getCustomers().getLvAngry());
+                    }
                 }
-                if (time <= 0) {
+                if (time == 0) {
                     tableControllers.get(whichTable).notDirty();
+                    tableControllers.get(whichTable).getTableModel().getTable().setSitable(true);
+
+                    tm.stop();
                 }
             }
 
-           
         }
         if (ae.getSource().equals(tm2)) {
             count--;
@@ -189,9 +237,20 @@ public class CustomersController implements ActionListener, MouseMotionListener,
 
                 csCon.getTm().start();
 
-                csCon.getView().setImg(model.getImgNormal());
+                if (people == 4) {
+                    csCon.getView().setImg(model.getImgNormal_4());
+                } else if (people == 2) {
+                    csCon.getView().setImg(model.getImgNormal_2());
+                }
+
                 csCon.getView().setOpaque(false);
-                csCon.getView().setBounds(100 * (index + 1), 350, 100, 250);
+
+                if (people == 4) {
+                    csCon.getView().setBounds(300 * (index), 350, 300, 250);
+                } else if (people == 2) {
+                    csCon.getView().setBounds(300 * (index), 350, 300, 250);
+                }
+
                 csCon.setOriginal(csCon.getView().getBounds());
 
                 csCon.setIndex(index);
@@ -275,22 +334,30 @@ public class CustomersController implements ActionListener, MouseMotionListener,
         if (checkCustomersTable() == false) {
             view.setBounds(original);
         } else {
-            prevPt = null;
-            view.setVisible(false);
-            
-            model.getCustomers().setSit(true);
+            if (tableControllers.get(whichTable).getTableModel().getTable().isSitable()) {
+                if (model.getCustomers().getCount() == tableControllers.get(whichTable).getTableModel().getTable().getChair()) {
+                    prevPt = null;
+                    view.setVisible(false);
 
-            totalCustomers--;
-            csConList.set(index, null);
-            csSelf.getTm2().start();
+                    model.getCustomers().setSit(true);
 
-            tableControllers.get(whichTable).setCustomersModel(model);
+                    totalCustomers--;
+                    csConList.set(index, null);
+                    csSelf.getTm2().start();
 
-            tableControllers.get(whichTable).getTableModel().getTable().setSitable(false);
-            tableControllers.get(whichTable).getTableModel().getTable().setDirty(true);
-            tableControllers.get(whichTable).letDirty();
+                    tableControllers.get(whichTable).setCustomersController(this);
 
-            time = (int) (Math.random() * 10) + 30;
+                    tableControllers.get(whichTable).getTableModel().getTable().setSitable(false);
+
+                    tableControllers.get(whichTable).sit();
+
+                    time = (int) (Math.random() * 10) + 30;
+                } else {
+                    view.setBounds(original);
+                }
+            } else {
+                view.setBounds(original);
+            }
 
         }
     }
