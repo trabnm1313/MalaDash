@@ -8,11 +8,13 @@ package maladash.src.components.Controllers;
 import maladash.src.components.Models.MalaModel;
 import maladash.src.components.Views.MalaView;
 import java.awt.event.*;
+
 /**
  *
  * @author USER
  */
-public class MalaController implements Runnable{
+public class MalaController implements Runnable {
+
     private MalaModel malaModel;
     private MalaView malaView;
     private static PlayerController playerController;
@@ -22,28 +24,36 @@ public class MalaController implements Runnable{
         malaModel = new MalaModel(numTable);
         malaView = new MalaView();
         malaView.setImg(malaModel.getImg());
-        if(numTable == 1){
+        if (numTable == 1) {
             malaView.setBounds(1025, 270, 75, 25);
-        }else if(numTable == 2){
+        } else if (numTable == 2) {
             malaView.setBounds(1129, 270, 75, 25);
-        }else if(numTable == 3){
+        } else if (numTable == 3) {
             malaView.setBounds(1233, 270, 75, 25);
-        }else if(numTable == 4){
+        } else if (numTable == 4) {
             malaView.setBounds(1337, 270, 75, 25);
         }
         malaView.setOpaque(false);
         malaView.setVisible(false);
         malaView.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e){
-                malaView.setVisible(false);
-                playerController.getModel().getPlayer().setCarryDish(true);
-                playerController.getModel().getPlayer().setMala(malaModel.getMala());
-                if(playerController.getModel().getPlayer().isCarryDish()) System.out.println("[Mala]: Get Dish Number #" + playerController.getModel().getPlayer().getMala().getNumTable());
-                playerController.standWithMala();
-                
+            public void mouseClicked(MouseEvent e) {
+                boolean playerReady = playerController.getModel().getPlayer().isReady();
+                boolean playerCarryOrder = playerController.getModel().getPlayer().isCarryOrder();
+                boolean playerCarryDish = playerController.getModel().getPlayer().isCarryDish();
+                boolean playerWashing = playerController.getModel().getPlayer().isWashing();
+                if ((playerController.getModel().getPlayer().getWhichTable() == 0) && !playerCarryOrder && !playerCarryDish && !playerWashing ) {
+                    malaView.setVisible(false);
+                    playerController.getModel().getPlayer().setCarryDish(true);
+                    playerController.getModel().getPlayer().setMala(malaModel.getMala());
+                    if (playerController.getModel().getPlayer().isCarryDish()) {
+                        System.out.println("[Mala]: Get Dish Number #" + playerController.getModel().getPlayer().getMala().getNumTable());
+                    }
+                    playerController.standWithMala();
+                }
+
             }
-});
-        
+        });
+
     }
 
     public MalaModel getMalaModel() {
@@ -64,11 +74,11 @@ public class MalaController implements Runnable{
 
     @Override
     public void run() {
-        time = (int)(Math.random()*7000)+5000;
-        try{
+        time = (int) (Math.random() * 7000) + 5000;
+        try {
             Thread.sleep(time);
             malaView.setVisible(true);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -80,7 +90,5 @@ public class MalaController implements Runnable{
     public void setPlayerController(PlayerController playerController) {
         this.playerController = playerController;
     }
-    
-    
-    
+
 }
