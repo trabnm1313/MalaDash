@@ -12,16 +12,19 @@ public class MainGameController {
     private MainGameView view;
     private MainGameModel model;
     private ArrayList<TableController> tableControllers;
-    private JPanel table1, table2, table3, table4, mala1, mala2, mala3, mala4;
+    private JPanel table1, table2, table3, table4, mala1, mala2, mala3, mala4, h1, h2, h3, h4, h5;
     private CustomersController customer1, customer2, customer3, customer4;
     private ArrayList<MalaController> malaController;
     private JLabel money;
     private PlayerController player;
     private ComputerController computer;
     private TrashController trash;
-    
+    private CustomersController customers;
+    private GameController game;
+    private ArrayList<HeartController> hearts;
+    private MainMenuController menu;
 
-    public MainGameController() {
+    public void init() {
         //Initate Model
         model = new MainGameModel();
         view = new MainGameView();
@@ -33,9 +36,24 @@ public class MainGameController {
         Thread tPlayer = new Thread(player);
         tPlayer.start();
         
+        
+        //heart
+        hearts = new ArrayList();
+        
+        for(int i = 0 ; i < 5; i++){
+            hearts.add(new HeartController(i));
+        }
+        h1 = hearts.get(0).getView();
+        h2 = hearts.get(1).getView();
+        h3 = hearts.get(2).getView();
+        h4 = hearts.get(3).getView();
+        h5 = hearts.get(4).getView();
+        
+        
+
         //money
         money = new JLabel(model.getMoney() + "");
-        money.setFont(new Font("Serif", Font.PLAIN, 72));
+        money.setFont(new Font("Serif", Font.BOLD, 72));
         money.setSize(200, 100);
         money.setBounds(1700, 5, 200, 100);
 
@@ -117,9 +135,20 @@ public class MainGameController {
         tCustomer2.start();
         tCustomer3.start();
         
+//         customers.setPlayer(player);
+//         customers.setHeats(hearts);
+//         customers.setGame(this);
+//         customers.setGameCon(game);
+//         customers.setMenu(menu);
 
         
         //Add to view
+        
+        view.add(h1);
+        view.add(h2);
+        view.add(h3);
+        view.add(h4);
+        view.add(h5);
 
         view.add(money);
         
@@ -161,6 +190,22 @@ public class MainGameController {
 
     public void setModel(MainGameModel model) {
         this.model = model;
+    }
+
+    public GameController getGame() {
+        return game;
+    }
+
+    public void setGame(GameController game) {
+        this.game = game;
+    }
+
+    public MainMenuController getMenu() {
+        return menu;
+    }
+
+    public void setMenu(MainMenuController menu) {
+        this.menu = menu;
     }
 
 }

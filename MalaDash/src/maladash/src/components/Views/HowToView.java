@@ -15,8 +15,8 @@ public class HowToView extends JPanel{
         back = new JButton("Back");
         
         back.setFont(new Font("Arial", Font.BOLD, 24));
-        back.setSize(100, 50);
-        back.setBounds(100, 1000, 100, 50);
+        back.setSize(150, 100);
+        back.setBounds(100, 900, 150, 100);
         
     }
     
