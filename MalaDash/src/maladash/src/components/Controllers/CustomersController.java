@@ -261,7 +261,6 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
                                     System.out.print(er);
                                 }
                             } else {
-                                over.getView().add(over.getRec().getView());
                                 over.getView().getHighScore().setText("" + menu.getHighScore());
                                 try {
                                     FileWriter fe = new FileWriter("HighScore.dat");
