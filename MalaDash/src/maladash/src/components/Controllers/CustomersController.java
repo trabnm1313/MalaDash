@@ -7,9 +7,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import javax.swing.SwingUtilities;
-import javax.swing.Timer;
+import javax.swing.*;
 import maladash.src.components.Models.CustomersModel;
 import maladash.src.components.Views.CustomersView;
 
@@ -19,7 +20,7 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
     private CustomersModel model;
     private CustomersView view;
     private ArrayList<TableController> tableControllers;
-    
+  
     //Timer
     private int waitTime;
     private int time;
@@ -39,6 +40,12 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
     
     //Class unique and global Variable
     private static int index = 0;
+  
+    private ArrayList<HeartController> heats;
+    private PlayerController player;
+    private GameController gameCon;
+    private MainMenuController menu;
+    private MainGameController game;
 
     //Random association
     private double pivot;
@@ -68,7 +75,22 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
     }
 
     //Setter&&Getter
-    
+    public GameController getGameCon() {
+        return gameCon;
+    }
+
+    public void setGameCon(GameController gameCon) {
+        this.gameCon = gameCon;
+    }
+
+    public ArrayList<HeartController> getHeats() {
+        return heats;
+    }
+
+    public void setHeats(ArrayList<HeartController> heats) {
+        this.heats = heats;
+    }
+
     public CustomersModel getModel() {
         return model;
     }
@@ -116,13 +138,21 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
     public void setTime(int time) {
         this.time = time;
     }
-
+    
     public int getPeople() {
         return people;
     }
 
     public void setPeople(int people) {
         this.people = people;
+    }
+    
+    public PlayerController getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(PlayerController player) {
+        this.player = player;
     }
     
     @Override
@@ -188,6 +218,56 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
             }
         }
     }
+//          player.getModel().getPlayer().setHeart(player.getModel().getPlayer().getHeart() - 1);
+
+//                     if (player.getModel().getPlayer().getHeart() == 4) {
+//                         heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
+//                     } else if (player.getModel().getPlayer().getHeart() == 3) {
+//                         heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
+//                     } else if (player.getModel().getPlayer().getHeart() == 2) {
+//                         heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
+//                     } else if (player.getModel().getPlayer().getHeart() == 1) {
+//                         heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
+//                     } else if (player.getModel().getPlayer().getHeart() == 0) {
+//                         //GameOver
+//                         heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
+//                         GameOverController over = new GameOverController();
+//                         over.getView().getScore().setText("" + game.getModel().getMoney());
+//                         if (game.getModel().getMoney() > menu.getHighScore()) {
+//                             over.getView().getHighScore().setText("" + game.getModel().getMoney());
+//                             try {
+//                                 FileWriter fe = new FileWriter("HighScore.dat");
+//                                 fe.write(game.getModel().getMoney());
+//                                 System.out.println("Writing successful");
+//                                 fe.close();
+//                             } catch (IOException er) {
+//                                 System.out.print(er);
+//                             }
+//                         } else {
+//                             over.getView().getHighScore().setText("" + menu.getHighScore());
+//                             try {
+//                                 FileWriter fe = new FileWriter("HighScore.dat");
+//                                 fe.write(menu.getHighScore());
+//                                 System.out.println("Writing successful");
+//                                 fe.close();
+//                             } catch (IOException er) {
+//                                 System.out.print(er);
+//                             }
+//                         }
+//                         over.setGame(gameCon);
+
+//                         //Short Variable
+//                         JFrame gameFrame = gameCon.getView().getFrame();
+
+//                         //Change ContentPane from MainMenu to MainGame
+//                         gameFrame.setContentPane(over.getView());
+//                         gameFrame.setSize(1920, 1080);
+
+//                         gameFrame.getContentPane().revalidate();
+//                         gameFrame.getContentPane().repaint();
+//                         gameFrame.setVisible(true);
+
+//                     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
@@ -253,6 +333,14 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
             }
 
         }
+    }
+
+    public MainMenuController getMenu() {
+        return menu;
+    }
+
+    public void setMenu(MainMenuController menu) {
+        this.menu = menu;
     }
 
     @Override

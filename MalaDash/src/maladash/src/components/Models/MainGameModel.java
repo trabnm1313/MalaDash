@@ -11,6 +11,7 @@ public class MainGameModel {
     private boolean imageLoaded;
     private JPanel player;
     private int money;
+    private int highScore;
     
     public MainGameModel(){
         imageLoaded = init();
