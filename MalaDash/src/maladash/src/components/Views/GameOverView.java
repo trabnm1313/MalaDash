@@ -13,6 +13,8 @@ public class GameOverView extends JPanel{
 
     public GameOverView() {
         
+        this.setLayout(null);
+        
         score = new JLabel("0");
         score.setFont(new Font("Serif", Font.BOLD, 72));
         score.setSize(200, 100);
@@ -23,17 +25,17 @@ public class GameOverView extends JPanel{
         highScore.setSize(200, 100);
         highScore.setBounds(920, 800, 200, 100);
         
-        tryagain = new JButton("Try Agian");
+        tryagain = new JButton("Try Again");
         
         tryagain.setFont(new Font("Arial", Font.BOLD, 24));
-        tryagain.setSize(100, 50);
-        tryagain.setBounds(100, 1000, 100, 50);
+        tryagain.setSize(250, 50);
+        tryagain.setBounds(100, 1000, 250, 50);
         
         exited = new JButton("Back To Menu");
         
         exited.setFont(new Font("Arial", Font.BOLD, 24));
-        exited.setSize(100, 50);
-        exited.setBounds(1800, 1000, 100, 50);
+        exited.setSize(250, 50);
+        exited.setBounds(1600, 1000, 250, 50);
         
     }
     

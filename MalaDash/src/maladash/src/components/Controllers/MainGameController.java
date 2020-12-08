@@ -6,8 +6,8 @@ import javax.swing.*;
 import maladash.src.components.Models.MainGameModel;
 import maladash.src.components.Views.MainGameView;
 
-
 public class MainGameController {
+
     private posterController poster;
     private MainGameView view;
     private MainGameModel model;
@@ -30,14 +30,14 @@ public class MainGameController {
         view = new MainGameView();
         view.setImg(model.getImg());
         view.setLayout(null);
-        
+
         //Player
         player = new PlayerController();
-        
+
         //heart
         hearts = new ArrayList();
-        
-        for(int i = 0 ; i < 5; i++){
+
+        for (int i = 0; i < 5; i++) {
             hearts.add(new HeartController(i));
         }
         h1 = hearts.get(0).getView();
@@ -45,8 +45,6 @@ public class MainGameController {
         h3 = hearts.get(2).getView();
         h4 = hearts.get(3).getView();
         h5 = hearts.get(4).getView();
-        
-        
 
         //money
         money = new JLabel(model.getMoney() + "");
@@ -106,12 +104,12 @@ public class MainGameController {
         poster = new posterController();
         poster.getPoster().setOpaque(false);
         poster.setPlayer(player);
-        poster.getPoster().setBounds(935,337,412,150);
-        
+        poster.getPoster().setBounds(935, 337, 412, 150);
+
         //Trash
         trash = new TrashController();
         trash.setPlayerController(player);
-        
+
         //Customers
         customer1 = new CustomersController();
         customer2 = new CustomersController();
@@ -120,6 +118,25 @@ public class MainGameController {
         customer1.setTableControllers(tableControllers);
         customer2.setTableControllers(tableControllers);
         customer3.setTableControllers(tableControllers);
+        
+        customer1.setPlayer(player);
+        customer1.setHeats(hearts);
+        customer1.setGame(this);
+        customer1.setGameCon(game);
+        customer1.setMenu(menu);
+        
+        customer2.setPlayer(player);
+        customer2.setHeats(hearts);
+        customer2.setGame(this);
+        customer2.setGameCon(game);
+        customer2.setMenu(menu);
+        
+        customer3.setPlayer(player);
+        customer3.setHeats(hearts);
+        customer3.setGame(this);
+        customer3.setGameCon(game);
+        customer3.setMenu(menu);
+        
         //Init
         customer1.init();
         customer2.init();
@@ -131,16 +148,9 @@ public class MainGameController {
         tCustomer1.start();
         tCustomer2.start();
         tCustomer3.start();
-        
-//         customers.setPlayer(player);
-//         customers.setHeats(hearts);
-//         customers.setGame(this);
-//         customers.setGameCon(game);
-//         customers.setMenu(menu);
 
-        
+
         //Add to view
-        
         view.add(h1);
         view.add(h2);
         view.add(h3);
@@ -148,7 +158,7 @@ public class MainGameController {
         view.add(h5);
 
         view.add(money);
-        
+
         view.add(table2);
         view.add(table4);
 
@@ -161,13 +171,13 @@ public class MainGameController {
         view.add(mala2);
         view.add(mala3);
         view.add(mala4);
-        
+
         view.add(computer.getView());
-        
+
         view.add(trash.getTrashView());
-                
+
         view.add(poster.getPoster());
-        
+
         view.add(customer1.getView());
         view.add(customer2.getView());
         view.add(customer3.getView());

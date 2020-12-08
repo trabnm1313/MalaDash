@@ -14,33 +14,33 @@ import javax.swing.*;
 import maladash.src.components.Models.CustomersModel;
 import maladash.src.components.Views.CustomersView;
 
-public class CustomersController implements MouseMotionListener, MouseListener, Runnable{
+public class CustomersController implements MouseMotionListener, MouseListener, Runnable {
 
     //ModelView and Refference Class
     private CustomersModel model;
     private CustomersView view;
     private ArrayList<TableController> tableControllers;
-  
+
     //Timer
     private int waitTime;
     private int time;
     private int timeSpawn;
     private int minSpawnTime = 1;
     private int maxSpawnTime = 5;
-    private int minWaitTime = 25;
-    private int maxWaitTime = 30;
-    
+    private int minWaitTime = 1;
+    private int maxWaitTime = 1;
+
     //Mouse&&CustomerPosition
     private Point prevPt, curPt, newPt;
     private Rectangle original;
     private int whichTable;
-    
+
     //Boolean
     private boolean isSpawning = true;
-    
+
     //Class unique and global Variable
     private static int index = 0;
-  
+
     private ArrayList<HeartController> heats;
     private PlayerController player;
     private GameController gameCon;
@@ -55,26 +55,37 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
 
         model = new CustomersModel();
         view = new CustomersView();
-        
+
         view.setVisible(false);
         view.setBounds(300 * (index), 300, 300, 250);
         original = view.getBounds();
         view.setOpaque(false);
-        
+
         view.addMouseListener(this);
         view.addMouseMotionListener(this);
-        
-        pivot = Math.random() * 100;
-        if(pivot > 50) people = 4;
-        else people = 2;
 
-        timeSpawn = (int)(Math.random() * maxSpawnTime) + minSpawnTime;
+        pivot = Math.random() * 100;
+        if (pivot > 50) {
+            people = 4;
+        } else {
+            people = 2;
+        }
+
+        timeSpawn = (int) (Math.random() * maxSpawnTime) + minSpawnTime;
         time = (int) (Math.random() * maxWaitTime) + minWaitTime;
-        
+
         index++;
     }
 
     //Setter&&Getter
+    public MainGameController getGame() {
+        return game;
+    }
+
+    public void setGame(MainGameController game) {
+        this.game = game;
+    }
+
     public GameController getGameCon() {
         return gameCon;
     }
@@ -114,7 +125,7 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
     public void setTableControllers(ArrayList<TableController> tableControllers) {
         this.tableControllers = tableControllers;
     }
-    
+
     public Rectangle getOriginal() {
         return original;
     }
@@ -138,7 +149,7 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
     public void setTime(int time) {
         this.time = time;
     }
-    
+
     public int getPeople() {
         return people;
     }
@@ -146,7 +157,7 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
     public void setPeople(int people) {
         this.people = people;
     }
-    
+
     public PlayerController getPlayer() {
         return player;
     }
@@ -154,120 +165,129 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
     public void setPlayer(PlayerController player) {
         this.player = player;
     }
-    
+
     @Override
     public void run() {
-        while(true){
-            try{
-                
+        while (true) {
+            try {
+
                 Thread.sleep(1000);
-                
-                if(isSpawning){
+
+                if (isSpawning) {
                     timeSpawn--;
-                }else{
+                } else {
                     time--;
                 }
-                
+
 //                System.out.println("[Customer][" + index + "]: Time: " + time + ", TimeSpawn: " + timeSpawn);
-                
-            }catch(Exception ex){
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
-            
-            if(isSpawning){
-                if(timeSpawn == 0){
+
+            if (isSpawning) {
+                if (timeSpawn == 0) {
                     view.setVisible(true);
-                    
-                    pivot = (int)(Math.random() * 100);
-                    if(pivot > 50){
+
+                    pivot = (int) (Math.random() * 100);
+                    if (pivot > 50) {
                         people = 4;
                         view.setImg(model.getImgNormal_4());
-                    }else{
+                    } else {
                         people = 2;
                         view.setImg(model.getImgNormal_2());
                     }
-                    
+
                     model.getCustomers().setCount(people);
                     isSpawning = false;
-                    timeSpawn = (int)(Math.random() * maxSpawnTime) + minSpawnTime;
+                    timeSpawn = (int) (Math.random() * maxSpawnTime) + minSpawnTime;
                 }
-            }else{
-                
+            } else {
+
                 //Change expression if customer didn't sit yet
-                if(!model.getCustomers().isSit()){
+                if (!model.getCustomers().isSit()) {
                     //Sad
-                    if(time > 10 && time <= 20){
-                        if(people == 4) view.setImg(model.getImgSad_4());
-                        else view.setImg(model.getImgSad_2());
+                    if (time > 10 && time <= 20) {
+                        if (people == 4) {
+                            view.setImg(model.getImgSad_4());
+                        } else {
+                            view.setImg(model.getImgSad_2());
+                        }
                     }
                     //Saddest
-                    if(time > 0 && time <= 10){
-                        if(people == 4) view.setImg(model.getImgSaddest_4());
-                        else view.setImg(model.getImgSaddest_2());
+                    if (time > 0 && time <= 10) {
+                        if (people == 4) {
+                            view.setImg(model.getImgSaddest_4());
+                        } else {
+                            view.setImg(model.getImgSaddest_2());
+                        }
                     }
                     //DEATH
-                    if(time == 0){
+                    if (time == 0) {
                         System.out.println("[Customer][" + index + "]: DEAD");
                         view.setVisible(false);
-                        time = (int)(Math.random() * maxWaitTime) + minWaitTime;
+                        time = (int) (Math.random() * maxWaitTime) + minWaitTime;
                         isSpawning = true;
+
+                        player.getModel().getPlayer().setHeart(player.getModel().getPlayer().getHeart() - 1);
+
+                        if (player.getModel().getPlayer().getHeart() == 4) {
+                            heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
+                        } else if (player.getModel().getPlayer().getHeart() == 3) {
+                            heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
+                        } else if (player.getModel().getPlayer().getHeart() == 2) {
+                            heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
+                        } else if (player.getModel().getPlayer().getHeart() == 1) {
+                            heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
+                        } else if (player.getModel().getPlayer().getHeart() == 0) {
+                            //GameOver
+                            heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
+                            GameOverController over = new GameOverController();
+                            over.setGame(gameCon);
+                            over.init();
+                            over.getView().getScore().setText("" + game.getModel().getMoney());
+                            System.out.println(menu + " " + game);
+                            if (game.getModel().getMoney() > menu.getHighScore()) {
+                                over.getView().add(over.getRec().getView());
+                                over.getView().getHighScore().setText("" + game.getModel().getMoney());
+                                try {
+                                    FileWriter fe = new FileWriter("HighScore.dat");
+                                    over.setGame(gameCon);
+                                    over.init();
+                                    fe.write(game.getModel().getMoney());
+                                    System.out.println("Writing successful");
+                                    fe.close();
+                                } catch (IOException er) {
+                                    System.out.print(er);
+                                }
+                            } else {
+                                over.getView().add(over.getRec().getView());
+                                over.getView().getHighScore().setText("" + menu.getHighScore());
+                                try {
+                                    FileWriter fe = new FileWriter("HighScore.dat");
+                                    fe.write(menu.getHighScore());
+                                    System.out.println("Writing successful");
+                                    fe.close();
+                                } catch (IOException er) {
+                                    System.out.print(er);
+                                }
+                                setIndex(0);
+                            }
+                            //Short Variable
+                            JFrame gameFrame = gameCon.getView().getFrame();
+                            //Change ContentPane from MainMenu to MainGame
+                            gameFrame.setContentPane(over.getView());
+                            gameFrame.setSize(1920, 1080);
+                            gameFrame.getContentPane().revalidate();
+                            gameFrame.getContentPane().repaint();
+                            gameFrame.setVisible(true);
+                        }
                     }
 
                 }
-                
+
             }
         }
     }
-//          player.getModel().getPlayer().setHeart(player.getModel().getPlayer().getHeart() - 1);
-
-//                     if (player.getModel().getPlayer().getHeart() == 4) {
-//                         heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
-//                     } else if (player.getModel().getPlayer().getHeart() == 3) {
-//                         heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
-//                     } else if (player.getModel().getPlayer().getHeart() == 2) {
-//                         heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
-//                     } else if (player.getModel().getPlayer().getHeart() == 1) {
-//                         heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
-//                     } else if (player.getModel().getPlayer().getHeart() == 0) {
-//                         //GameOver
-//                         heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
-//                         GameOverController over = new GameOverController();
-//                         over.getView().getScore().setText("" + game.getModel().getMoney());
-//                         if (game.getModel().getMoney() > menu.getHighScore()) {
-//                             over.getView().getHighScore().setText("" + game.getModel().getMoney());
-//                             try {
-//                                 FileWriter fe = new FileWriter("HighScore.dat");
-//                                 fe.write(game.getModel().getMoney());
-//                                 System.out.println("Writing successful");
-//                                 fe.close();
-//                             } catch (IOException er) {
-//                                 System.out.print(er);
-//                             }
-//                         } else {
-//                             over.getView().getHighScore().setText("" + menu.getHighScore());
-//                             try {
-//                                 FileWriter fe = new FileWriter("HighScore.dat");
-//                                 fe.write(menu.getHighScore());
-//                                 System.out.println("Writing successful");
-//                                 fe.close();
-//                             } catch (IOException er) {
-//                                 System.out.print(er);
-//                             }
-//                         }
-//                         over.setGame(gameCon);
-
-//                         //Short Variable
-//                         JFrame gameFrame = gameCon.getView().getFrame();
-
-//                         //Change ContentPane from MainMenu to MainGame
-//                         gameFrame.setContentPane(over.getView());
-//                         gameFrame.setSize(1920, 1080);
-
-//                         gameFrame.getContentPane().revalidate();
-//                         gameFrame.getContentPane().repaint();
-//                         gameFrame.setVisible(true);
-
-//                     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
@@ -307,23 +327,29 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
                 if (model.getCustomers().getCount() == tableControllers.get(whichTable).getTableModel().getTable().getChair()) {
                     prevPt = null;
                     view.setVisible(false);
-                    
+
                     SitCustomerController sitCustomer = new SitCustomerController();
-                    
+
                     sitCustomer.getModel().getCustomers().setCount(people);
                     sitCustomer.getModel().getCustomers().setSit(true);
                     sitCustomer.setTableControllers(tableControllers);
                     sitCustomer.setWhichTable(whichTable);
-                    
+                    sitCustomer.setPlayer(getPlayer());
+                    sitCustomer.setHeats(getHeats());
+                    sitCustomer.setGame(getGame());
+                    sitCustomer.setGameCon(getGameCon());
+                    sitCustomer.setMenu(getMenu());
+                    sitCustomer.setCos(this);
+
                     Thread tSitCustomer = new Thread(sitCustomer);
                     tSitCustomer.start();
 
                     tableControllers.get(whichTable).setCustomersController(sitCustomer);
                     tableControllers.get(whichTable).getTableModel().getTable().setSitable(false);
                     tableControllers.get(whichTable).sit();
-                    
+
                     isSpawning = true;
-                    time = (int)(Math.random() + minWaitTime) + maxWaitTime;
+                    time = (int) (Math.random() + minWaitTime) + maxWaitTime;
                     view.setBounds(original);
                 } else {
                     view.setBounds(original);
@@ -350,9 +376,8 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
     @Override
     public void mouseExited(MouseEvent me) {
     }
-    
+
     //Custom Method
-    
     public boolean checkCustomersTable() {
         int mouseX = curPt.x;
         int mouseY = curPt.y;
