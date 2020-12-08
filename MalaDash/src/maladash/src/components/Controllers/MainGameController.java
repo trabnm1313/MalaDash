@@ -34,6 +34,9 @@ public class MainGameController {
         //Player
         player = new PlayerController();
 
+        Thread tPlayer = new Thread(player);
+        tPlayer.start();
+        
         //heart
         hearts = new ArrayList();
 
