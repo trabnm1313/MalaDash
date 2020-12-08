@@ -21,6 +21,7 @@ public class MainGameController {
     private CustomersController customers;
     private GameController game;
     private ArrayList<HeartController> hearts;
+    private MainMenuController menu;
 
     public void init() {
         //Initate Model
@@ -48,7 +49,7 @@ public class MainGameController {
 
         //money
         money = new JLabel(model.getMoney() + "");
-        money.setFont(new Font("Serif", Font.PLAIN, 72));
+        money.setFont(new Font("Serif", Font.BOLD, 72));
         money.setSize(200, 100);
         money.setBounds(1700, 5, 200, 100);
 
@@ -117,6 +118,7 @@ public class MainGameController {
         customers.setHeats(hearts);
         customers.setGame(this);
         customers.setGameCon(game);
+        customers.setMenu(menu);
         customers.getTm2().start();
 
         
@@ -172,6 +174,14 @@ public class MainGameController {
 
     public void setGame(GameController game) {
         this.game = game;
+    }
+
+    public MainMenuController getMenu() {
+        return menu;
+    }
+
+    public void setMenu(MainMenuController menu) {
+        this.menu = menu;
     }
 
 }

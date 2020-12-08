@@ -14,14 +14,14 @@ public class GameOverView extends JPanel{
     public GameOverView() {
         
         score = new JLabel("0");
-        score.setFont(new Font("Serif", Font.PLAIN, 72));
+        score.setFont(new Font("Serif", Font.BOLD, 72));
         score.setSize(200, 100);
-        score.setBounds(1200, 200, 200, 100);
+        score.setBounds(920, 480, 200, 100);
         
         highScore = new JLabel("0");
-        highScore.setFont(new Font("Serif", Font.PLAIN, 72));
+        highScore.setFont(new Font("Serif", Font.BOLD, 72));
         highScore.setSize(200, 100);
-        highScore.setBounds(1200, 400, 200, 100);
+        highScore.setBounds(920, 800, 200, 100);
         
         tryagain = new JButton("Try Agian");
         

@@ -127,8 +127,8 @@ public class TableController implements MouseListener {
                     customersController.getTm().stop();
                     //collect money
                     money = (int) (10 + (Math.random() * 20)) + Integer.parseInt(getText().getText());
-                    System.out.println(money);
                     text.setText(money + "");
+                    mainGame.getModel().setMoney(money);
                     tableModel.getTable().setSitable(true);
                 }
             }

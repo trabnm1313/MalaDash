@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileReader;
+import java.io.IOException;
 import maladash.src.components.Models.MainMenuModel;
 import maladash.src.components.Views.MainMenuView;
 
@@ -14,14 +16,20 @@ public class MainMenuController implements ActionListener {
     private GameController game;
     private MainGameController mainGame;
     private HowToController howTo;
-            
+    private int highScore;
     public MainMenuController() {
         //Init
         model = new MainMenuModel();
         view = new MainMenuView();
         view.setImg(model.getImg());
-
-        
+        try (FileReader fin = new FileReader("HighScore.dat")) {
+                    int i;
+                    while ((i = fin.read()) != -1) {
+                        highScore = i;
+                    }
+                } catch (IOException er) {
+                    System.out.print(er);}
+        System.out.println(highScore);
         //Add ActionListener
         view.getStartButton().addActionListener(this);
         view.getOptionButton().addActionListener(this);
@@ -60,6 +68,7 @@ public class MainMenuController implements ActionListener {
             mainGame = new MainGameController();
             
             mainGame.setGame(game);
+            mainGame.setMenu(this);
             mainGame.init();
             //Short Variable
             JFrame gameFrame = game.getView().getFrame();
@@ -139,7 +148,16 @@ public class MainMenuController implements ActionListener {
             dialog.pack();
             dialog.setVisible(true);
         }
+        
 
         
+    }
+
+    public int getHighScore() {
+        return highScore;
+    }
+
+    public void setHighScore(int highScore) {
+        this.highScore = highScore;
     }
 }

@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.*;
 import maladash.src.components.Models.CustomersModel;
@@ -32,6 +34,7 @@ public class CustomersController implements ActionListener, MouseMotionListener,
     private static final int LIMIT = 3;
     private PlayerController player;
     private GameController gameCon;
+    private MainMenuController menu;
 
     private double pivot;
     private static int people;
@@ -186,7 +189,7 @@ public class CustomersController implements ActionListener, MouseMotionListener,
                         view.setImg(model.getImgSaddest_2());
                     }
                 }
-                if (time >= 0) {
+                if (time == 0) {
                     System.out.println("dead");
                     view.setVisible(false);
 
@@ -203,9 +206,31 @@ public class CustomersController implements ActionListener, MouseMotionListener,
                     } else if (player.getModel().getPlayer().getHeart() == 1) {
                         heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
                     } else if (player.getModel().getPlayer().getHeart() == 0) {
+                        //GameOver
                         heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
                         GameOverController over = new GameOverController();
                         over.getView().getScore().setText("" + game.getModel().getMoney());
+                        if (game.getModel().getMoney() > menu.getHighScore()) {
+                            over.getView().getHighScore().setText("" + game.getModel().getMoney());
+                            try {
+                                FileWriter fe = new FileWriter("HighScore.dat");
+                                fe.write(game.getModel().getMoney());
+                                System.out.println("Writing successful");
+                                fe.close();
+                            } catch (IOException er) {
+                                System.out.print(er);
+                            }
+                        } else {
+                            over.getView().getHighScore().setText("" + menu.getHighScore());
+                            try {
+                                FileWriter fe = new FileWriter("HighScore.dat");
+                                fe.write(menu.getHighScore());
+                                System.out.println("Writing successful");
+                                fe.close();
+                            } catch (IOException er) {
+                                System.out.print(er);
+                            }
+                        }
                         over.setGame(gameCon);
 
                         //Short Variable
@@ -218,6 +243,7 @@ public class CustomersController implements ActionListener, MouseMotionListener,
                         gameFrame.getContentPane().revalidate();
                         gameFrame.getContentPane().repaint();
                         gameFrame.setVisible(true);
+
                     }
 
                     totalCustomers--;
@@ -291,7 +317,7 @@ public class CustomersController implements ActionListener, MouseMotionListener,
                 csCon.setHeats(heats);
                 csCon.setGame(game);
                 csCon.setGameCon(gameCon);
-                
+                csCon.setMenu(menu);
 
                 csCon.setCsSelf(this);
 
@@ -420,6 +446,14 @@ public class CustomersController implements ActionListener, MouseMotionListener,
             }
 
         }
+    }
+
+    public MainMenuController getMenu() {
+        return menu;
+    }
+
+    public void setMenu(MainMenuController menu) {
+        this.menu = menu;
     }
 
     @Override
