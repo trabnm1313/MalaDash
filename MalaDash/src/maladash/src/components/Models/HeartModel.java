@@ -22,7 +22,6 @@ public class HeartModel {
     
     public boolean init(){
         URL imageFile = this.getClass().getResource("../../images/heartfull.png");
-        System.out.println(imageFile);
         try{
             img = new ImageIcon(imageFile).getImage();
             return true;

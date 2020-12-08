@@ -22,7 +22,6 @@ public class GameOverModel {
     
     public boolean init(){
         URL imageFile = this.getClass().getResource("../../images/gameover.png");
-        System.out.println(imageFile);
         try{
             img = new ImageIcon(imageFile).getImage();
             return true;

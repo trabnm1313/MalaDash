@@ -224,7 +224,6 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
                     }
                     //DEATH
                     if (time == 0) {
-                        System.out.println("[Customer][" + index + "]: DEAD");
                         view.setVisible(false);
                         time = (int) (Math.random() * maxWaitTime) + minWaitTime;
                         isSpawning = true;
@@ -253,7 +252,6 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
                                 try {
                                     FileWriter fe = new FileWriter("HighScore.dat");
                                     fe.write(game.getModel().getMoney());
-                                    System.out.println("Writing successful");
                                     fe.close();
                                 } catch (IOException er) {
                                     System.out.print(er);
@@ -263,7 +261,6 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
                                 try {
                                     FileWriter fe = new FileWriter("HighScore.dat");
                                     fe.write(game.getHighScore());
-                                    System.out.println("Writing successful");
                                     fe.close();
                                 } catch (IOException er) {
                                     System.out.print(er);
@@ -308,7 +305,6 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
 
     @Override
     public void mouseClicked(MouseEvent me) {
-        System.out.println("HELLO");
     }
 
     @Override

@@ -22,7 +22,6 @@ public class HowToModel {
     
     public boolean init(){
         URL imageFile = this.getClass().getResource("../../images/tutorial.png");
-        System.out.println(imageFile);
         try{
             img = new ImageIcon(imageFile).getImage();
             return true;

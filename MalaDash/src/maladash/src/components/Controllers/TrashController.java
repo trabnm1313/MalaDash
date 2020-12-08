@@ -36,7 +36,6 @@ public class TrashController {
                     playerController.getModel().getPlayer().setWashing(false);
                     playerController.stand();
                 }
-                System.out.println("Hello trash");
             }
         });
     }

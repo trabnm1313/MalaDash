@@ -122,7 +122,6 @@ class SitCustomerController implements Runnable {
                             try {
                                 FileWriter fe = new FileWriter("HighScore.dat");
                                 fe.write(game.getModel().getMoney());
-                                System.out.println("Writing successful");
                                 fe.close();
                             } catch (IOException er) {
                                 System.out.print(er);
@@ -132,7 +131,6 @@ class SitCustomerController implements Runnable {
                             try {
                                 FileWriter fe = new FileWriter("HighScore.dat");
                                 fe.write(game.getHighScore());
-                                System.out.println("Writing successful");
                                 fe.close();
                             } catch (IOException er) {
                                 System.out.print(er);

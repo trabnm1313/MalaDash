@@ -22,7 +22,6 @@ public class MainMenuModel {
     
     public boolean init(){
         URL imageFile = this.getClass().getResource("../../images/mainmenu_logo.png");
-        System.out.println(imageFile);
         try{
             img = new ImageIcon(imageFile).getImage();
             return true;

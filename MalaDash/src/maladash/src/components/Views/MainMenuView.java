@@ -49,7 +49,6 @@ public class MainMenuView extends JPanel{
         constraint.gridy = 2;
         this.add(exitButton, constraint);
         
-        System.out.println("[MainMenuView]: View loaded.");
     }
     
     @Override

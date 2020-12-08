@@ -48,7 +48,6 @@ public class PlayerController implements Runnable{
                 System.out.println("HELLO");
             }
         });
-        System.out.println("[Player]: View created.");
     }
     
     public void travel(int target){

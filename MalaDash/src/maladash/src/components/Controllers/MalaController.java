@@ -45,9 +45,6 @@ public class MalaController implements Runnable {
                     malaView.setVisible(false);
                     playerController.getModel().getPlayer().setCarryDish(true);
                     playerController.getModel().getPlayer().setMala(malaModel.getMala());
-                    if (playerController.getModel().getPlayer().isCarryDish()) {
-                        System.out.println("[Mala]: Get Dish Number #" + playerController.getModel().getPlayer().getMala().getNumTable());
-                    }
                     playerController.standWithMala();
                 }
 
