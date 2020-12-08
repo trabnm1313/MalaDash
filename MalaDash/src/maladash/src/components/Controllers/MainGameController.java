@@ -13,6 +13,7 @@ public class MainGameController {
     private MainGameModel model;
     private ArrayList<TableController> tableControllers;
     private JPanel table1, table2, table3, table4, mala1, mala2, mala3, mala4, h1, h2, h3, h4, h5;
+    private CustomersController customer1, customer2, customer3, customer4;
     private ArrayList<MalaController> malaController;
     private JLabel money;
     private PlayerController player;
@@ -112,14 +113,30 @@ public class MainGameController {
         trash.setPlayerController(player);
         
         //Customers
-        customers = new CustomersController();
-        customers.setTableControllers(tableControllers);
-        customers.setPlayer(player);
-        customers.setHeats(hearts);
-        customers.setGame(this);
-        customers.setGameCon(game);
-        customers.setMenu(menu);
-        customers.getTm2().start();
+        customer1 = new CustomersController();
+        customer2 = new CustomersController();
+        customer3 = new CustomersController();
+        //Customers Configuration
+        customer1.setTableControllers(tableControllers);
+        customer2.setTableControllers(tableControllers);
+        customer3.setTableControllers(tableControllers);
+        //Init
+        customer1.init();
+        customer2.init();
+        customer3.init();
+        //Customers Thread
+        Thread tCustomer1 = new Thread(customer1);
+        Thread tCustomer2 = new Thread(customer2);
+        Thread tCustomer3 = new Thread(customer3);
+        tCustomer1.start();
+        tCustomer2.start();
+        tCustomer3.start();
+        
+//         customers.setPlayer(player);
+//         customers.setHeats(hearts);
+//         customers.setGame(this);
+//         customers.setGameCon(game);
+//         customers.setMenu(menu);
 
         
         //Add to view
@@ -150,6 +167,10 @@ public class MainGameController {
         view.add(trash.getTrashView());
                 
         view.add(poster.getPoster());
+        
+        view.add(customer1.getView());
+        view.add(customer2.getView());
+        view.add(customer3.getView());
     }
 
     public MainGameView getView() {

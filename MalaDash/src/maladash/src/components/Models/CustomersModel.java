@@ -11,8 +11,8 @@ public class CustomersModel {
     private boolean imageLoaded;
     private Image imgNormal_2, imgSad_2, imgSaddest_2, imgNormal_4, imgSad_4, imgSaddest_4;
 
-    public CustomersModel(int people) {
-        customers = new Customers(false, false, false, people, false, false, 0);
+    public CustomersModel() {
+        customers = new Customers(false, false, false, 0, false, false, 0);
         init();
         System.out.println("[Customers]: Model loaded.");
     }
