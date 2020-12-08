@@ -8,6 +8,7 @@ import java.io.File;
 public class MainGameView extends JPanel{
     //Coponents
     private BufferedImage img;
+
     
     @Override
     public void paintComponent(Graphics g){
