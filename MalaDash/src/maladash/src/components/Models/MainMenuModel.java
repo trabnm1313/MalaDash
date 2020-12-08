@@ -1,13 +1,14 @@
 
 package maladash.src.components.Models;
 
-import java.awt.image.BufferedImage;
+import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import javax.imageio.ImageIO;
+import javax.swing.*;
 
 public class MainMenuModel {
-    private BufferedImage img;
+    private Image img;
     private boolean imageLoaded;
     
     public MainMenuModel(){
@@ -15,15 +16,14 @@ public class MainMenuModel {
         if(imageLoaded){
             System.out.println("[MainMenuModel]: Image loaded.");
         }else{
-            System.out.println("[MainMenuModel]: Image failed to loaded.");
+            System.out.println("[MainMenuModel]: Image failed to load.");
         }
     }
     
     public boolean init(){
-        URL imageFile = this.getClass().getResource("../../images/mockBGC.jpg");
-        System.out.println(imageFile);
+        URL imageFile = this.getClass().getResource("../../images/mainmenu_logo.png");
         try{
-            img = ImageIO.read(imageFile);
+            img = new ImageIcon(imageFile).getImage();
             return true;
         }catch(Exception ex){
             ex.printStackTrace();
@@ -31,11 +31,11 @@ public class MainMenuModel {
         }
     }
 
-    public BufferedImage getImg() {
+    public Image getImg() {
         return img;
     }
 
-    public void setImg(BufferedImage img) {
+    public void setImg(Image img) {
         this.img = img;
     }
 }

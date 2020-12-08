@@ -13,21 +13,21 @@ import java.awt.image.BufferedImage;
  * @author USER
  */
 public class TableView extends JPanel{
-    private BufferedImage img;
+    private Image img;
     public void paintComponent(Graphics g){
         super.paintComponents(g);
         
         Graphics2D g2D = (Graphics2D) g;
         g2D.drawImage(img, 0, 0, this);
         g2D.setColor(Color.black);
-        g2D.drawRect(0, 0, (int)this.getSize().getWidth(), (int)this.getSize().getHeight());
+//        g2D.drawRect(0, 0, (int)this.getSize().getWidth(), (int)this.getSize().getHeight());
     }
 
-    public BufferedImage getImg() {
+    public Image getImg() {
         return img;
     }
 
-    public void setImg(BufferedImage img) {
+    public void setImg(Image img) {
         this.img = img;
         this.revalidate();
         this.repaint();

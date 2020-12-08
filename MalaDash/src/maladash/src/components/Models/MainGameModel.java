@@ -10,13 +10,15 @@ public class MainGameModel {
     private BufferedImage img;
     private boolean imageLoaded;
     private JPanel player;
+    private int money;
+    private int highScore;
     
     public MainGameModel(){
         imageLoaded = init();
         if(imageLoaded){
-            System.out.println("[MainGameBG]: Image loaded.");
+            System.out.println("[MainGame]: Image loaded.");
         }else{
-            System.out.println("[MainGameBG]: Image failed to loaded.");
+            System.out.println("[MainGame]: Image failed to load.");
         }
     }
     
@@ -53,6 +55,14 @@ public class MainGameModel {
 
     public void setPlayer(JPanel player) {
         this.player = player;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
     }
     
     

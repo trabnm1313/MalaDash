@@ -5,20 +5,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import javax.swing.border.EmptyBorder;
-import maladash.src.components.Controllers.MainMenuController;
 
 public class MainMenuView extends JPanel{
     //JComponents
-    private BufferedImage img;
+    private Image img;
     private JButton startButton, optionButton, exitButton;
     //Integer
-    private int width = 1280;
-    private int height = 720;
+    private int width = 1920;
+    private int height = 1080;
     
     public MainMenuView(){
         
         startButton = new JButton("Start");
-        optionButton = new JButton("Option");
+        optionButton = new JButton("How to play");
         exitButton = new JButton("Exit");
         
         //backGroundPanel Configuration
@@ -49,7 +48,7 @@ public class MainMenuView extends JPanel{
         this.add(optionButton, constraint);
         constraint.gridy = 2;
         this.add(exitButton, constraint);
-        System.out.println("[MainMenuView]: View loaded.");
+        
     }
     
     @Override
@@ -61,11 +60,11 @@ public class MainMenuView extends JPanel{
         
     }
 
-    public BufferedImage getImg() {
+    public Image getImg() {
         return img;
     }
 
-    public void setImg(BufferedImage img) {
+    public void setImg(Image img) {
         this.img = img;
     }
     
