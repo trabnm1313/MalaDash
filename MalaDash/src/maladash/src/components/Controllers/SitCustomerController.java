@@ -115,14 +115,12 @@ class SitCustomerController implements Runnable {
                         over.setGame(gameCon);
                         over.init();
                         over.getView().getScore().setText("" + game.getModel().getMoney());
-                        System.out.println(menu + " " + game);
-                        if (game.getModel().getMoney() > menu.getHighScore()) {
+                        if (game.getModel().getMoney() > game.getHighScore()) {
+                            System.out.println(game.getModel().getMoney());
                             over.getView().add(over.getRec().getView());
                             over.getView().getHighScore().setText("" + game.getModel().getMoney());
                             try {
                                 FileWriter fe = new FileWriter("HighScore.dat");
-                                over.setGame(gameCon);
-                                over.init();
                                 fe.write(game.getModel().getMoney());
                                 System.out.println("Writing successful");
                                 fe.close();
@@ -130,10 +128,10 @@ class SitCustomerController implements Runnable {
                                 System.out.print(er);
                             }
                         } else {
-                            over.getView().getHighScore().setText("" + menu.getHighScore());
+                            over.getView().getHighScore().setText("" + game.getHighScore());
                             try {
                                 FileWriter fe = new FileWriter("HighScore.dat");
-                                fe.write(menu.getHighScore());
+                                fe.write(game.getHighScore());
                                 System.out.println("Writing successful");
                                 fe.close();
                             } catch (IOException er) {

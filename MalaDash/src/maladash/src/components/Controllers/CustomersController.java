@@ -28,7 +28,7 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
     private int minSpawnTime = 1;
     private int maxSpawnTime = 5;
 
-    private int minWaitTime = 25;
+    private int minWaitTime = 1;
     private int maxWaitTime = 30;
 
     //Mouse&&CustomerPosition
@@ -246,14 +246,12 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
                             over.setGame(gameCon);
                             over.init();
                             over.getView().getScore().setText("" + game.getModel().getMoney());
-                            System.out.println(menu + " " + game);
-                            if (game.getModel().getMoney() > menu.getHighScore()) {
+                            if (game.getModel().getMoney() > game.getHighScore()) {
+                                System.out.println(game.getModel().getMoney());
                                 over.getView().add(over.getRec().getView());
                                 over.getView().getHighScore().setText("" + game.getModel().getMoney());
                                 try {
                                     FileWriter fe = new FileWriter("HighScore.dat");
-                                    over.setGame(gameCon);
-                                    over.init();
                                     fe.write(game.getModel().getMoney());
                                     System.out.println("Writing successful");
                                     fe.close();
@@ -261,17 +259,17 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
                                     System.out.print(er);
                                 }
                             } else {
-                                over.getView().getHighScore().setText("" + menu.getHighScore());
+                                over.getView().getHighScore().setText("" + game.getHighScore());
                                 try {
                                     FileWriter fe = new FileWriter("HighScore.dat");
-                                    fe.write(menu.getHighScore());
+                                    fe.write(game.getHighScore());
                                     System.out.println("Writing successful");
                                     fe.close();
                                 } catch (IOException er) {
                                     System.out.print(er);
                                 }
-                                setIndex(0);
                             }
+                            setIndex(0);
                             //Short Variable
                             JFrame gameFrame = gameCon.getView().getFrame();
                             //Change ContentPane from MainMenu to MainGame

@@ -16,20 +16,12 @@ public class MainMenuController implements ActionListener {
     private GameController game;
     private MainGameController mainGame;
     private HowToController howTo;
-    private int highScore;
+    
     public MainMenuController() {
         //Init
         model = new MainMenuModel();
         view = new MainMenuView();
         view.setImg(model.getImg());
-        try (FileReader fin = new FileReader("HighScore.dat")) {
-                    int i;
-                    while ((i = fin.read()) != -1) {
-                        highScore = i;
-                    }
-                } catch (IOException er) {
-                    System.out.print(er);}
-        System.out.println(highScore);
         //Add ActionListener
         view.getStartButton().addActionListener(this);
         view.getOptionButton().addActionListener(this);
@@ -151,13 +143,5 @@ public class MainMenuController implements ActionListener {
         
 
         
-    }
-
-    public int getHighScore() {
-        return highScore;
-    }
-
-    public void setHighScore(int highScore) {
-        this.highScore = highScore;
     }
 }
