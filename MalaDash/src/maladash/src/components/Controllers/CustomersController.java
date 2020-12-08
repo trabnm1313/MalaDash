@@ -25,11 +25,11 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
     private int waitTime;
     private int time;
     private int timeSpawn;
-    private int minSpawnTime = 1;
+    private int minSpawnTime = 20;
     private int maxSpawnTime = 5;
     
-    private int minWaitTime = 25;
-    private int maxWaitTime = 30;
+    private int minWaitTime = 20;
+    private int maxWaitTime = 10;
     
     //Mouse&&CustomerPosition
     private Point prevPt, curPt, newPt;
@@ -69,7 +69,7 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
         if(pivot > 50) people = 4;
         else people = 2;
 
-        timeSpawn = (int)(Math.random() * maxSpawnTime) + minSpawnTime;
+        timeSpawn = (int)(Math.random() * 5) + 5;
         time = (int) (Math.random() * maxWaitTime) + minWaitTime;
         
         index++;

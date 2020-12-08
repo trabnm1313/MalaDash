@@ -13,7 +13,7 @@ class SitCustomerController implements Runnable{
     
     private int waitTime;
     private int minWaitTime = 25;
-    private int maxWaitTime = 5;
+    private int maxWaitTime = 10;
     
     private int whichTable;
     

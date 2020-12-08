@@ -29,6 +29,16 @@ public class GameController {
     public void setView(GameView view) {
         this.view = view;
     }
+
+    public GameModel getModel() {
+        return model;
+    }
+
+    public void setModel(GameModel model) {
+        this.model = model;
+    }
+    
+    
     
     
 }
