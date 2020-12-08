@@ -228,12 +228,4 @@ public class MainMenuController implements ActionListener {
 
         
     }
-
-    public int getHighScore() {
-        return highScore;
-    }
-
-    public void setHighScore(int highScore) {
-        this.highScore = highScore;
-    }
 }

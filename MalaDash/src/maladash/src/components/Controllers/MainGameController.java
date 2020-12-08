@@ -5,6 +5,7 @@ import java.awt.*;
 import javax.swing.*;
 import maladash.src.components.Models.MainGameModel;
 import maladash.src.components.Views.MainGameView;
+import java.io.*;
 
 public class MainGameController {
 
@@ -23,6 +24,7 @@ public class MainGameController {
     private GameController game;
     private ArrayList<HeartController> hearts;
     private MainMenuController menu;
+    private int highScore;
 
     public void init() {
         //Initate Model
@@ -30,6 +32,15 @@ public class MainGameController {
         view = new MainGameView();
         view.setImg(model.getImg());
         view.setLayout(null);
+        
+        try (FileReader fin = new FileReader("HighScore.dat")) {
+                    int i;
+                    while ((i = fin.read()) != -1) {
+                        highScore = i;
+                    }
+                } catch (IOException er) {
+                    System.out.print(er);}
+        System.out.println(highScore);
 
         //Player
         player = new PlayerController();
@@ -217,5 +228,14 @@ public class MainGameController {
     public void setMenu(MainMenuController menu) {
         this.menu = menu;
     }
+
+    public int getHighScore() {
+        return highScore;
+    }
+
+    public void setHighScore(int highScore) {
+        this.highScore = highScore;
+    }
+    
 
 }
