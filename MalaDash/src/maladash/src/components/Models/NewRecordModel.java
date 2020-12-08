@@ -27,7 +27,6 @@ public class NewRecordModel {
     
     public boolean init(){
         URL imageFile = this.getClass().getResource("../../images/newrecord.gif");
-        System.out.println(imageFile);
         try{
             img = new ImageIcon(imageFile).getImage();
             return true;

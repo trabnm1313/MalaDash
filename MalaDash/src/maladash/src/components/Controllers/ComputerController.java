@@ -28,7 +28,6 @@ public class ComputerController{
                     player.stand();
                     Thread t = new Thread(malaController.get(player.getModel().getPlayer().getBill()-1));
                     t.start();
-                    System.out.println("[Mock]: new MalaController created.");
                 }
             }
         });
