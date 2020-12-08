@@ -14,11 +14,14 @@ public class GameView {
     //Integer
     private int width = 1920;
     private int height = 1080;
+    
+    private Image iconImage;
 
     public void init() {
         //Initate
-        frame = new JFrame();
+        frame = new JFrame("MalaDash: JiaRush in the billions");
 
+        frame.setIconImage(iconImage);
         frame.setSize(width, height);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setUndecorated(true);
@@ -50,5 +53,15 @@ public class GameView {
     public void setHeight(int height) {
         this.height = height;
     }
+
+    public Image getIconImage() {
+        return iconImage;
+    }
+
+    public void setIconImage(Image iconImage) {
+        this.iconImage = iconImage;
+    }
+    
+    
 
 }
