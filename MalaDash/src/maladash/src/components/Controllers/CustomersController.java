@@ -13,45 +13,62 @@ import javax.swing.Timer;
 import maladash.src.components.Models.CustomersModel;
 import maladash.src.components.Views.CustomersView;
 
-public class CustomersController implements ActionListener, MouseMotionListener, MouseListener {
+public class CustomersController implements MouseMotionListener, MouseListener, Runnable{
 
+    //ModelView and Refference Class
     private CustomersModel model;
     private CustomersView view;
     private ArrayList<TableController> tableControllers;
-    private ArrayList<CustomersController> csConList = new ArrayList();
-    private Timer tm = new Timer(1000, this);
-    private Timer tm2 = new Timer(1000, this);
-    private int time, count = 10;
+    
+    //Timer
+    private int waitTime;
+    private int time;
+    private int timeSpawn;
+    private int minSpawnTime = 1;
+    private int maxSpawnTime = 5;
+    private int minWaitTime = 25;
+    private int maxWaitTime = 30;
+    
+    //Mouse&&CustomerPosition
     private Point prevPt, curPt, newPt;
     private Rectangle original;
     private int whichTable;
-    private static int totalCustomers = 0;
-    MainGameController game;
-    CustomersController csCon, csSelf;
-    private int index;
-    private static final int LIMIT = 3;
+    
+    //Boolean
+    private boolean isSpawning = true;
+    
+    //Class unique and global Variable
+    private static int index = 0;
 
+    //Random association
     private double pivot;
-    private static int people;
+    private int people;
 
-    public CustomersController() {
-        pivot = Math.random() * 100;
-        if (pivot > 50) {
-            people = 4;
-        } else {
-            people = 2;
-        }
+    public void init() {
 
-        model = new CustomersModel(people);
+        model = new CustomersModel();
         view = new CustomersView();
+        
+        view.setVisible(false);
+        view.setBounds(300 * (index), 300, 300, 250);
+        original = view.getBounds();
+        view.setOpaque(false);
+        
+        view.addMouseListener(this);
+        view.addMouseMotionListener(this);
+        
+        pivot = Math.random() * 100;
+        if(pivot > 50) people = 4;
+        else people = 2;
 
-        time = (int) (Math.random() * 10) + 30;
-
-        for (int i = 0; i < LIMIT; i++) {
-            csConList.add(i, null);
-        }
+        timeSpawn = (int)(Math.random() * maxSpawnTime) + minSpawnTime;
+        time = (int) (Math.random() * maxWaitTime) + minWaitTime;
+        
+        index++;
     }
 
+    //Setter&&Getter
+    
     public CustomersModel getModel() {
         return model;
     }
@@ -75,45 +92,13 @@ public class CustomersController implements ActionListener, MouseMotionListener,
     public void setTableControllers(ArrayList<TableController> tableControllers) {
         this.tableControllers = tableControllers;
     }
-
-    public MainGameController getGame() {
-        return game;
-    }
-
-    public void setGame(MainGameController game) {
-        this.game = game;
-    }
-
-    public Timer getTm2() {
-        return tm2;
-    }
-
-    public void setTm2(Timer tm2) {
-        this.tm2 = tm2;
-    }
-
+    
     public Rectangle getOriginal() {
         return original;
     }
 
     public void setOriginal(Rectangle original) {
         this.original = original;
-    }
-
-    public CustomersController getCsSelf() {
-        return csSelf;
-    }
-
-    public void setCsSelf(CustomersController csSelf) {
-        this.csSelf = csSelf;
-    }
-
-    public Timer getTm() {
-        return tm;
-    }
-
-    public void setTm(Timer tm) {
-        this.tm = tm;
     }
 
     public int getIndex() {
@@ -124,14 +109,6 @@ public class CustomersController implements ActionListener, MouseMotionListener,
         this.index = index;
     }
 
-    public ArrayList<CustomersController> getCsConList() {
-        return csConList;
-    }
-
-    public void setCsConList(ArrayList<CustomersController> csConList) {
-        this.csConList = csConList;
-    }
-
     public int getTime() {
         return time;
     }
@@ -140,165 +117,76 @@ public class CustomersController implements ActionListener, MouseMotionListener,
         this.time = time;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource().equals(tm)) {
-            
-            time--;
-            if (!model.getCustomers().isSit()) {
-                if (time <= 20) {
-                    if (people == 4) {
-                        view.setImg(model.getImgSad_4());
-                    } else if (people == 2) {
-                        view.setImg(model.getImgSad_2());
-                    }
-                }
-                if (time <= 10) {
-                    if (people == 4) {
-                        view.setImg(model.getImgSaddest_4());
-                    } else if (people == 2) {
-                        view.setImg(model.getImgSaddest_2());
-                    }
-                }
-                if (time == 0) {
-                    System.out.println("dead");
-                    view.setVisible(false);
-
-                    tm.stop();
-
-                    totalCustomers--;
-                    csConList.set(index, null);
-                    csSelf.getTm2().start();
-                }
-            } else {
-                 System.out.println("[Customer]: " + Math.random());
-                if( model.getCustomers().isEat() && !model.getCustomers().isDone()){
-                        tableControllers.get(whichTable).eating();
-                    }
-                if((time == 0) && model.getCustomers().isEat()){
-                    model.getCustomers().setDone(true);
-                    tableControllers.get(whichTable).getTableModel().getTable().setDirty(true);
-                    setTime((int) (Math.random() * 10) + 30);
-                }
-                if (time <= 26) {
-                    if (!model.getCustomers().isReady() && !model.getCustomers().isEat()) {
-                        model.getCustomers().setReady(true); // พร้อมสั่งอาหาร
-                        model.getCustomers().setLvAngry(0);
-                        tableControllers.get(whichTable).handUp(model.getCustomers().getLvAngry());
-                    }else if(model.getCustomers().isDone()){
-                        model.getCustomers().setLvAngry(0);
-                        tableControllers.get(whichTable).letDirty(model.getCustomers().getLvAngry());
-                    }
-                }
-                if (time <= 15) {
-                    if (model.getCustomers().isReady() && !model.getCustomers().isEat()) {
-                        model.getCustomers().setLvAngry(1);
-                        tableControllers.get(whichTable).handUp(model.getCustomers().getLvAngry());
-                    }else if(model.getCustomers().isDone()){
-                        model.getCustomers().setLvAngry(1);
-                        tableControllers.get(whichTable).letDirty(model.getCustomers().getLvAngry());
-                    }
-                }
-                if (time <= 5) {
-                    if (model.getCustomers().isReady() && !model.getCustomers().isEat()) {
-                        model.getCustomers().setLvAngry(2);
-                        tableControllers.get(whichTable).handUp(model.getCustomers().getLvAngry());
-                    }else if(model.getCustomers().isDone()){
-                        model.getCustomers().setLvAngry(2);
-                        tableControllers.get(whichTable).letDirty(model.getCustomers().getLvAngry());
-                    }
-                }
-                if (time == 0) {
-                    tableControllers.get(whichTable).notDirty();
-                    tableControllers.get(whichTable).getTableModel().getTable().setSitable(true);
-
-                    tm.stop();
-                }
-            }
-
-        }
-        if (ae.getSource().equals(tm2)) {
-            count--;
-            if (count <= 0) {
-                for (int i = 0; i < LIMIT; i++) {
-                    if (csConList.get(i) == null) {
-                        index = i;
-                        break;
-                    }
-                }
-                totalCustomers++;
-                System.out.println(totalCustomers);
-
-                csCon = new CustomersController();
-
-                csCon.setTableControllers(tableControllers);
-
-                csCon.setCsSelf(this);
-
-                csCon.getTm().start();
-
-                if (people == 4) {
-                    csCon.getView().setImg(model.getImgNormal_4());
-                } else if (people == 2) {
-                    csCon.getView().setImg(model.getImgNormal_2());
-                }
-
-                csCon.getView().setOpaque(false);
-
-                if (people == 4) {
-                    csCon.getView().setBounds(300 * (index), 350, 300, 250);
-                } else if (people == 2) {
-                    csCon.getView().setBounds(300 * (index), 350, 300, 250);
-                }
-
-                csCon.setOriginal(csCon.getView().getBounds());
-
-                csCon.setIndex(index);
-                csConList.set(index, csCon);
-
-                csCon.setCsConList(csConList);
-
-                csCon.getView().addMouseMotionListener(csCon);
-                csCon.getView().addMouseListener(csCon);
-
-                game.getView().add(csCon.getView());
-
-                game.getView().revalidate();
-                game.getView().repaint();
-
-                count = (int) (Math.random() * 3) + 4;
-
-                if (totalCustomers >= LIMIT) {
-                    tm2.stop();
-                }
-            }
-
-        }
+    public int getPeople() {
+        return people;
     }
 
-    public boolean checkCustomersTable() {
-        int mouseX = curPt.x;
-        int mouseY = curPt.y;
-        Rectangle table1 = tableControllers.get(0).getTableView().getBounds();
-        Rectangle table2 = tableControllers.get(1).getTableView().getBounds();
-        Rectangle table3 = tableControllers.get(2).getTableView().getBounds();
-        Rectangle table4 = tableControllers.get(3).getTableView().getBounds();
+    public void setPeople(int people) {
+        this.people = people;
+    }
+    
+    @Override
+    public void run() {
+        while(true){
+            try{
+                
+                Thread.sleep(1000);
+                
+                if(isSpawning){
+                    timeSpawn--;
+                }else{
+                    time--;
+                }
+                
+//                System.out.println("[Customer][" + index + "]: Time: " + time + ", TimeSpawn: " + timeSpawn);
+                
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+            
+            if(isSpawning){
+                if(timeSpawn == 0){
+                    view.setVisible(true);
+                    
+                    pivot = (int)(Math.random() * 100);
+                    if(pivot > 50){
+                        people = 4;
+                        view.setImg(model.getImgNormal_4());
+                    }else{
+                        people = 2;
+                        view.setImg(model.getImgNormal_2());
+                    }
+                    
+                    model.getCustomers().setCount(people);
+                    isSpawning = false;
+                    timeSpawn = (int)(Math.random() * maxSpawnTime) + minSpawnTime;
+                }
+            }else{
+                
+                //Change expression if customer didn't sit yet
+                if(!model.getCustomers().isSit()){
+                    //Sad
+                    if(time > 10 && time <= 20){
+                        if(people == 4) view.setImg(model.getImgSad_4());
+                        else view.setImg(model.getImgSad_2());
+                    }
+                    //Saddest
+                    if(time > 0 && time <= 10){
+                        if(people == 4) view.setImg(model.getImgSaddest_4());
+                        else view.setImg(model.getImgSaddest_2());
+                    }
+                    //DEATH
+                    if(time == 0){
+                        System.out.println("[Customer][" + index + "]: DEAD");
+                        view.setVisible(false);
+                        time = (int)(Math.random() * maxWaitTime) + minWaitTime;
+                        isSpawning = true;
+                    }
 
-        if ((mouseX >= table1.getMinX() && mouseX <= table1.getMaxX()) && (mouseY >= table1.getMinY() && mouseY <= table1.getMaxY())) {
-            whichTable = tableControllers.get(0).getTableModel().getTable().getNumTable() - 1;
-            return true;
-        } else if ((mouseX >= table2.getMinX() && mouseX <= table2.getMaxX()) && (mouseY >= table2.getMinY() && mouseY <= table2.getMaxY())) {
-            whichTable = tableControllers.get(1).getTableModel().getTable().getNumTable() - 1;
-            return true;
-        } else if ((mouseX >= table3.getMinX() && mouseX <= table3.getMaxX()) && (mouseY >= table3.getMinY() && mouseY <= table3.getMaxY())) {
-            whichTable = tableControllers.get(2).getTableModel().getTable().getNumTable() - 1;
-            return true;
-        } else if ((mouseX >= table4.getMinX() && mouseX <= table4.getMaxX()) && (mouseY >= table4.getMinY() && mouseY <= table4.getMaxY())) {
-            whichTable = tableControllers.get(3).getTableModel().getTable().getNumTable() - 1;
-            return true;
+                }
+                
+            }
         }
-
-        return false;
     }
 
     @Override
@@ -322,6 +210,7 @@ public class CustomersController implements ActionListener, MouseMotionListener,
 
     @Override
     public void mouseClicked(MouseEvent me) {
+        System.out.println("HELLO");
     }
 
     @Override
@@ -338,20 +227,24 @@ public class CustomersController implements ActionListener, MouseMotionListener,
                 if (model.getCustomers().getCount() == tableControllers.get(whichTable).getTableModel().getTable().getChair()) {
                     prevPt = null;
                     view.setVisible(false);
+                    
+                    SitCustomerController sitCustomer = new SitCustomerController();
+                    
+                    sitCustomer.getModel().getCustomers().setCount(people);
+                    sitCustomer.getModel().getCustomers().setSit(true);
+                    sitCustomer.setTableControllers(tableControllers);
+                    sitCustomer.setWhichTable(whichTable);
+                    
+                    Thread tSitCustomer = new Thread(sitCustomer);
+                    tSitCustomer.start();
 
-                    model.getCustomers().setSit(true);
-
-                    totalCustomers--;
-                    csConList.set(index, null);
-                    csSelf.getTm2().start();
-
-                    tableControllers.get(whichTable).setCustomersController(this);
-
+                    tableControllers.get(whichTable).setCustomersController(sitCustomer);
                     tableControllers.get(whichTable).getTableModel().getTable().setSitable(false);
-
                     tableControllers.get(whichTable).sit();
-
-                    time = (int) (Math.random() * 10) + 30;
+                    
+                    isSpawning = true;
+                    time = (int)(Math.random() + minWaitTime) + maxWaitTime;
+                    view.setBounds(original);
                 } else {
                     view.setBounds(original);
                 }
@@ -368,5 +261,32 @@ public class CustomersController implements ActionListener, MouseMotionListener,
 
     @Override
     public void mouseExited(MouseEvent me) {
+    }
+    
+    //Custom Method
+    
+    public boolean checkCustomersTable() {
+        int mouseX = curPt.x;
+        int mouseY = curPt.y;
+        Rectangle table1 = tableControllers.get(0).getTableView().getBounds();
+        Rectangle table2 = tableControllers.get(1).getTableView().getBounds();
+        Rectangle table3 = tableControllers.get(2).getTableView().getBounds();
+        Rectangle table4 = tableControllers.get(3).getTableView().getBounds();
+
+        if ((mouseX >= table1.getMinX() && mouseX <= table1.getMaxX()) && (mouseY >= table1.getMinY() && mouseY <= table1.getMaxY())) {
+            whichTable = tableControllers.get(0).getTableModel().getTable().getNumTable() - 1;
+            return true;
+        } else if ((mouseX >= table2.getMinX() && mouseX <= table2.getMaxX()) && (mouseY >= table2.getMinY() && mouseY <= table2.getMaxY())) {
+            whichTable = tableControllers.get(1).getTableModel().getTable().getNumTable() - 1;
+            return true;
+        } else if ((mouseX >= table3.getMinX() && mouseX <= table3.getMaxX()) && (mouseY >= table3.getMinY() && mouseY <= table3.getMaxY())) {
+            whichTable = tableControllers.get(2).getTableModel().getTable().getNumTable() - 1;
+            return true;
+        } else if ((mouseX >= table4.getMinX() && mouseX <= table4.getMaxX()) && (mouseY >= table4.getMinY() && mouseY <= table4.getMaxY())) {
+            whichTable = tableControllers.get(3).getTableModel().getTable().getNumTable() - 1;
+            return true;
+        }
+
+        return false;
     }
 }

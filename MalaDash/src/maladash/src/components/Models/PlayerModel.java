@@ -17,7 +17,7 @@ public class PlayerModel {
     private URL imageFile;
     
     public PlayerModel(){
-        player = new Player(false, 1, false, false, true, 5, 0, 0);
+        player = new Player(false, 0, false, false, true, 5, 0, 0);
         init();
         System.out.println("[Player]: Model loaded(?).");
     }
