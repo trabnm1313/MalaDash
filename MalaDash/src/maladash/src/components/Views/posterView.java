@@ -12,7 +12,7 @@ public class posterView extends JPanel{
         super.paintComponent(g);
         
         Graphics2D g2D = (Graphics2D) g;
-        g2D.drawRect(0, 0, (int)this.getSize().getWidth(), (int)this.getSize().getHeight());
+//        g2D.drawRect(0, 0, (int)this.getSize().getWidth(), (int)this.getSize().getHeight());
     }
 
     public BufferedImage getImg() {

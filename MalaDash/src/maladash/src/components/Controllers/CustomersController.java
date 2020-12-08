@@ -72,7 +72,7 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
             people = 2;
         }
 
-        timeSpawn = (int) (Math.random() * maxSpawnTime) + minSpawnTime;
+        timeSpawn = (int) (Math.random() * 5) + 5;
         time = (int) (Math.random() * maxWaitTime) + minWaitTime;
 
         index++;

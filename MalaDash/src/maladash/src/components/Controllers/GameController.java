@@ -15,6 +15,7 @@ public class GameController {
         model = new GameModel();
         menu = new MainMenuController();
         menu.setGame(this);
+        menu.startBGM();
         
         view.setIconImage(model.getGameIcon());
         view.init();
