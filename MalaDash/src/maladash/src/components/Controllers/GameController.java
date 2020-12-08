@@ -30,6 +30,14 @@ public class GameController {
         this.view = view;
     }
 
+    public GameModel getModel() {
+        return model;
+    }
+
+    public void setModel(GameModel model) {
+        this.model = model;
+    }
+    
     public MainMenuController getMenu() {
         return menu;
     }

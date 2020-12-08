@@ -108,7 +108,9 @@ public class MainMenuController implements ActionListener {
             dialog.setLocation(view.getWidth() / 2, view.getHeight() / 2);
             JPanel exitPanel = new JPanel();
             JLabel exitText = new JLabel("Are you sure?", SwingConstants.CENTER);
+            exitText.setFont(new Font("Consolas", Font.PLAIN, 16));
             JButton yes = new JButton("Yes"), no = new JButton("No");
+            dialog.setIconImage(game.getModel().getGameIcon());
             yes.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -144,8 +146,8 @@ public class MainMenuController implements ActionListener {
             gbc.gridx = 1;
             exitPanel.add(no, gbc);
 
+            dialog.setSize(new Dimension(300, 150));
             dialog.add(exitPanel);
-            dialog.pack();
             dialog.setVisible(true);
         }
         
