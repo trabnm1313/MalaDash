@@ -117,6 +117,7 @@ class SitCustomerController implements Runnable {
                         over.getView().getScore().setText("" + game.getModel().getMoney());
                         System.out.println(menu + " " + game);
                         if (game.getModel().getMoney() > menu.getHighScore()) {
+                            over.getView().add(over.getRec().getView());
                             over.getView().getHighScore().setText("" + game.getModel().getMoney());
                             try {
                                 FileWriter fe = new FileWriter("HighScore.dat");
