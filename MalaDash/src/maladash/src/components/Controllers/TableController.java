@@ -24,7 +24,7 @@ public class TableController implements MouseListener {
     private TableView tableView;
     private static MainGameController mainGame;
     private static PlayerController playerController;
-    private CustomersController customersController = null;
+    private SitCustomerController customersController = null;
     private static JLabel text;
     private int h = 281;
     private int w = 400;
@@ -108,19 +108,21 @@ public class TableController implements MouseListener {
                     customer.setWait(false);
                     int time = (int) (Math.random() * 5) + 5;
                     
+                    customersController.setWaitTime(time);
                     
-                    customersController.setTime(time);
+                    
+                    customersController.setWaitTime(time);
                     System.out.println("[Table]: Serve Mala Table #" + tableModel.getTable().getNumTable());
                 }
 
                 //dirty
                 if (customer.isDone()&& tableModel.getTable().isDirty() && !playerCarryOrder && !playerCarryDish && !playerWashing) {
+                    customersController.setStopThis(true);
                     System.out.println("Done.");
                     tableModel.getTable().setDirty(false);
                     playerController.getModel().getPlayer().setWashing(true);
                     notDirty();
                     playerController.standWithBin();
-                     
                     setCustomersController(null);
 
                     //collect money
@@ -177,11 +179,11 @@ public class TableController implements MouseListener {
         TableController.playerController = playController;
     }
 
-    public CustomersController getCustomersController() {
+    public SitCustomerController getCustomersController() {
         return customersController;
     }
 
-    public void setCustomersController(CustomersController customersController) {
+    public void setCustomersController(SitCustomerController customersController) {
         this.customersController = customersController;
     }
     
