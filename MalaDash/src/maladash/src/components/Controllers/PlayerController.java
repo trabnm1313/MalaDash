@@ -9,7 +9,7 @@ import javax.swing.Timer;
 import maladash.src.components.Models.PlayerModel;
 import maladash.src.components.Views.PlayerView;
 
-public class PlayerController implements ActionListener{
+public class PlayerController implements Runnable{
     private PlayerModel model;
     private PlayerView view;
     private JButton move;
@@ -23,8 +23,6 @@ public class PlayerController implements ActionListener{
     private int position_X;
     private int position_Y;
     
-    //Timer
-    private Timer tm = new Timer(16, this);
     
     //String
     String currentDirection = "STAND";
@@ -57,7 +55,6 @@ public class PlayerController implements ActionListener{
         if(model.getPlayer().isReady()){
             model.getPlayer().setTarget(target);
             model.getPlayer().setReady(false);
-            tm.start();
         }
     }
 
@@ -98,16 +95,21 @@ public class PlayerController implements ActionListener{
     }
     
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void run(){
         
-        if(e.getSource().equals(tm)){
+        while(true){
+            
+            try{
+                Thread.sleep(16);
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
             //Set player current position
             position_X = (int)view.getBounds().getX();
             position_Y = (int)view.getBounds().getY();
             
             //If select a table that player already in
             if(model.getPlayer().getTarget() == model.getPlayer().getWhichTable() && model.getPlayer().isReady()){
-                tm.stop();
                 sameTable = true;
             }else{
                 sameTable = false;
@@ -130,7 +132,6 @@ public class PlayerController implements ActionListener{
                         animateChange("LEFT");
                         view.setBounds(position_X-5, position_Y, 200, 300);
                     }else{
-                        tm.stop(); 
                         animateChange("STAND");
                         model.getPlayer().setWhichTable(0);
                         model.getPlayer().setReady(true);
@@ -151,7 +152,6 @@ public class PlayerController implements ActionListener{
                         animateChange("LEFT");
                         view.setBounds(position_X-5, position_Y, 200, 300);
                     }else{
-                        tm.stop(); 
                         animateChange("STAND");
                         model.getPlayer().setWhichTable(1);
                         model.getPlayer().setReady(true);
@@ -170,8 +170,7 @@ public class PlayerController implements ActionListener{
                     }else if(position_Y > 600){
                         animateChange("BACK");
                         view.setBounds(position_X, position_Y-5, 200, 300);
-                    }else{
-                        tm.stop(); 
+                    }else{ 
                         animateChange("STAND");
                         model.getPlayer().setWhichTable(2);
                         model.getPlayer().setReady(true);
@@ -191,7 +190,6 @@ public class PlayerController implements ActionListener{
                         animateChange("LEFT");
                         view.setBounds(position_X-5, position_Y, 200, 300);
                     }else{
-                        tm.stop(); 
                         animateChange("STAND");
                         model.getPlayer().setWhichTable(3);
                         model.getPlayer().setReady(true);
@@ -211,7 +209,6 @@ public class PlayerController implements ActionListener{
                         animateChange("BACK");
                         view.setBounds(position_X, position_Y-5, 200, 300);
                     }else{
-                        tm.stop();
                         animateChange("STAND");
                         model.getPlayer().setWhichTable(4);
                         model.getPlayer().setReady(true);

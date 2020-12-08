@@ -30,7 +30,9 @@ public class MainGameController {
         
         //Player
         player = new PlayerController();
-
+        Thread tPlayer = new Thread(player);
+        tPlayer.start();
+        
         //money
         money = new JLabel(model.getMoney() + "");
         money.setFont(new Font("Serif", Font.PLAIN, 72));
