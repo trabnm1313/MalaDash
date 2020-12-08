@@ -9,32 +9,32 @@ public class CustomersModel {
 
     private Customers customers;
     private boolean imageLoaded;
-    private Image imgNormal, imgSad, imgSaddest, imgHandUp, imgHandUpSad, imgEat;
+    private Image imgNormal_2, imgSad_2, imgSaddest_2, imgNormal_4, imgSad_4, imgSaddest_4;
 
     public CustomersModel() {
-        customers = new Customers(false, false, false, 0, false, false);
+        customers = new Customers(false, false, false, 0, false, false, 0);
         init();
         System.out.println("[Customers]: Model loaded.");
     }
 
     private void init() {
-        URL imageNormal = this.getClass().getResource("../../images/customernormal.png");
-        imgNormal = new ImageIcon(imageNormal).getImage();
+        URL imageNormal_2 = this.getClass().getResource("../../images/customernormal_2.png");
+        imgNormal_2 = new ImageIcon(imageNormal_2).getImage();
 
-        URL imageSad = this.getClass().getResource("../../images/customer-sad1.png");
-        imgSad = new ImageIcon(imageSad).getImage();
+        URL imageSad_2 = this.getClass().getResource("../../images/customernormal_2_sad1.png");
+        imgSad_2 = new ImageIcon(imageSad_2).getImage();
         
-        URL imageSaddest = this.getClass().getResource("../../images/customer-sad2.png");
-        imgSaddest = new ImageIcon(imageSaddest).getImage();
-      
-//        URL imageHandUp = this.getClass().getResource("../../images/customer_puthand.png");
-//        imgHandUp = new ImageIcon(imageHandUp).getImage();
-//        
-//        URL imageHandUpSad = this.getClass().getResource("../../images/customer_puthand_sad1.png");
-//        imgHandUpSad = new ImageIcon(imageHandUpSad).getImage();
-//        
-//        URL imageEat = this.getClass().getResource("../../images/customer_eat.png");
-//        imgEat = new ImageIcon(imageEat).getImage();
+        URL imageSaddest_2 = this.getClass().getResource("../../images/customernormal_2_sad2.png");
+        imgSaddest_2 = new ImageIcon(imageSaddest_2).getImage();
+        
+        URL imageNormal_4 = this.getClass().getResource("../../images/customernormal_4.png");
+        imgNormal_4 = new ImageIcon(imageNormal_4).getImage();
+
+        URL imageSad_4 = this.getClass().getResource("../../images/customernormal_4_sad1.png");
+        imgSad_4 = new ImageIcon(imageSad_4).getImage();
+        
+        URL imageSaddest_4 = this.getClass().getResource("../../images/customernormal_4_sad2.png");
+        imgSaddest_4 = new ImageIcon(imageSaddest_4).getImage();
     }
 
     public Customers getCustomers() {
@@ -53,51 +53,55 @@ public class CustomersModel {
         this.imageLoaded = imageLoaded;
     }
 
-    public Image getImgNormal() {
-        return imgNormal;
+    public Image getImgNormal_2() {
+        return imgNormal_2;
     }
 
-    public void setImgNormal(Image imgNormal) {
-        this.imgNormal = imgNormal;
+    public void setImgNormal_2(Image imgNormal_2) {
+        this.imgNormal_2 = imgNormal_2;
     }
 
-    public Image getImgSad() {
-        return imgSad;
+    public Image getImgSad_2() {
+        return imgSad_2;
     }
 
-    public void setImgSad(Image imgSad) {
-        this.imgSad = imgSad;
+    public void setImgSad_2(Image imgSad_2) {
+        this.imgSad_2 = imgSad_2;
     }
 
-    public Image getImgSaddest() {
-        return imgSaddest;
+    public Image getImgSaddest_2() {
+        return imgSaddest_2;
     }
 
-    public void setImgSaddest(Image imgSaddest) {
-        this.imgSaddest = imgSaddest;
+    public void setImgSaddest_2(Image imgSaddest_2) {
+        this.imgSaddest_2 = imgSaddest_2;
     }
 
-    public Image getImgHandUp() {
-        return imgHandUp;
+    public Image getImgNormal_4() {
+        return imgNormal_4;
     }
 
-    public void setImgHandUp(Image imgHandUp) {
-        this.imgHandUp = imgHandUp;
+    public void setImgNormal_4(Image imgNormal_4) {
+        this.imgNormal_4 = imgNormal_4;
     }
 
-    public Image getImgHandUpSad() {
-        return imgHandUpSad;
+    public Image getImgSad_4() {
+        return imgSad_4;
     }
 
-    public void setImgHandUpSad(Image imgHandUpSad) {
-        this.imgHandUpSad = imgHandUpSad;
+    public void setImgSad_4(Image imgSad_4) {
+        this.imgSad_4 = imgSad_4;
     }
 
-    public Image getImgEat() {
-        return imgEat;
+    public Image getImgSaddest_4() {
+        return imgSaddest_4;
     }
 
-    public void setImgEat(Image imgEat) {
-        this.imgEat = imgEat;
+    public void setImgSaddest_4(Image imgSaddest_4) {
+        this.imgSaddest_4 = imgSaddest_4;
     }
+
+    
+
+    
 }

@@ -21,7 +21,7 @@ public class TrashController {
 
         trashView.setImg(trashModel.getImg());
         trashView.setOpaque(false);
-        trashView.setBounds(775, 420, 120, 127);
+        trashView.setBounds(1400, 420, 120, 127);
 
         trashView.addMouseListener(new MouseAdapter() {
             @Override
@@ -34,6 +34,7 @@ public class TrashController {
                 
                 if(playerWashing && playerReady && !playerCarryOrder && !playerCarryDish && playerWhichTable == 0){
                     playerController.getModel().getPlayer().setWashing(false);
+                    playerController.stand();
                 }
                 System.out.println("Hello trash");
             }

@@ -12,7 +12,7 @@ import maladash.src.components.Views.TableView;
 import java.awt.event.*;
 import javax.swing.*;
 import maladash.src.components.Classes.Customers;
-
+import maladash.src.components.Models.CustomersModel;
 /**
  *
  * @author USER
@@ -24,9 +24,10 @@ public class TableController implements MouseListener {
     private TableView tableView;
     private static MainGameController mainGame;
     private static PlayerController playerController;
-    private static CustomersController customersController;
+    private SitCustomerController customersController = null;
     private static JLabel text;
-    private boolean test = true;
+    private int h = 281;
+    private int w = 400;
 
     public TableController(int numTable, int sit) {
         tableModel = new TableModel(numTable, sit);
@@ -35,13 +36,13 @@ public class TableController implements MouseListener {
         tableView.addMouseListener(this);
         tableView.setOpaque(false);
         if (numTable == 1) {
-            tableView.setBounds(700, 550, 400, 200);
+            tableView.setBounds(675, 550, w, h);
         } else if (numTable == 2) {
-            tableView.setBounds(450, 750, 400, 200);
+            tableView.setBounds(250, 750, w, h);
         } else if (numTable == 3) {
-            tableView.setBounds(1200, 550, 400, 200);
+            tableView.setBounds(1085, 550, w, h);
         } else if (numTable == 4) {
-            tableView.setBounds(1450, 750, 400, 200);
+            tableView.setBounds(1500, 750, w, h);
         }
     }
 
@@ -71,13 +72,11 @@ public class TableController implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        test = !test;
         //get value on playerController
         boolean playerReady = playerController.getModel().getPlayer().isReady();
         boolean playerCarryOrder = playerController.getModel().getPlayer().isCarryOrder();
         boolean playerCarryDish = playerController.getModel().getPlayer().isCarryDish();
         boolean playerWashing = playerController.getModel().getPlayer().isWashing();
-        Customers customer = customersController.getModel().getCustomers();
         //move
         playerController.travel(tableModel.getTable().getNumTable());
         System.out.println("[Player]: Move to Table #" + tableModel.getTable().getNumTable());
@@ -87,27 +86,45 @@ public class TableController implements MouseListener {
 
             //sitable
             if (!tableModel.getTable().isSitable()) {
-
+                Customers customer = customersController.getModel().getCustomers();
                 //order
-                if (!playerCarryOrder && !playerCarryDish && !playerWashing && customer.isReady()) {
+                if (customer.isReady() && !customer.isWait() && !customer.isEat() && !customer.isDone() && !playerCarryOrder && !playerCarryDish && !playerWashing ) {
                     playerController.getModel().getPlayer().setBill(tableModel.getTable().getNumTable());
                     playerController.getModel().getPlayer().setCarryOrder(true);
+                    playerController.standWithBill();
+                    
+                    customer.setWait(true);
+                    sit();
                     System.out.println("[Table]: Get Order Table #" + tableModel.getTable().getNumTable());
                 }
 
                 //Serve
-                if (customer.isWait() && playerCarryDish && (playerController.getModel().getPlayer().getMala().getNumTable() == tableModel.getTable().getNumTable())) {
+                if (customer.isWait()&& playerCarryDish && (playerController.getModel().getPlayer().getMala().getNumTable() == tableModel.getTable().getNumTable())) {
                     playerController.getModel().getPlayer().setCarryDish(false);
                     playerController.getModel().getPlayer().setMala(null);
+                    playerController.stand();
+                    
+                    customer.setEat(true);
+                    customer.setWait(false);
+                    int time = (int) (Math.random() * 5) + 5;
+                    
+                    customersController.setWaitTime(time);
+                    
+                    
+                    customersController.setWaitTime(time);
                     System.out.println("[Table]: Serve Mala Table #" + tableModel.getTable().getNumTable());
                 }
 
                 //dirty
-                if (customer.isDone() && tableModel.getTable().isDirty() && !playerCarryOrder && !playerCarryDish && !playerWashing) {
+                if (customer.isDone()&& tableModel.getTable().isDirty() && !playerCarryOrder && !playerCarryDish && !playerWashing) {
+                    customersController.setStopThis(true);
                     System.out.println("Done.");
                     tableModel.getTable().setDirty(false);
                     playerController.getModel().getPlayer().setWashing(true);
                     notDirty();
+                    playerController.standWithBin();
+                    setCustomersController(null);
+
                     //collect money
                     money = (int) (10 + (Math.random() * 20)) + Integer.parseInt(getText().getText());
                     System.out.println(money);
@@ -161,31 +178,55 @@ public class TableController implements MouseListener {
     public static void setPlayerController(PlayerController playController) {
         TableController.playerController = playController;
     }
+
+    public SitCustomerController getCustomersController() {
+        return customersController;
+    }
+
+    public void setCustomersController(SitCustomerController customersController) {
+        this.customersController = customersController;
+    }
+    
+    
   
-    //dirty table
-    public void letDirty() {
-        tableModel.init("table" + tableModel.getTable().getNumTable() + "_d.png");
+    //dirty table and done
+    public void letDirty(int lv) {
+        if(lv == 0){
+            tableModel.init(tableModel.getTable().getNumTable(), "table" + tableModel.getTable().getNumTable() + "_done.png");
+        }else if(lv == 1){
+            tableModel.init(tableModel.getTable().getNumTable(), "table" + tableModel.getTable().getNumTable() + "_done_sad1.png");
+        }else if(lv == 2){
+            tableModel.init(tableModel.getTable().getNumTable(), "table" + tableModel.getTable().getNumTable() + "_done_sad2.png");
+        }
+        
         tableView.setImg(tableModel.getImg());
     }
   
     // clean table
     public void notDirty() {
-        tableModel.init("table" + tableModel.getTable().getNumTable() + ".png");
+        tableModel.init(tableModel.getTable().getNumTable(), "table" + tableModel.getTable().getNumTable() + ".png");
         tableView.setImg(tableModel.getImg());
     }
   
     public void sit() {
-        tableModel.init("table" + tableModel.getTable().getNumTable() + "_d.png");
+        tableModel.init(tableModel.getTable().getNumTable(), "table" + tableModel.getTable().getNumTable() + "_sit.png");
         tableView.setImg(tableModel.getImg());
     }
 
-    public void handUp() {
-        tableModel.init("table" + tableModel.getTable().getNumTable() + "_d.png");
+    public void handUp(int lv) {
+        if(lv == 0){
+            tableModel.init(tableModel.getTable().getNumTable(), "table" + tableModel.getTable().getNumTable() + "_handUp.png");
+        }else if(lv == 1){
+            tableModel.init(tableModel.getTable().getNumTable(), "table" + tableModel.getTable().getNumTable() + "_handUp_sad1.png");
+        }else if(lv == 2){
+            tableModel.init(tableModel.getTable().getNumTable(), "table" + tableModel.getTable().getNumTable() + "_handUp_sad2.png");
+        }
+        
         tableView.setImg(tableModel.getImg());
     }
 
     public void eating() {
-        tableModel.init("table" + tableModel.getTable().getNumTable() + "_d.png");
+        tableModel.init(tableModel.getTable().getNumTable(), "table" + tableModel.getTable().getNumTable() + "_eat.gif");
         tableView.setImg(tableModel.getImg());
     }
 }

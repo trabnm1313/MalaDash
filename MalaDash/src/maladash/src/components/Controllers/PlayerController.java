@@ -18,13 +18,13 @@ public class PlayerController implements ActionListener{
     private boolean sameTable = false;
     
     //Integer
-    private int default_X = 1076;
-    private int default_Y = 250;
+    private int default_X = 1075;
+    private int default_Y = 275;
     private int position_X;
     private int position_Y;
     
     //Timer
-    private Timer tm = new Timer(1, this);
+    private Timer tm = new Timer(16, this);
     
     //String
     String currentDirection = "STAND";
@@ -119,16 +119,16 @@ public class PlayerController implements ActionListener{
                 if(model.getPlayer().getTarget() == 0){
                     if(position_Y < default_Y){
                         animateChange("FRONT");
-                        view.setBounds(position_X, position_Y+2, 200, 300);
+                        view.setBounds(position_X, position_Y+5, 200, 300);
                     }else if(position_Y > default_Y){
                         animateChange("BACK");
-                        view.setBounds(position_X, position_Y-2, 200, 300);
+                        view.setBounds(position_X, position_Y-5, 200, 300);
                     }else if(position_X < default_X){
                         animateChange("RIGHT");
-                        view.setBounds(position_X+2, position_Y, 200, 300);
+                        view.setBounds(position_X+5, position_Y, 200, 300);
                     }else if(position_X > default_X){
                         animateChange("LEFT");
-                        view.setBounds(position_X-2, position_Y, 200, 350);
+                        view.setBounds(position_X-5, position_Y, 200, 300);
                     }else{
                         tm.stop(); 
                         animateChange("STAND");
@@ -138,18 +138,18 @@ public class PlayerController implements ActionListener{
                 //Go to Table 1
                 }else if(model.getPlayer().getTarget() == 1){
                     //850, default_Y+20
-                    if(position_Y < default_Y+20){
+                    if(position_Y < default_Y+50){
                         animateChange("FRONT");
-                        view.setBounds(position_X, position_Y+2, 200, 300);
-                    }else if(position_Y > default_Y+20){
+                        view.setBounds(position_X, position_Y+5, 200, 300);
+                    }else if(position_Y > default_Y+50){
                         animateChange("BACK");
-                        view.setBounds(position_X, position_Y-2, 200, 300);
-                    }else if(position_X < 850){
-                        view.setBounds(position_X+2, position_Y, 200, 300);
+                        view.setBounds(position_X, position_Y-5, 200, 300);
+                    }else if(position_X < 825){
+                        view.setBounds(position_X+5, position_Y, 200, 300);
                         animateChange("RIGHT");
-                    }else if(position_X > 850){
+                    }else if(position_X > 825){
                         animateChange("LEFT");
-                        view.setBounds(position_X-2, position_Y, 200, 350);
+                        view.setBounds(position_X-5, position_Y, 200, 300);
                     }else{
                         tm.stop(); 
                         animateChange("STAND");
@@ -158,18 +158,18 @@ public class PlayerController implements ActionListener{
                     }
                 }else if(model.getPlayer().getTarget() == 2){
                     //576, 550
-                    if(position_X < 576){
+                    if(position_X < 400){
                         animateChange("RIGHT");
-                        view.setBounds(position_X+2, position_Y, 200, 300);
-                    }else if(position_X > 576){
+                        view.setBounds(position_X+5, position_Y, 200, 300);
+                    }else if(position_X > 400){
                         animateChange("LEFT");
-                        view.setBounds(position_X-2, position_Y, 200, 350);
-                    }else if(position_Y < 550){
+                        view.setBounds(position_X-5, position_Y, 200, 300);
+                    }else if(position_Y < 600){
                         animateChange("FRONT");
-                        view.setBounds(position_X, position_Y+2, 200, 300);
-                    }else if(position_Y > 550){
+                        view.setBounds(position_X, position_Y+5, 200, 300);
+                    }else if(position_Y > 600){
                         animateChange("BACK");
-                        view.setBounds(position_X, position_Y-2, 200, 300);
+                        view.setBounds(position_X, position_Y-5, 200, 300);
                     }else{
                         tm.stop(); 
                         animateChange("STAND");
@@ -178,18 +178,18 @@ public class PlayerController implements ActionListener{
                     }
                 }else if(model.getPlayer().getTarget() == 3){
                     //1326, default_Y+20
-                    if(position_Y < default_Y+20){
+                    if(position_Y < default_Y+50){
                         animateChange("FRONT");
-                        view.setBounds(position_X, position_Y+2, 200, 300);
-                    }else if(position_Y > default_Y+20){
+                        view.setBounds(position_X, position_Y+5, 200, 300);
+                    }else if(position_Y > default_Y+50){
                         animateChange("BACK");
-                        view.setBounds(position_X, position_Y-2, 200, 300);
-                    }else if(position_X < 1326){
+                        view.setBounds(position_X, position_Y-5, 200, 300);
+                    }else if(position_X < 1250){
                         animateChange("RIGHT");
-                        view.setBounds(position_X+2, position_Y, 200, 300);
-                    }else if(position_X > 1326){
+                        view.setBounds(position_X+5, position_Y, 200, 300);
+                    }else if(position_X > 1250){
                         animateChange("LEFT");
-                        view.setBounds(position_X-2, position_Y, 200, 350);
+                        view.setBounds(position_X-5, position_Y, 200, 300);
                     }else{
                         tm.stop(); 
                         animateChange("STAND");
@@ -198,18 +198,18 @@ public class PlayerController implements ActionListener{
                     }
                 }else if(model.getPlayer().getTarget() == 4){
                     //1590, 550
-                    if(position_X < 1590){
+                    if(position_X < 1625){
                         animateChange("RIGHT");
-                        view.setBounds(position_X+2, position_Y, 200, 300);
-                    }else if(position_X > 1590){
+                        view.setBounds(position_X+5, position_Y, 200, 300);
+                    }else if(position_X > 1625){
                         animateChange("LEFT");
-                        view.setBounds(position_X-2, position_Y, 200, 350);
-                    }else if(position_Y < 550){
+                        view.setBounds(position_X-5, position_Y, 200, 300);
+                    }else if(position_Y < 600){
                         animateChange("FRONT");
-                        view.setBounds(position_X, position_Y+2, 200, 300);
-                    }else if(position_Y > 550){
+                        view.setBounds(position_X, position_Y+5, 200, 300);
+                    }else if(position_Y > 600){
                         animateChange("BACK");
-                        view.setBounds(position_X, position_Y-2, 200, 300);
+                        view.setBounds(position_X, position_Y-5, 200, 300);
                     }else{
                         tm.stop();
                         animateChange("STAND");
