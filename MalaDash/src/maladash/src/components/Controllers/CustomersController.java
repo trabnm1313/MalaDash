@@ -24,6 +24,7 @@ public class CustomersController implements ActionListener, MouseMotionListener,
     private int time, count = 10;
     private Point prevPt, curPt, newPt;
     private Rectangle original;
+    private boolean ancestor = false;
     private int whichTable;
     private static int totalCustomers = 0;
     MainGameController game;
@@ -32,17 +33,11 @@ public class CustomersController implements ActionListener, MouseMotionListener,
     private static final int LIMIT = 3;
 
     private double pivot;
-    private static int people;
+    private int people;
 
     public CustomersController() {
-        pivot = Math.random() * 100;
-        if (pivot > 50) {
-            people = 4;
-        } else {
-            people = 2;
-        }
 
-        model = new CustomersModel(people);
+        model = new CustomersModel();
         view = new CustomersView();
 
         time = (int) (Math.random() * 10) + 30;
@@ -140,83 +135,110 @@ public class CustomersController implements ActionListener, MouseMotionListener,
         this.time = time;
     }
 
+    public boolean isAncestor() {
+        return ancestor;
+    }
+
+    public void setAncestor(boolean ancestor) {
+        this.ancestor = ancestor;
+    }
+
+    public int getPeople() {
+        return people;
+    }
+
+    public void setPeople(int people) {
+        this.people = people;
+    }
+    
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource().equals(tm)) {
-            
-            time--;
-            if (!model.getCustomers().isSit()) {
-                if (time <= 20) {
-                    if (people == 4) {
-                        view.setImg(model.getImgSad_4());
-                    } else if (people == 2) {
-                        view.setImg(model.getImgSad_2());
-                    }
+        if(ae.getSource().equals(tm) && ancestor){
+            for(int i = 0; i < LIMIT; i++){
+                if(csConList.get(i) != null){
+                    csConList.get(i).actionPerformed(ae);
                 }
-                if (time <= 10) {
-                    if (people == 4) {
-                        view.setImg(model.getImgSaddest_4());
-                    } else if (people == 2) {
-                        view.setImg(model.getImgSaddest_2());
-                    }
+            }
+            for(int i = 0; i < 4; i++){
+                if(tableControllers.get(i).getCustomersController() != null){
+                    tableControllers.get(i).getCustomersController().actionPerformed(ae);
                 }
-                if (time == 0) {
-                    System.out.println("dead");
-                    view.setVisible(false);
+            }
+        }
+        
+        if (!ancestor){
+            if (ae.getSource().equals(csSelf.getTm())) {
+                time--;
+                if (!model.getCustomers().isSit()) {
+                    if (time <= 20) {
+                        if (people == 4) {
+                            view.setImg(model.getImgSad_4());
+                        } else if (people == 2) {
+                            view.setImg(model.getImgSad_2());
+                        }
+                    }
+                    if (time <= 10) {
+                        if (people == 4) {
+                            view.setImg(model.getImgSaddest_4());
+                        } else if (people == 2) {
+                            view.setImg(model.getImgSaddest_2());
+                        }
+                    }
+                    if (time == 0) {
+                        System.out.println("dead");
+                        view.setVisible(false);
 
-                    tm.stop();
-
-                    totalCustomers--;
-                    csConList.set(index, null);
-                    csSelf.getTm2().start();
-                }
-            } else {
-                 System.out.println("[Customer]: " + Math.random());
-                if( model.getCustomers().isEat() && !model.getCustomers().isDone()){
-                        tableControllers.get(whichTable).eating();
+                        totalCustomers--;
+                        csSelf.getCsConList().set(index, null);
+                        csSelf.getTm2().start();
                     }
-                if((time == 0) && model.getCustomers().isEat()){
-                    model.getCustomers().setDone(true);
-                    tableControllers.get(whichTable).getTableModel().getTable().setDirty(true);
-                    setTime((int) (Math.random() * 10) + 30);
-                }
-                if (time <= 26) {
-                    if (!model.getCustomers().isReady() && !model.getCustomers().isEat()) {
-                        model.getCustomers().setReady(true); // พร้อมสั่งอาหาร
-                        model.getCustomers().setLvAngry(0);
-                        tableControllers.get(whichTable).handUp(model.getCustomers().getLvAngry());
-                    }else if(model.getCustomers().isDone()){
-                        model.getCustomers().setLvAngry(0);
-                        tableControllers.get(whichTable).letDirty(model.getCustomers().getLvAngry());
+                } else {
+                    if( model.getCustomers().isEat() && !model.getCustomers().isDone()){
+                            tableControllers.get(whichTable).eating();
+                        }
+                    if((time == 0) && model.getCustomers().isEat()){
+                        model.getCustomers().setDone(true);
+                        tableControllers.get(whichTable).getTableModel().getTable().setDirty(true);
+                        setTime((int) (Math.random() * 10) + 30);
                     }
-                }
-                if (time <= 15) {
-                    if (model.getCustomers().isReady() && !model.getCustomers().isEat()) {
-                        model.getCustomers().setLvAngry(1);
-                        tableControllers.get(whichTable).handUp(model.getCustomers().getLvAngry());
-                    }else if(model.getCustomers().isDone()){
-                        model.getCustomers().setLvAngry(1);
-                        tableControllers.get(whichTable).letDirty(model.getCustomers().getLvAngry());
+                    if (time <= 26) {
+                        if (!model.getCustomers().isReady() && !model.getCustomers().isEat()) {
+                            model.getCustomers().setReady(true); // พร้อมสั่งอาหาร
+                            model.getCustomers().setLvAngry(0);
+                            tableControllers.get(whichTable).handUp(model.getCustomers().getLvAngry());
+                        }else if(model.getCustomers().isDone()){
+                            model.getCustomers().setLvAngry(0);
+                            tableControllers.get(whichTable).letDirty(model.getCustomers().getLvAngry());
+                        }
                     }
-                }
-                if (time <= 5) {
-                    if (model.getCustomers().isReady() && !model.getCustomers().isEat()) {
-                        model.getCustomers().setLvAngry(2);
-                        tableControllers.get(whichTable).handUp(model.getCustomers().getLvAngry());
-                    }else if(model.getCustomers().isDone()){
-                        model.getCustomers().setLvAngry(2);
-                        tableControllers.get(whichTable).letDirty(model.getCustomers().getLvAngry());
+                    if (time <= 15) {
+                        if (!model.getCustomers().isWait() && !model.getCustomers().isEat()) {
+                            model.getCustomers().setLvAngry(1);
+                            tableControllers.get(whichTable).handUp(model.getCustomers().getLvAngry());
+                        }else if(model.getCustomers().isDone()){
+                            model.getCustomers().setLvAngry(1);
+                            tableControllers.get(whichTable).letDirty(model.getCustomers().getLvAngry());
+                        }
                     }
-                }
-                if (time == 0) {
-                    tableControllers.get(whichTable).notDirty();
-                    tableControllers.get(whichTable).getTableModel().getTable().setSitable(true);
-
-                    tm.stop();
+                    if (time <= 5) {
+                        if (!model.getCustomers().isWait() && !model.getCustomers().isEat()) {
+                            model.getCustomers().setLvAngry(2);
+                            tableControllers.get(whichTable).handUp(model.getCustomers().getLvAngry());
+                        }else if(model.getCustomers().isDone()){
+                            model.getCustomers().setLvAngry(2);
+                            tableControllers.get(whichTable).letDirty(model.getCustomers().getLvAngry());
+                        }
+                    }
+                    if (time == 0 && (!model.getCustomers().isWait() || model.getCustomers().isDone())){
+                        tableControllers.get(whichTable).notDirty();
+                        tableControllers.get(whichTable).getTableModel().getTable().setSitable(true);
+                        tableControllers.get(whichTable).setCustomersController(null);
+                    }
                 }
             }
 
         }
+        
         if (ae.getSource().equals(tm2)) {
             count--;
             if (count <= 0) {
@@ -234,8 +256,13 @@ public class CustomersController implements ActionListener, MouseMotionListener,
                 csCon.setTableControllers(tableControllers);
 
                 csCon.setCsSelf(this);
-
-                csCon.getTm().start();
+                
+                pivot = Math.random() * 100;
+                if (pivot > 50) {
+                    people = 4;
+                } else {
+                    people = 2;
+                }
 
                 if (people == 4) {
                     csCon.getView().setImg(model.getImgNormal_4());
@@ -252,6 +279,8 @@ public class CustomersController implements ActionListener, MouseMotionListener,
                 }
 
                 csCon.setOriginal(csCon.getView().getBounds());
+                csCon.getModel().getCustomers().setCount(people);
+                csCon.setPeople(people);
 
                 csCon.setIndex(index);
                 csConList.set(index, csCon);
@@ -268,7 +297,7 @@ public class CustomersController implements ActionListener, MouseMotionListener,
 
                 count = (int) (Math.random() * 3) + 4;
 
-                if (totalCustomers >= LIMIT) {
+                if (totalCustomers == LIMIT) {
                     tm2.stop();
                 }
             }
@@ -342,7 +371,7 @@ public class CustomersController implements ActionListener, MouseMotionListener,
                     model.getCustomers().setSit(true);
 
                     totalCustomers--;
-                    csConList.set(index, null);
+                    csSelf.getCsConList().set(index, null);
                     csSelf.getTm2().start();
 
                     tableControllers.get(whichTable).setCustomersController(this);

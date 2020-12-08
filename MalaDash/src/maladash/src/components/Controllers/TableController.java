@@ -24,7 +24,7 @@ public class TableController implements MouseListener {
     private TableView tableView;
     private static MainGameController mainGame;
     private static PlayerController playerController;
-    private CustomersController customersController;
+    private CustomersController customersController = null;
     private static JLabel text;
     private int h = 281;
     private int w = 400;
@@ -88,13 +88,11 @@ public class TableController implements MouseListener {
             if (!tableModel.getTable().isSitable()) {
                 Customers customer = customersController.getModel().getCustomers();
                 //order
-                if (customer.isReady() && !playerCarryOrder && !playerCarryDish && !playerWashing ) {
+                if (customer.isReady() && !customer.isWait() && !customer.isEat() && !customer.isDone() && !playerCarryOrder && !playerCarryDish && !playerWashing ) {
                     playerController.getModel().getPlayer().setBill(tableModel.getTable().getNumTable());
                     playerController.getModel().getPlayer().setCarryOrder(true);
                     playerController.standWithBill();
                     
-                    customer.setReady(false);
-                    customersController.getTm().stop();
                     customer.setWait(true);
                     sit();
                     System.out.println("[Table]: Get Order Table #" + tableModel.getTable().getNumTable());
@@ -106,13 +104,12 @@ public class TableController implements MouseListener {
                     playerController.getModel().getPlayer().setMala(null);
                     playerController.stand();
                     
-                    
                     customer.setEat(true);
+                    customer.setWait(false);
                     int time = (int) (Math.random() * 5) + 5;
                     
                     
                     customersController.setTime(time);
-                    customersController.getTm().start();
                     System.out.println("[Table]: Serve Mala Table #" + tableModel.getTable().getNumTable());
                 }
 
@@ -124,7 +121,8 @@ public class TableController implements MouseListener {
                     notDirty();
                     playerController.standWithBin();
                      
-                    customersController.getTm().stop();
+                    setCustomersController(null);
+
                     //collect money
                     money = (int) (10 + (Math.random() * 20)) + Integer.parseInt(getText().getText());
                     System.out.println(money);

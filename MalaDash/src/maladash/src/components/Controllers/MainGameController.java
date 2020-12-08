@@ -39,7 +39,7 @@ public class MainGameController {
         //table
         tableControllers = new ArrayList();
         for (int i = 1; i <= 4; i++) {
-            if (i < 2) {
+            if (i <= 2) {
                 tableControllers.add(new TableController(i, 4));
             } else {
                 tableControllers.add(new TableController(i, 2));
@@ -97,7 +97,9 @@ public class MainGameController {
         //Customers
         customers = new CustomersController();
         customers.setTableControllers(tableControllers);
-        customers.setGame(this);  
+        customers.setGame(this);
+        customers.setAncestor(true);
+        customers.getTm().start();
         customers.getTm2().start();
         
 
