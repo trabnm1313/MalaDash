@@ -8,6 +8,7 @@ package maladash.src.components.Controllers;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.sound.sampled.Clip;
 import maladash.src.components.Models.GameOverModel;
 import maladash.src.components.Views.GameOverView;
 /**
@@ -44,9 +45,8 @@ public class GameOverController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(view.getTryagain())){
-            
+            mainGame.resetBGM();
             mainGame = new MainGameController();
-            
             mainGame.setMenu(game.getMenu());
             mainGame.setGame(game);
             mainGame.init();
@@ -63,9 +63,11 @@ public class GameOverController implements ActionListener{
             gameFrame.setVisible(true);
         }
         if(e.getSource().equals(view.getExited())){
+            mainGame.stopBGM();
             menu = new MainMenuController();
-            
             menu.setGame(game);
+            menu.clickedSound();
+            menu.startBGM();
             
             //Short Variable
             JFrame gameFrame = game.getView().getFrame();

@@ -6,6 +6,11 @@ import javax.swing.*;
 import maladash.src.components.Models.MainGameModel;
 import maladash.src.components.Views.MainGameView;
 import java.io.*;
+import java.net.URL;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 
 public class MainGameController {
 
@@ -25,6 +30,8 @@ public class MainGameController {
     private ArrayList<HeartController> hearts;
     private MainMenuController menu;
     private int highScore;
+    private ArrayList<AudioInputStream> audioList = new ArrayList();
+    private Clip bgm, bgm2, bgm3;
 
     public void init() {
         //Initate Model
@@ -195,6 +202,55 @@ public class MainGameController {
         view.add(trash.getTrashView());
 
         view.add(poster.getPoster());
+    }
+    
+    public void audioInit(){
+        try{
+            URL path = this.getClass().getResource("../../audio/menuBGM.wav");
+            File audioFile = new File(path.toURI());
+            audioList.add(AudioSystem.getAudioInputStream(audioFile));
+            path = this.getClass().getResource("../../audio/click.wav");
+            audioFile = new File(path.toURI());
+            audioList.add(AudioSystem.getAudioInputStream(audioFile));
+            path = this.getClass().getResource("../../audio/gameBGM.wav");
+            audioFile = new File(path.toURI());
+            audioList.add(AudioSystem.getAudioInputStream(audioFile));
+            
+            bgm = AudioSystem.getClip();
+            bgm2 = AudioSystem.getClip();
+            bgm3 = AudioSystem.getClip();
+            
+            //Buffered
+            bgm.open(audioList.get(0));
+            //Audio Change
+            FloatControl gainControl = (FloatControl)bgm.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(-15.0f);
+            
+            bgm2.open(audioList.get(1));
+            
+            bgm3.open(audioList.get(2));
+            gainControl = (FloatControl)bgm3.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(-15.0f);
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    
+    public void clickedSound(){
+        bgm2.setFramePosition(0);
+        bgm2.start();
+    }
+    
+    public void startBGM(){
+        bgm3.start();
+    }
+    
+    public void stopBGM(){
+        bgm3.stop();
+    }
+    
+    public void resetBGM(){
+        bgm3.setFramePosition(0);
     }
 
     public MainGameView getView() {

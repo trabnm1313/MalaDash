@@ -104,7 +104,7 @@ public class TableController implements MouseListener {
                     
                     customer.setEat(true);
                     customer.setWait(false);
-                    int time = (int) (Math.random() * 5) + 5;
+                    int time = (int) (Math.random() * 5) + 10;
                     
                     customersController.setWaitTime(time);
                     

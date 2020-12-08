@@ -113,10 +113,10 @@ class SitCustomerController implements Runnable {
                         heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
                         GameOverController over = new GameOverController();
                         over.setGame(gameCon);
+                        over.setMainGame(game);
                         over.init();
                         over.getView().getScore().setText("" + game.getModel().getMoney());
                         if (game.getModel().getMoney() > game.getHighScore()) {
-                            System.out.println(game.getModel().getMoney());
                             over.getView().add(over.getRec().getView());
                             over.getView().getHighScore().setText("" + game.getModel().getMoney());
                             try {

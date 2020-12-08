@@ -8,6 +8,7 @@ package maladash.src.components.Controllers;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.sound.sampled.Clip;
 import maladash.src.components.Models.HowToModel;
 import maladash.src.components.Views.HowToView;
 /**
@@ -19,6 +20,7 @@ public class HowToController implements ActionListener{
     private HowToModel model;
     private MainMenuController menu;
     private GameController game;
+    private Clip bgm, bgm2;
     
     public HowToController() {
         
@@ -37,9 +39,11 @@ public class HowToController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(view.getBack())){
-            
+            bgm2.setFramePosition(0);
+            bgm2.start();
             menu = new MainMenuController();
-            
+            menu.setBgm(bgm);
+            menu.setBgm2(bgm2);
             menu.setGame(game);
             
             //Short Variable
@@ -55,6 +59,22 @@ public class HowToController implements ActionListener{
         }
     }
 
+    public Clip getBgm() {
+        return bgm;
+    }
+
+    public void setBgm(Clip bgm) {
+        this.bgm = bgm;
+    }
+
+    public Clip getBgm2() {
+        return bgm2;
+    }
+
+    public void setBgm2(Clip bgm2) {
+        this.bgm2 = bgm2;
+    }
+    
     public HowToView getView() {
         return view;
     }

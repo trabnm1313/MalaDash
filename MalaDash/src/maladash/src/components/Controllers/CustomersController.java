@@ -28,8 +28,8 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
     private int minSpawnTime = 20;
     private int maxSpawnTime = 5;
 
-    private int minWaitTime = 15;
-    private int maxWaitTime = 30;
+    private int minWaitTime = 25;
+    private int maxWaitTime = 10;
 
     //Mouse&&CustomerPosition
     private Point prevPt, curPt, newPt;
@@ -72,7 +72,7 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
             people = 2;
         }
 
-        timeSpawn = (int) (Math.random() * maxSpawnTime) + minSpawnTime;
+        timeSpawn = (int) (Math.random() * 5) + 5;
         time = (int) (Math.random() * maxWaitTime) + minWaitTime;
 
         index++;
@@ -243,10 +243,10 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
                             heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
                             GameOverController over = new GameOverController();
                             over.setGame(gameCon);
+                            over.setMainGame(game);
                             over.init();
                             over.getView().getScore().setText("" + game.getModel().getMoney());
                             if (game.getModel().getMoney() > game.getHighScore()) {
-                                System.out.println(game.getModel().getMoney());
                                 over.getView().add(over.getRec().getView());
                                 over.getView().getHighScore().setText("" + game.getModel().getMoney());
                                 try {
@@ -330,7 +330,7 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
                     sitCustomer.setWhichTable(whichTable);
                     sitCustomer.setPlayer(getPlayer());
                     sitCustomer.setHeats(getHeats());
-                    sitCustomer.setGame(getGame());
+                    sitCustomer.setGame(game);
                     sitCustomer.setGameCon(getGameCon());
                     sitCustomer.setMenu(getMenu());
                     sitCustomer.setCos(this);
