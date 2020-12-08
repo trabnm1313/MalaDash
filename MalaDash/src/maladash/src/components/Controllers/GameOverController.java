@@ -31,6 +31,9 @@ public class GameOverController implements ActionListener{
         view.setImg(model.getImg());
         view.setLayout(null);
         rec = new NewRecordController();
+        mainGame.getCustomer1().getView().setVisible(false);
+        mainGame.getCustomer2().getView().setVisible(false);
+        mainGame.getCustomer3().getView().setVisible(false);
         
         view.add(view.getTryagain());
         view.add(view.getExited());
@@ -47,6 +50,7 @@ public class GameOverController implements ActionListener{
         if(e.getSource().equals(view.getTryagain())){
             mainGame.resetBGM();
             mainGame = new MainGameController();
+            mainGame.audioInit();
             mainGame.setMenu(game.getMenu());
             mainGame.setGame(game);
             mainGame.init();

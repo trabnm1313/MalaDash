@@ -19,7 +19,7 @@ public class MainGameController {
     private MainGameModel model;
     private ArrayList<TableController> tableControllers;
     private JPanel table1, table2, table3, table4, mala1, mala2, mala3, mala4, h1, h2, h3, h4, h5;
-    private CustomersController customer1, customer2, customer3, customer4;
+    private CustomersController customer1, customer2, customer3;
     private ArrayList<MalaController> malaController;
     private JLabel money;
     private PlayerController player;
@@ -292,6 +292,32 @@ public class MainGameController {
     public void setHighScore(int highScore) {
         this.highScore = highScore;
     }
+
+    public CustomersController getCustomer1() {
+        return customer1;
+    }
+
+    public void setCustomer1(CustomersController customer1) {
+        this.customer1 = customer1;
+    }
+
+    public CustomersController getCustomer2() {
+        return customer2;
+    }
+
+    public void setCustomer2(CustomersController customer2) {
+        this.customer2 = customer2;
+    }
+
+    public CustomersController getCustomer3() {
+        return customer3;
+    }
+
+    public void setCustomer3(CustomersController customer3) {
+        this.customer3 = customer3;
+    }
+    
+    
     
 
 }
