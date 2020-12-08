@@ -25,7 +25,7 @@ public class MainMenuController implements ActionListener {
     private HowToController howTo;
     private int highScore;
     private ArrayList<AudioInputStream> audioList = new ArrayList();
-    private Clip bgm, bgm2;
+    private Clip bgm, bgm2, bgm3;
     
     public MainMenuController() {
         //Init
@@ -48,15 +48,19 @@ public class MainMenuController implements ActionListener {
     
     public void audioInit(){
         try{
-            URL path = this.getClass().getResource("../../audio/bgm.wav");
+            URL path = this.getClass().getResource("../../audio/menuBGM.wav");
             File audioFile = new File(path.toURI());
             audioList.add(AudioSystem.getAudioInputStream(audioFile));
             path = this.getClass().getResource("../../audio/click.wav");
             audioFile = new File(path.toURI());
             audioList.add(AudioSystem.getAudioInputStream(audioFile));
+            path = this.getClass().getResource("../../audio/gameBGM.wav");
+            audioFile = new File(path.toURI());
+            audioList.add(AudioSystem.getAudioInputStream(audioFile));
             
             bgm = AudioSystem.getClip();
             bgm2 = AudioSystem.getClip();
+            bgm3 = AudioSystem.getClip();
             
             //Buffered
             bgm.open(audioList.get(0));
@@ -65,6 +69,12 @@ public class MainMenuController implements ActionListener {
             gainControl.setValue(-15.0f);
             
             bgm2.open(audioList.get(1));
+            
+            //Buffered
+            bgm3.open(audioList.get(0));
+            //Audio Change
+            gainControl = (FloatControl)bgm3.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(-15.0f);
         }catch(Exception ex){
             ex.printStackTrace();
         }
