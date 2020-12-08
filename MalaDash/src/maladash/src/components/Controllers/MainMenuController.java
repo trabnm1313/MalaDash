@@ -4,8 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import maladash.src.components.Models.MainMenuModel;
 import maladash.src.components.Views.MainMenuView;
 
@@ -16,16 +23,84 @@ public class MainMenuController implements ActionListener {
     private GameController game;
     private MainGameController mainGame;
     private HowToController howTo;
+    private int highScore;
+    private ArrayList<AudioInputStream> audioList = new ArrayList();
+    private Clip bgm, bgm2;
     
     public MainMenuController() {
         //Init
         model = new MainMenuModel();
         view = new MainMenuView();
         view.setImg(model.getImg());
+        audioInit();
+        try (FileReader fin = new FileReader("HighScore.dat")) {
+                    int i;
+                    while ((i = fin.read()) != -1) {
+                        highScore = i;
+                    }
+                } catch (IOException er) {
+                    System.out.print(er);}
         //Add ActionListener
         view.getStartButton().addActionListener(this);
         view.getOptionButton().addActionListener(this);
         view.getExitButton().addActionListener(this);
+    }
+    
+    public void audioInit(){
+        try{
+            URL path = this.getClass().getResource("../../audio/bgm.wav");
+            File audioFile = new File(path.toURI());
+            audioList.add(AudioSystem.getAudioInputStream(audioFile));
+            path = this.getClass().getResource("../../audio/click.wav");
+            audioFile = new File(path.toURI());
+            audioList.add(AudioSystem.getAudioInputStream(audioFile));
+            
+            bgm = AudioSystem.getClip();
+            bgm2 = AudioSystem.getClip();
+            
+            //Buffered
+            bgm.open(audioList.get(0));
+            //Audio Change
+            FloatControl gainControl = (FloatControl)bgm.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(-15.0f);
+            
+            bgm2.open(audioList.get(1));
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    
+    public void startBGM(){
+        bgm.start();
+    }
+    
+    public void stopBGM(){
+        bgm.stop();
+    }
+    
+    public void resetBGM(){
+        bgm.setFramePosition(0);
+    }
+    
+    public void clickedSound(){
+        bgm2.setFramePosition(0);
+        bgm2.start();
+    }
+
+    public Clip getBgm() {
+        return bgm;
+    }
+
+    public void setBgm(Clip bgm) {
+        this.bgm = bgm;
+    }
+
+    public Clip getBgm2() {
+        return bgm2;
+    }
+
+    public void setBgm2(Clip bgm2) {
+        this.bgm2 = bgm2;
     }
 
     public MainMenuView getView() {
@@ -56,6 +131,8 @@ public class MainMenuController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //IF startButton clicked
         if (e.getSource().equals(view.getStartButton())) {
+            clickedSound();
+            stopBGM();
             //Initate Controller
             mainGame = new MainGameController();
             
@@ -77,9 +154,12 @@ public class MainMenuController implements ActionListener {
 
         //IF optionButton clicked
         if (e.getSource().equals(view.getOptionButton())) {
+            bgm2.setFramePosition(0);
+            bgm2.start();
             //Initate Controller
             howTo = new HowToController();
-            
+            howTo.setBgm(bgm);
+            howTo.setBgm2(bgm2);
             howTo.setGame(game);
 
             //Short Variable
@@ -96,6 +176,8 @@ public class MainMenuController implements ActionListener {
 
         //IF exitButton clicked
         if (e.getSource().equals(view.getExitButton())) {
+            bgm2.setFramePosition(0);
+            bgm2.start();
             JDialog dialog = new JDialog(new JFrame(), "Exit?");
             dialog.setLocation(view.getWidth() / 2, view.getHeight() / 2);
             JPanel exitPanel = new JPanel();
