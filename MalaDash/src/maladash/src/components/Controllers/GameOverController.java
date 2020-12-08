@@ -21,13 +21,15 @@ public class GameOverController implements ActionListener{
     private GameController game;
     private TableController table;
     private MainGameController mainGame;
+    private NewRecordController rec;
     
-    public GameOverController() {
+    public void init() {
         
         model = new GameOverModel();
         view = new GameOverView();
         view.setImg(model.getImg());
         view.setLayout(null);
+        rec = new NewRecordController();
         
         view.add(view.getTryagain());
         view.add(view.getExited());
@@ -36,6 +38,7 @@ public class GameOverController implements ActionListener{
         
         
         view.getTryagain().addActionListener(this);
+        view.getExited().addActionListener(this);
     }
 
     @Override
@@ -44,7 +47,9 @@ public class GameOverController implements ActionListener{
             
             mainGame = new MainGameController();
             
+            mainGame.setMenu(game.getMenu());
             mainGame.setGame(game);
+            mainGame.init();
             
             //Short Variable
             JFrame gameFrame = game.getView().getFrame();
@@ -114,5 +119,22 @@ public class GameOverController implements ActionListener{
     public void setTable(TableController table) {
         this.table = table;
     }
+
+    public MainGameController getMainGame() {
+        return mainGame;
+    }
+
+    public void setMainGame(MainGameController mainGame) {
+        this.mainGame = mainGame;
+    }
+
+    public NewRecordController getRec() {
+        return rec;
+    }
+
+    public void setRec(NewRecordController rec) {
+        this.rec = rec;
+    }
+    
     
 }

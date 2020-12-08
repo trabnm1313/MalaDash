@@ -38,6 +38,13 @@ public class GameController {
         this.model = model;
     }
     
+    public MainMenuController getMenu() {
+        return menu;
+    }
+
+    public void setMenu(MainMenuController menu) {
+        this.menu = menu;
+    }
     
     
     
