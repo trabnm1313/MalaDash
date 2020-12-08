@@ -45,7 +45,7 @@ public class GameOverController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(view.getTryagain())){
-            
+            mainGame.resetBGM();
             mainGame = new MainGameController();
             mainGame.setMenu(game.getMenu());
             mainGame.setGame(game);
@@ -63,6 +63,7 @@ public class GameOverController implements ActionListener{
             gameFrame.setVisible(true);
         }
         if(e.getSource().equals(view.getExited())){
+            mainGame.stopBGM();
             menu = new MainMenuController();
             menu.setGame(game);
             menu.clickedSound();
