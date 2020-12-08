@@ -25,7 +25,7 @@ public class CustomersController implements MouseMotionListener, MouseListener, 
     private int waitTime;
     private int time;
     private int timeSpawn;
-    private int minSpawnTime = 1;
+    private int minSpawnTime = 20;
     private int maxSpawnTime = 5;
 
     private int minWaitTime = 1;

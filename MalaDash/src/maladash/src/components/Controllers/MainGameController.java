@@ -177,6 +177,10 @@ public class MainGameController {
         view.add(table4);
 
         view.add(player.getView());
+        
+        view.add(customer1.getView());
+        view.add(customer2.getView());
+        view.add(customer3.getView());
 
         view.add(table1);
         view.add(table3);
@@ -191,10 +195,6 @@ public class MainGameController {
         view.add(trash.getTrashView());
 
         view.add(poster.getPoster());
-
-        view.add(customer1.getView());
-        view.add(customer2.getView());
-        view.add(customer3.getView());
     }
 
     public MainGameView getView() {
