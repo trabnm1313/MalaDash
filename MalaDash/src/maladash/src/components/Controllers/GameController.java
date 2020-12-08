@@ -29,6 +29,15 @@ public class GameController {
     public void setView(GameView view) {
         this.view = view;
     }
+
+    public MainMenuController getMenu() {
+        return menu;
+    }
+
+    public void setMenu(MainMenuController menu) {
+        this.menu = menu;
+    }
+    
     
     
 }
