@@ -60,7 +60,7 @@ public class MainMenuController implements ActionListener {
             mainGame = new MainGameController();
             
             mainGame.setGame(game);
-
+            mainGame.init();
             //Short Variable
             JFrame gameFrame = game.getView().getFrame();
 

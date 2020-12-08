@@ -9,8 +9,19 @@ public class GameOverView extends JPanel{
     //Coponents
     private Image img;
     private JButton tryagain, exited;
+    private JLabel score, highScore;
 
     public GameOverView() {
+        
+        score = new JLabel("0");
+        score.setFont(new Font("Serif", Font.PLAIN, 72));
+        score.setSize(200, 100);
+        score.setBounds(1200, 200, 200, 100);
+        
+        highScore = new JLabel("0");
+        highScore.setFont(new Font("Serif", Font.PLAIN, 72));
+        highScore.setSize(200, 100);
+        highScore.setBounds(1200, 400, 200, 100);
         
         tryagain = new JButton("Try Agian");
         
@@ -62,6 +73,23 @@ public class GameOverView extends JPanel{
     public void setExited(JButton exited) {
         this.exited = exited;
     }
+
+    public JLabel getScore() {
+        return score;
+    }
+
+    public void setScore(JLabel score) {
+        this.score = score;
+    }
+
+    public JLabel getHighScore() {
+        return highScore;
+    }
+
+    public void setHighScore(JLabel highScore) {
+        this.highScore = highScore;
+    }
+
 
     
     

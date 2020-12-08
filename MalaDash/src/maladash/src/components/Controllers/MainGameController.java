@@ -22,7 +22,7 @@ public class MainGameController {
     private GameController game;
     private ArrayList<HeartController> hearts;
 
-    public MainGameController() {
+    public void init() {
         //Initate Model
         model = new MainGameModel();
         view = new MainGameView();
@@ -115,7 +115,8 @@ public class MainGameController {
         customers.setTableControllers(tableControllers);
         customers.setPlayer(player);
         customers.setHeats(hearts);
-        customers.setGame(this);  
+        customers.setGame(this);
+        customers.setGameCon(game);
         customers.getTm2().start();
 
         

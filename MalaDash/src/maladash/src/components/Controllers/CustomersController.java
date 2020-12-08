@@ -8,8 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
-import javax.swing.SwingUtilities;
-import javax.swing.Timer;
+import javax.swing.*;
 import maladash.src.components.Models.CustomersModel;
 import maladash.src.components.Views.CustomersView;
 
@@ -32,6 +31,7 @@ public class CustomersController implements ActionListener, MouseMotionListener,
     private int index;
     private static final int LIMIT = 3;
     private PlayerController player;
+    private GameController gameCon;
 
     private double pivot;
     private static int people;
@@ -54,7 +54,14 @@ public class CustomersController implements ActionListener, MouseMotionListener,
         }
     }
 
-    
+    public GameController getGameCon() {
+        return gameCon;
+    }
+
+    public void setGameCon(GameController gameCon) {
+        this.gameCon = gameCon;
+    }
+
     public ArrayList<HeartController> getHeats() {
         return heats;
     }
@@ -63,8 +70,6 @@ public class CustomersController implements ActionListener, MouseMotionListener,
         this.heats = heats;
     }
 
-    
-    
     public CustomersModel getModel() {
         return model;
     }
@@ -161,11 +166,10 @@ public class CustomersController implements ActionListener, MouseMotionListener,
         this.player = player;
     }
 
-    
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource().equals(tm)) {
-            
+
             time--;
             if (!model.getCustomers().isSit()) {
                 if (time <= 20) {
@@ -182,37 +186,51 @@ public class CustomersController implements ActionListener, MouseMotionListener,
                         view.setImg(model.getImgSaddest_2());
                     }
                 }
-                if (time == 0) {
+                if (time >= 0) {
                     System.out.println("dead");
                     view.setVisible(false);
 
                     tm.stop();
-                    
-                    player.getModel().getPlayer().setHeart( player.getModel().getPlayer().getHeart() - 1);
-                    
-                    if(player.getModel().getPlayer().getHeart() == 4){
+
+                    player.getModel().getPlayer().setHeart(player.getModel().getPlayer().getHeart() - 1);
+
+                    if (player.getModel().getPlayer().getHeart() == 4) {
                         heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
-                    }else if(player.getModel().getPlayer().getHeart() == 3){
+                    } else if (player.getModel().getPlayer().getHeart() == 3) {
                         heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
-                    }else if(player.getModel().getPlayer().getHeart() == 2){
+                    } else if (player.getModel().getPlayer().getHeart() == 2) {
                         heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
-                    }else if(player.getModel().getPlayer().getHeart() == 1){
+                    } else if (player.getModel().getPlayer().getHeart() == 1) {
                         heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
-                    }else if(player.getModel().getPlayer().getHeart() == 0){
+                    } else if (player.getModel().getPlayer().getHeart() == 0) {
                         heats.get(player.getModel().getPlayer().getHeart()).getView().setVisible(false);
+                        GameOverController over = new GameOverController();
+                        over.getView().getScore().setText("" + game.getModel().getMoney());
+                        over.setGame(gameCon);
+
+                        //Short Variable
+                        JFrame gameFrame = gameCon.getView().getFrame();
+
+                        //Change ContentPane from MainMenu to MainGame
+                        gameFrame.setContentPane(over.getView());
+                        gameFrame.setSize(1920, 1080);
+
+                        gameFrame.getContentPane().revalidate();
+                        gameFrame.getContentPane().repaint();
+                        gameFrame.setVisible(true);
                     }
-                    
+
                     totalCustomers--;
                     csConList.set(index, null);
                     csSelf.getTm2().start();
-                    
+
                 }
             } else {
-                 System.out.println("[Customer]: " + Math.random());
-                if( model.getCustomers().isEat() && !model.getCustomers().isDone()){
-                        tableControllers.get(whichTable).eating();
-                    }
-                if((time == 0) && model.getCustomers().isEat()){
+                System.out.println("[Customer]: " + Math.random());
+                if (model.getCustomers().isEat() && !model.getCustomers().isDone()) {
+                    tableControllers.get(whichTable).eating();
+                }
+                if ((time == 0) && model.getCustomers().isEat()) {
                     model.getCustomers().setDone(true);
                     tableControllers.get(whichTable).getTableModel().getTable().setDirty(true);
                     setTime((int) (Math.random() * 10) + 30);
@@ -222,7 +240,7 @@ public class CustomersController implements ActionListener, MouseMotionListener,
                         model.getCustomers().setReady(true); // พร้อมสั่งอาหาร
                         model.getCustomers().setLvAngry(0);
                         tableControllers.get(whichTable).handUp(model.getCustomers().getLvAngry());
-                    }else if(model.getCustomers().isDone()){
+                    } else if (model.getCustomers().isDone()) {
                         model.getCustomers().setLvAngry(0);
                         tableControllers.get(whichTable).letDirty(model.getCustomers().getLvAngry());
                     }
@@ -231,7 +249,7 @@ public class CustomersController implements ActionListener, MouseMotionListener,
                     if (model.getCustomers().isReady() && !model.getCustomers().isEat()) {
                         model.getCustomers().setLvAngry(1);
                         tableControllers.get(whichTable).handUp(model.getCustomers().getLvAngry());
-                    }else if(model.getCustomers().isDone()){
+                    } else if (model.getCustomers().isDone()) {
                         model.getCustomers().setLvAngry(1);
                         tableControllers.get(whichTable).letDirty(model.getCustomers().getLvAngry());
                     }
@@ -240,7 +258,7 @@ public class CustomersController implements ActionListener, MouseMotionListener,
                     if (model.getCustomers().isReady() && !model.getCustomers().isEat()) {
                         model.getCustomers().setLvAngry(2);
                         tableControllers.get(whichTable).handUp(model.getCustomers().getLvAngry());
-                    }else if(model.getCustomers().isDone()){
+                    } else if (model.getCustomers().isDone()) {
                         model.getCustomers().setLvAngry(2);
                         tableControllers.get(whichTable).letDirty(model.getCustomers().getLvAngry());
                     }
@@ -271,6 +289,9 @@ public class CustomersController implements ActionListener, MouseMotionListener,
                 csCon.setTableControllers(tableControllers);
                 csCon.setPlayer(player);
                 csCon.setHeats(heats);
+                csCon.setGame(game);
+                csCon.setGameCon(gameCon);
+                
 
                 csCon.setCsSelf(this);
 

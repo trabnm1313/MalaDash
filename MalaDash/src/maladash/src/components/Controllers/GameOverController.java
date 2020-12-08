@@ -31,7 +31,8 @@ public class GameOverController implements ActionListener{
         
         view.add(view.getTryagain());
         view.add(view.getExited());
-        
+        view.add(view.getHighScore());
+        view.add(view.getScore());
         
         
         view.getTryagain().addActionListener(this);

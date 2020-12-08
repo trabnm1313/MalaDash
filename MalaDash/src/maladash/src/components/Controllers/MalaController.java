@@ -25,11 +25,11 @@ public class MalaController implements Runnable{
         if(numTable == 1){
             malaView.setBounds(1025, 270, 75, 25);
         }else if(numTable == 2){
-            malaView.setBounds(1129, 270, 75, 25);
+            malaView.setBounds(1225, 270, 75, 25);
         }else if(numTable == 3){
-            malaView.setBounds(1233, 270, 75, 25);
+            malaView.setBounds(1340, 270, 75, 25);
         }else if(numTable == 4){
-            malaView.setBounds(1337, 270, 75, 25);
+            malaView.setBounds(1460, 270, 75, 25);
         }
         malaView.setOpaque(false);
         malaView.setVisible(false);
