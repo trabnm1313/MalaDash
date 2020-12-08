@@ -138,6 +138,8 @@ public class MainMenuController implements ActionListener {
             
             mainGame.setGame(game);
             mainGame.setMenu(this);
+            mainGame.audioInit();
+            mainGame.startBGM();
             mainGame.init();
             //Short Variable
             JFrame gameFrame = game.getView().getFrame();
